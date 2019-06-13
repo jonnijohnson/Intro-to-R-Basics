@@ -1,0 +1,1071 @@
+---
+title: 'BDIL: tRicks of the tRade'
+author: "Jonni Johnson"
+date: "May 16, 2019"
+output:
+  html_document:
+    keep_md: true
+    highlight: pygments
+    theme: readable
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+---
+
+# BDIL <3's R!
+
+This initial document will contain what we've successfully found to have worked in our weekly R meetings. Eventually we will split this into more succinct documents, but for now it is just one file, organized by date/topic. 
+
+</br>
+
+### Packages and Libraries....
+
+...We use a lot of them. Make sure that the packages are installed first using the command function: _install.packages("Name of the package")_. Packages include:
+
+install.packages("tidyverse") -- This loads dplyr, plyr, tidyr at once, no need for multiple packages- Note 'select()' function argument is masked in dplyr
+
+install.packages("psych")
+
+install.packages("tableone")
+
+install.packages("tadaatoolbox")
+
+
+library(tidyverse)
+
+library(psych)
+
+library(tableone)
+
+library(magrittr) -- should be built in, if not install.packages
+
+library(car) -- is a built in package in Base R, no need to install anything special
+
+library(tadaatoolbox) -- Only needed for making pretty Rmarkdown tables
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+
+library(tidyverse) 
+library(psych)
+library(tableone)
+library(car) #Does not need installation-- is a built in package
+library(tadaatoolbox)
+library(magrittr)
+library(reshape2)
+library(Hmisc)
+library(corrplot)
+
+```
+
+
+
+### Loading in Data
+
+Most of the time we will be loading in CSV files. But you can read in other types of files, SPSS, TXT, using other base argument commands. You can also load data from a browser, but that includes arguments not presented below. The data file, whatever its extension, should be saved in a folder which will become your _working directory_. It is a good idea to save scripts/markdowns, figures, and data sets in the same folder or parent folder for easy navigation. 
+
+Useful commands for loading in data files include:
+
+|  This Argument... |  ... Performs This Function                                                |
+|-------------------|----------------------------------------------------------------------------|
+| _getwd()_         |   Asks R to report back the folder/location it has access to               |
+| _setwd()_         |  Can specify or change the working directory, the pathway is specified inside parentheses _setwd("C:\\My Example\\Example Folder")_ |                               |
+| _dir()_           |  Ask R to print the names of all the files in the working directory        |
+| _ls()_            |  Same as above, another way to list files in the working directory         |
+| _read.csv()_      | Used to read in csv file also includes commands within to describe how the data should be handled|
+|Within read.csv()  |  _sep = ","_  traditionally the csv is separated by commas, but this could be '\'' for TXT files|
+|                   | _header = T_  use if the first row of data are variable names for columns, change to "F" if no header |
+|                   | _stringAsFactors = F_ specfiies how R reads string/character vectors, personally I like to make my own factors, this can otherwised be changed to "T" and R will assign factor levels to strings|
+|                   | _skip = 2_  Only needed if you want to skip the first X-number of lines-- in this example, 2|
+```{r include=FALSE}
+getwd()
+ls()
+
+setwd("C:\\Users\\Jonni\\Desktop\\R Class\\R Meetings BDIL")
+
+dir()
+
+```
+
+Once the data file is read, you'll want to assign it a name so that R saves it to its working environment
+
+```{r}
+
+matching <- read.csv("Matching_sample.csv", header = T, stringsAsFactors = F)
+
+str(matching)  # Calling for the structure of this object
+
+```
+
+This file is loaded from the local C: drive, but you can also load directly from googlesheets
+
+It is similar to the above dataframe, but some variables have been coerced into a double type versus numeric or character. This is fine, just means they have to be manually changed later. For the rest of this markdown, I will just be working with the first matching file.  But it is otherwise useful to know that the below can be used when your data are housed online and accessed with a URL
+
+##### Code does not fit with R Markdown but does in individual scripts
+
+install.packages("googlesheets")
+library(googlesheets)
+
+online <- gs_url("https://docs.google.com/spreadsheets/d/1yXNJgcvfCVb_b-dx1-ZTE_siuTQA1N4HsbKuA4L_4ns/edit#gid=782498555")
+
+onlinedf <- gs_read_csv(online, header = T, stringAsFactors = F)
+
+str(onlinedf)
+
+```{r eval=FALSE, include=FALSE}
+#install.packages("googlesheets")
+#library(googlesheets)
+
+online <- gs_url("https://docs.google.com/spreadsheets/d/1yXNJgcvfCVb_b-dx1-ZTE_siuTQA1N4HsbKuA4L_4ns/edit#gid=782498555")
+
+onlinedf <- gs_read_csv(online, header = T, stringAsFactors = F)
+
+str(onlinedf)
+
+```
+
+
+### Basic Viewing/Exploring Commands
+
+|This Argument.....  | ...... Performs This Function                                            |
+|--------------------|--------------------------------------------------------------------------|
+| _str()_            | Call for the 'str'ucture of an object, if a dataframe it return information about each column variable type, factor levels (if app), and number of variables and observations in the object/dataframe|
+| _head()_           | Calls for the first 6 rows or heading of the dataframe                   |
+| _tail()_           | Calls for the last 6 rows or tail end of data                            |
+| _dim()_            | Calls for the dimensions of an object-- more useful for lists, matrices, and tables|
+| _class()_          | Asking for how R is classifying an object (e.g., character, logic, number, integer, string, factor, double, dataframe)|
+| _$_                 | This operator command can be used with the name of the dataframe to call a column of interest by name. Such as _matching$ColumnName_ |
+| _view()_            | Useful to "see" what data look like in a traditional excel-type format, opens Viewer window | 
+
+
+In this dataset, there appears to be some unnecessary columns and rows-- perhaps used for a temporary purpose or totalling in excel. It is common for excel files to have row entries be sums or means, as is the case here. Let's get rid of these rows.
+
+We can see in the viewer that rows 1-40 and 51-88 are where our data are, but we otherwise have 96 rows. 
+
+We'll create a new dataframe, **'matching2'** that only has the data we are interested in-- it is a good habit to not overwrite the original dataset read in-- that way you can always return to see if you need any additional information/variables without having to re-read the file in.
+
+
+
+```{r}
+
+matching2 <- matching[c(1:40,51:88),]  # "Create a new dataframe called 'matching2'; In it, take rows 1 through 40 and 51 through 88, and bring ALL columns"
+
+
+str(matching2)
+
+```
+
+The _[  ]_ tell R to "look here" in this referenced spot. 
+
+Within brackets syntax are **always** [ _Rows, Columns_ ]. R tells rows from columns be detecting the ','   
+
+Above, we use the _c()_ command to let R know that the things in parentheses are apart of the same series; therefore, R knows not to treat the comma within the parentheses as specifying the columns. By leaving an empty space after the comma and not specifying columns, we are saying "All of the columns"
+
+Alternatively if there is only one thing within the brackets _without a comma_, R will assume it is the column position. 
+
+So matching[9] would be the equivalent of saying "Print the 9th column in dataframe matching" whereas matching[9,] says, "Print row 9 all columns"
+
+
+Now we have a dataframe matching2. 
+
+Using the _str()_ command you can see that now we have fewer observations. It also appears as if columns 2 and 3 potentially are the same information. Also column 9 doesn't seem informative/consistently used/excel artifact
+
+To check that columns 2 and 3 are identical we would use the _==_ operator meaning "is equal to" -- R will print a logic output saying either TRUE or FALSE, where columns 2 and 3 either match or differ, respectively. 
+
+Below we are using the _$_ operator to individually select the columns by name.
+
+```{r}
+matching2$PTs == matching2$Subjects
+
+str(matching2)
+# Could also say:
+
+matching2[2] == matching2[3] # There's one False!
+```
+
+If there were a larger dataset, you likely wouldn't want to eyeball. To find the row entry that doesn't match, we can use _which()_ and to print the contents of what's there we just index it using brackets. Since we know we want columns 2 and 3, we can concatenate them together and select out the entry. 
+
+The which command lets us know if it in row 21 and uses the _!=_ symbols to indicate "Does not equal" - so the command below reads as "Which entries in columns 2 and 3 of matching2 are not equal"
+
+```{r}
+which(matching2$PTs != matching2$Subjects)
+
+matching2[which(matching2$PTs != matching2$Subjects),]
+```
+If this means something to us, we can decide what to do. One option is to overwrite the entry. Let's say that _V2 was some kind of data entry error. We can fix it by reassigning the value to just be "159A"
+
+```{r}
+matching2[21,2] <- "159A"  #In row 21, column 2, overwrite entry to read as "159A"
+
+#Double Check
+
+matching2[21,]
+```
+
+In reality, we are going to drop this column as it is redundant with column 3. We also don't want whatever column 9 is. We can drop things by  using minus sign  _-_ prior to a _c()_
+
+```{r}
+matching2 <- matching2[-c(2,9)]  #We are overwrite the existing matching2, but matching still exists.
+```
+
+_NOTE_ Because there is no comma above outside of the c() argument, R reads 2 and 9 as columns. We could also write as:
+
+matching2[,-c(2,9)], if we wanted to retain all the rows.
+
+
+We also could have subsetted these data in a single command with:
+
+_matching2 <- matching[c(1:40,51:88), -c(2,9)]_
+
+```{r}
+str(matching) #Compare original
+str(matching2)  #To cleaner version
+
+head(matching2) # Get a glimpse~
+```
+
+
+### Data Modification
+
+Gender and Handedness were originally coded as 1's and 2's, where males were coded as 1 and females as 2. Similarly for handedness, 1 = Right handed and 2 = Left handed. The X variable is whether the participants have autism (ASD) or are typically developing (TD).
+
+We will need to overwrite these variables which are presently viewed as numbers and tell R that these are really _factors_ or a categorical variable.
+
+We could do this individually for our columns 1,6, and 7 -- Diagnosis, Gender, and Handedness. 
+
+```{r}
+matching2$X <- factor(matching2$X, labels = c("ASD", "TD"))
+
+matching2$X #check
+
+
+# Below is commented out and not run; however, would be how you would reassign these variables. 
+
+
+#  matching2$Gender <- factor(matching2$Gender, labels = c("Male", "Female"))
+#  matching2$Handedness <- factor(matching2$Handedness, labels = c("Right", "Left"))
+
+```
+
+
+Or use _lapply()_  
+
+_lapply_ is essentially saying apply the following command _as.factor_ and returns a list object, in this case, a factor. The reassignment is like saying: "In matching2, columns 6 and 7, reassign to this value. This value should take all contents of what's in matching2 columns 6 and 7 ( _which presently are just numbers_ ), and make them into factors"
+
+```{r}
+matching2$Gender # 1 = Male and 2 = Female
+matching2$Handedness # 1 = Right and 2 = Left
+
+
+matching2[c(6,7)] <- lapply(matching2[c(6,7)], as.factor)
+
+str(matching2[c(1,6,7)])
+
+```
+
+You'll notice that although Gender and Handedness are now factors like our X variable, they are still listed as 1's and 2's.
+
+When we changed X to be a factor above, we also supplied a _labels()_ argument and specified that it was "ASD" and "TD"
+
+**Order is _very_ important**
+
+The order that these are listed is how R determines what the 1 equals, 2 equals, etc.
+
+Calling for the _levels()_ of variable X reports that these are ASD and TD but for gender these are 1 and 2
+
+```{r}
+levels(matching2$X)
+
+levels(matching2$Gender)
+```
+
+We need to "assign" labels to these levels. We are **not** changing the levels themselves, and since there currently are no labels, we cannot specify that without R printing an error message about labels not existing.
+
+For this, we will need to say _levels()_ of the variable of interest and then assign a concatenated string as our labels. We do not use the _labels_ command here.
+
+
+```{r}
+
+levels(matching2$Gender) <- c("Male", "Female")
+levels(matching2$Handedness) <- c("Right", "Left")
+
+str(matching2)
+head(matching2)
+tail(matching2) # Everything looks good!
+
+```
+
+Last few modifications we could consider are the variable names. Sometimes, variables have verbose names, and sometimes they are more ambiguous. Using _colnames()_  or simply _names()_ with the dataframe of interest inside will print. 
+
+
+```{r}
+colnames(matching2)
+
+names(matching2)
+```
+
+We can also assign these names all at once    **Not recommended for large datasets**
+
+We can create a new object-- a character vector, then assign this character vector to the column names of the data frame
+
+```{r}
+newnames <- c("V1", "V2", "V3", "V4", "V5", "V6", "V7")
+
+colnames(matching2) <- newnames
+
+colnames(matching2)
+
+```
+This would be very tedious with large data sets. Let's change back. Just re-assign it!
+
+```{r}
+oldnames <- c("X", "Subjects", "RMSD..5mm", "Age", "WASI_NVIQ", "Gender", "Handedness")
+
+colnames(matching2) <- oldnames
+
+names(matching2)
+```
+
+
+While X might mean something to us, to someone else they might not get it. Also the "RMSD..5mm" is a bit annoying to type. We can just rename these columns specifically using _[  ]_ to index.
+
+```{r}
+colnames(matching2)[c(1,3)] <- c("Diagnosis", "RMSD")
+
+names(matching2)
+```
+
+
+Now we are ready to check some assumptions and see if our samples are matched on our variables of interest: RMSD, Age, IQ, Gender, and Handedness
+
+# 5/8/19: Matching Basics 
+
+
+## Summaries and Quick Descriptives
+
+_Easy-peasey, lemon squeazy~_
+
+
+|**This argument....**     | **.....performs this function**              |
+|--------------------------|----------------------------------------------|
+| _summary()_               |                            |
+| _aggregate()_             |                                             |
+| _tapply()_ or _lapply()_ or _sapply()_ or _mapply()_    |    The apply essentially say take Y, indexing X, and perform a function, such as mean, median, sd, quantile, sum, etc., depending on the R object in use/type of desired output determines which apply to use:  **lapply** for _lists_, **mapply** for _matrices_, **tapply** for things like factors (though these still are treated as lists) and **sapply** for for returning a vector, matrix, or array   |
+| _with()_                |                                               |
+| _tidyr:summarize()_ , *summarize_if()*, *summarize_all*, *summarize_at()* |  a part of tidyverse          |
+| *group_by*              |                                               |
+| _CreateTableOne()_      |                                               |
+| _describeBy()_          |   Gives summary statistics for numeric varialbes specified by grouping variable, including skewness and kurtosis  |
+| _describe_              | gives summary statistics, treating factors as numbers, cannot be grouped useful for whole sample descriptives of central tendency and variance                      |
+
+
+To start-- there is the base R _summary_ command. Calling this on our dataframe, matching2, will count factors, measure character lengths, and quartiles/means/medians of numeric variables. 
+
+```{r}
+
+summary(matching2)
+
+
+```
+
+Continuing the base R way, if you want to look at some summaries across groups, say comparing ASD and TD, you can use _aggregate_ and _tapply_ commands.
+
+For each of these examples, R requires that numeric variables be treated as numbers and factors are not accepted as numbers-- but are categories. Consider this if you have 'non-numeric' error warnings and R is trying to average a category/factor.
+
+
+This formula is using aggregate's built in algorithm: _aggregate(df$frequencyVaraible, by=list(df$CategoryVariable), FUN = sum/mean/sd/etc.)_
+
+```{r}
+aggregate(RMSD ~Diagnosis, matching2, mean)  # is the same as
+
+aggregate(matching2$RMSD, by=list(matching2$Diagnosis), FUN = mean )
+
+aggregate(RMSD ~ Diagnosis + Gender, matching2, mean) # Additional categories can be added to the formula
+
+```
+
+Or we could use _tapply_ 
+
+```{r}
+tapply(matching2$RMSD, matching2$Diagnosis, FUN = mean)
+
+```
+
+Multiple summary statistics? There's a function for that.
+
+```{r}
+
+tapply(matching2$RMSD, matching2$Diagnosis, FUN = function(x) c( MN= mean(x), SD = sd(x)))
+
+```
+
+
+This individual/self-defined function also works with aggregate command as well. Here the _with()_ begins specifying the dataframe, so we don't need to specify this later in the aggregate formula
+
+```{r}
+with(matching2, aggregate(RMSD ~ Diagnosis + Gender, FUN = function(x) c(MN = mean(x), SD = sd(x))))
+
+```
+
+
+Here we are using some tidyr commands and the **%>%** operator. This lets R know to "keep going" as a flow from the previous line to the next. It saves the additional writing from Base R commands of calling the dataframe each time we reference a column
+
+The tableone package is handy for providing descriptive statistics on each variable. However, because some of our variables are factors, R will count them as categories.
+
+Below is saying:  "Create the object tabave. Take matching2 -- then group by Diagnosis -- summarize the variable if it is numeric, and return the mean and standard deviation"
+
+The initial assignment only assigns-- to see what we created-- call it's name~
+
+```{r}
+tabave <- matching2 %>%
+            group_by(Diagnosis) %>%
+            summarise_if(is.numeric, c(mean, sd))
+tabave
+
+```
+
+This prints out, by diagnosis, our group means-- listed first with a "_fn1" -- followed by the group SD with a "_fn2"
+
+_Note_ This did not print out anything with Gender or Handedness. That is because these variables are not numeric-- they are factors. This requries the *summarise_if()* command. 
+
+Alternative summarise (or summarize! both are accepted) commands include: summarize(), summarize_at, summarize_all.   
+
+In older R code you will sometimes see summarize_each, but this command is deprecated in the recent dplyr updates.
+
+There are other summary type commands-- such as using the **tableone** package
+
+```{r}
+vars <- colnames(matching2)
+vars <- vars[c(3:7)]
+vars
+
+CreateTableOne(vars = vars, data = matching2, strata = "Diagnosis", test = T) #Have true test to obtain p values
+
+
+
+```
+
+
+## Chi-Square Tests
+
+```{r}
+chisq.test(matching2$Diagnosis, matching2$Gender)
+
+chisq.test(matching2$Diagnosis, matching2$Handedness)
+
+
+tadaa_chisq(matching2, x = Diagnosis, y = Gender, print = "markdown")
+
+```
+
+
+
+## Variance Assumptions: Bartlett's and Levene's
+
+Before confirming that our means match, we need to check some assumptions about homogeneity of variance for each group. To do this, we can run Bartlett's test or Levene's test. For here we just specify _bartlett.test_ wrapped around our variable of interest, in this case RMSD, and our grouping variable Diagnosis. We then specify that the data file we are referring to is matching2
+
+Alternative way of writing this test using _leveneTest()_ similarly with a (y, group) ordering and specify the dataframe directly.
+
+Bartlett's test and Levene's are similar in testing for equal variances across groups for a continuous variable, with Levene's test being less influenced by outliers. This isn't a 
+
+```{r}
+bartlett.test(RMSD ~ Diagnosis, matching2) 
+
+leveneTest(matching2$RMSD, matching2$Diagnosis)
+```
+
+
+Plotting normal qq-plots is also fairly easy. Here are examples with three methods-- you'll notice that once we start using tidyverse the output becomes a dataframe/double value. This will need to be unlisted first then changed to a number. This step is avoided in the other two methods because the RMSD variable is a number, but once it is filtered and selected it is created into its own dataframe.
+
+```{r}
+
+# Base R way
+
+qqnorm(matching2$RMSD[matching2$Diagnosis == "ASD"], main = "Q-QPlot for ASD RMSD"); qqline(matching2$RMSD[matching2$Diagnosis == "ASD"])
+
+#Tidy way
+
+TDRMSD <- matching2 %>%
+dplyr::filter(Diagnosis == "TD") %>%
+  dplyr::select(RMSD) 
+
+qqnorm(as.numeric(unlist(TDRMSD)), main = "Q-QPlot for TD RMSD"); qqline(as.numeric(unlist(TDRMSD)))
+
+
+## A GGPLOT way
+
+matching2 %>%
+  ggplot(aes(sample = RMSD)) +
+  geom_qq() + geom_qq_line() +
+  facet_wrap(~Diagnosis, scales = "free_y")
+
+```
+
+## Skewedness and Kurtosis
+
+We might already have an idea if the data are skewed from the Q-Q Plots, but we can also print these values directly for the whole data set
+
+We can use _describeBy()_ and just like with summarize- the variable will need to be numeric. Below we are asking R to describe columns 3-5, all numeric, and by Diagnosis Group.
+
+
+```{r}
+
+
+describeBy(matching2[3:5], group = matching2$Diagnosis)
+
+
+```
+
+We can also use regular _describe_ which can handle factors
+
+```{r}
+
+describe(matching2[-2])  #Just droping Subject ID column
+
+```
+
+## Correlations
+
+Useful links for correlation basics:
+
+
+http://www.sthda.com/english/wiki/correlation-matrix-a-quick-start-guide-to-analyze-format-and-visualize-a-correlation-matrix-using-r-software
+
+
+https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html
+
+
+There are several ways to print or _summarize_ correlations of a variable set. First the **tidy** way!
+
+
+Methods that are accepted include: "pearson", "spearman", or "kendall"
+
+```{r}
+
+# Need to drop non-numeric variables which are in columns 1,2,6, and 7
+
+cor_matrix <- matching2 %>%
+                group_by(Diagnosis) %>%
+                  do(as.data.frame(cor(.[,-c(1,2,6,7)], method="spearman", use="pairwise.complete.obs")))
+
+#
+# to add row names
+#
+cor_matrix1 <- cor_matrix %>%  
+              data.frame(row=rep(colnames(.)[-1], n_groups(.))) 
+#
+# calculate correlations and display in column format
+#
+num_col=ncol(matching2[,-c(1,2,6,7)])
+out_indx <-  which(upper.tri(diag(num_col))) 
+cor_cols <- matching2 %>% group_by(Diagnosis) %>%
+            do(melt(cor(.[,-c(1,2,6,7)], method="spearman", use="pairwise.complete.obs"), value.name="cor")[out_indx,])
+
+ncol(matching2[,-c(1,2,6,7)])
+cor_matrix1
+
+
+```
+
+
+Not bad, but it would be nice to know if some of these are significant or not. We can use _cor.test_.  Here I'm defining is as an object **examplecor** so you can print the object by calling its name:
+
+```{r}
+
+examplecor <- cor.test(matching2$RMSD,matching2$Age)
+
+
+```
+
+And as for its structure to understand what R has created-- unsurprisingly, it's a list!. But this is good to know as it will let us index individual aspects of the list if we would like more direct comparisons using it in conjunction with dplyr
+
+```{r}
+
+str(examplecor)
+
+examplecor$conf.int
+
+```
+```{r}
+
+matching2 %>%
+  group_by(Diagnosis) %>%
+  dplyr::summarize(cor = cor.test(RMSD,Age)$estimate, p.value = cor.test(RMSD, Age)$p.value, LowerCInt  = cor.test(RMSD, Age)$conf.int[[1]], UpperCInt  = cor.test(RMSD, Age)$conf.int[[2]])
+
+#Ungrouped by commenting out the grouping part of the argument
+
+matching2 %>%
+  #group_by(Diagnosis) %>%
+  dplyr::summarize(cor = cor.test(RMSD,Age)$estimate, p.value = cor.test(RMSD, Age)$p.value, LowerCInt  = cor.test(RMSD, Age)$conf.int[[1]], UpperCInt  = cor.test(RMSD, Age)$conf.int[[2]])
+
+
+```
+
+OK, but what if we wanted a correlation matrix _and_ p-values?
+
+
+For this we can use the Hmisc package using the _rcorr()_ command. 
+
+
+This requires that a matrix be fed in and outputs a list, the first item, 'r',  being the correlation value and the second item, 'p', being the corresponding p-value
+
+
+```{r}
+
+ASDmat1 <- matching2 %>%
+  filter(Diagnosis == 'ASD') %>%
+  dplyr::select_if(is.numeric)
+  
+
+TDmat1 <- matching2 %>%
+  filter(Diagnosis == 'TD') %>%
+  dplyr::select_if(is.numeric)
+
+#Now both are now numeric values in dataframes-- still need to be made into matrices
+
+  
+TDcors <- rcorr(as.matrix(TDmat1))  #Creates a list containing objects about the matrix's r-value, n of sample, and p-value or correlation
+
+
+#As index by its structure
+
+str(TDcors)
+
+
+```
+
+
+We can then bind the vectors from the list of separated groups, ASD and TD, and compare.
+
+
+```{r}
+
+ASDcors <- rcorr(as.matrix(ASDmat1))
+
+
+cbind(ASDcors$r,ASDcors$P,TDcors$r, TDcors$P)
+
+```
+Pretty messy, but there are other methods to that have more to do with visualization. _rcorr_ works well, when you are looking at full sample descriptives or not binding columns from different groups. 
+
+
+One package, Performance Analytics, quickly gives visualizations and r/p values; however, specification is limited as of now in separting groups on the same graph. * I currently don't have a more recent version of R to run this package-- I'm updating, don't judge. As such, I'm skipping this part for now.
+
+
+```{r}
+#install.packages("PerformanceAnayltics")
+#library()
+
+
+```
+
+#### Point Biserial Correlations
+
+```{r}
+
+
+
+```
+
+
+# 5/15/19: Plots! lots-ah plots-ah! {.tabset .tabset-fade .tabset-pill}
+
+## Quick Base R plots
+
+### Histograms
+
+Before making fancy plots with ggplot2 package, we can use Base R's plot commands to quickly visualize the distributions of the data with histograms - either whole group:
+
+```{r}
+
+hist(matching2$WASI_NVIQ)
+```
+
+Or by levels of a categorical variable of interest:
+
+```{r message=FALSE, warning=FALSE}
+
+# A tidy way
+
+TDhist <- matching2 %>%  
+dplyr::filter(Diagnosis == "TD") %>%
+  dplyr::select(WASI_NVIQ) %>%
+            lapply(hist, main = "Histogram Example", xlab = "TD", col.main = "red", cex.main = 2, col.lab = "darkblue")
+
+
+### Other way with more Base R
+
+hist(matching2$WASI_NVIQ[matching2$Diagnosis == "ASD"], xlab = "ASD", main = "Other Histogram Example", col = "purple")
+
+
+
+```
+
+
+
+
+There are also boxplots, lines, and bar graphs. But personally I think ggplot looks nicer.
+
+### Boxplots
+
+```{r}
+boxplot(matching2$Age, data =  matching2)
+
+
+boxplot(matching2$Age~matching2$Diagnosis, data =  matching2, ylab = "Age in Years")
+```
+
+
+Want it horizontal? Or with notches?
+
+```{r}
+
+boxplot(matching2$Age~matching2$Diagnosis, data =  matching2, xlab = "Age in Years", horizontal = TRUE, notch = TRUE, frame = FALSE)  #Note since this is being horizontal now we have to change our former "y lab" to an "x lab"
+```
+
+
+Can't forget the colors
+
+```{r}
+boxplot(Age~Diagnosis, data =  matching2, ylab = "Age in Years", col = "grey", border = c("blue", "red"), frame = F)
+
+```
+
+
+
+
+
+### Bar Plots
+
+Bar plots can depict counts, frequencies, and also aggregated statistics, like means, medians, etc.
+
+For counts, we can make a table object with _table()_ command
+
+```{r}
+barplottab <- table(matching2$Diagnosis, matching2$Gender)
+
+barplottab # Which looks like this
+
+
+#Then graph it
+
+barplot(barplottab, legend = rownames(barplottab), beside = T, col = c("blue", "green"))
+
+#Note what happens when you leave the "beside = T" code out
+
+barplot(barplottab, legend = rownames(barplottab), col = c("blue", "green")) 
+
+
+
+```
+
+We can also use the _aggregate()_ command and _aggregate.plot()_. As we used above, aggregate performs summary stats in base R. Read more about aggregate function with  _?aggregate_ in your console.
+
+```{r message=FALSE, warning=FALSE}
+# This is a more recent package but is still pretty cool!
+
+#install.packages("epiDisplay")
+suppressMessages(library(epiDisplay))
+
+
+aggregate.plot(matching2$WASI_NVIQ,
+                              by=list(matching2$Diagnosis), error = "ci" ,
+                              FUN="median")
+
+# Get fancier
+
+aggregate.plot(matching2$WASI_NVIQ,
+                              by=list(matching2$Diagnosis, matching2$Gender), error = "ci" , bar.col = c("purple", "goldenrod"),
+                              FUN="mean", legend.site = "bottom")
+
+
+
+```
+
+### Scatter Plots
+
+```{r}
+
+plot(matching2$RMSD, matching2$WASI_NVIQ, main = "RMSD by IQ",
+     xlab = "RMSD", ylab = "NonVerbal IQ on WASI",
+     pch = 19, frame = TRUE)  #pch is the shape of the scatter point
+
+
+# Add regression line
+plot(matching2$RMSD, matching2$WASI_NVIQ, main = "RMSD by IQ",
+     xlab = "RMSD", ylab = "NonVerbal IQ on WASI",
+     pch = 10, frame = FALSE)
+abline(lm(WASI_NVIQ ~ RMSD, data = matching2), col = "blue")
+
+
+```
+
+Can also use _scatterplot_ from the **cars** package
+
+```{r}
+
+scatterplot(WASI_NVIQ ~ RMSD|Diagnosis, data = matching2)
+
+```
+
+Gross- too busy, but handy to visualize quickly adding the below makes it look somewhat better
+
+```{r}
+
+scatterplot(WASI_NVIQ ~ RMSD|Diagnosis, data = matching2, smooth = FALSE, grid = FALSE, frame = FALSE)
+
+
+
+```
+
+OK but if we want different colors? For base plotting, you'll need to create a vector of color names that needs to be the same length as your grouping factor(s). Since we just have 2, pick the two best colors. You can use names of colors, their hexadecimal numbers, or integer number placement on color palette 
+
+Check out more colors here: https://rstudio-pubs-static.s3.amazonaws.com/3486_79191ad32cf74955b4502b8530aad627.html
+
+```{r}
+#Color vector
+
+mycolors <- c("#0000CD","#B03060")
+
+scatterplot(WASI_NVIQ ~ RMSD|Diagnosis, data = matching2, smooth = FALSE, grid = FALSE, frame = FALSE, col =mycolors)
+
+```
+
+
+## GGPlot2 
+
+GGplot2 is graphing package in R that can give a more polished touch, but Base R graphing can literally create anything. GGplot2 can accept tidyverse outputs which can be extremely efficient.
+
+Things to note are the order of the argument, unless using the _%>%_ operator, the command is telling R to use the ggplot package then gives the name of the dataframe. This is followed by the _aes()_ argument defining the _aesthetic_ features of the graph. Here the x and y variables are defined as well as any group specification that would apply globally to the graph. You may define group variables in subsequent lines with an additional _aes()_ command. 
+
+Then the "+" symbol indicates that the following should be added to the plot. Here is where you define the type of "shape" R should draw using *geom_shapename*
+
+You can define a grouping variable many ways, in the sample below we have Diagnosis group defining the "coloring" of the plot.
+
+The use of _color_ here references a command that R should use when coloring things where a color can't be "filled in" as much as it can just have a single colored line/border. So for graphs like scatter plots and line graphs, the color command would be used in the aesthetic specification-- and similarly color is referenced again in the subsequent lines of code where we manually color with our color values of choice.
+
+
+#### Geom Point/Geom Line
+```{r}
+
+
+plot <- ggplot(matching2, aes(x = Age, y= WASI_NVIQ, color = Diagnosis)) +  geom_point(aes(shape = Diagnosis)) + geom_smooth(method = lm) 
+
+plot
+
+plot <- plot + labs(main = "Title", x = "Age", y = "IQ") + theme_classic()  # Add Titles and Labels as well as Theme
+
+plot <- plot + scale_color_manual(values = c("firebrick3", "dodgerblue3"))  #Modify colors manually
+
+plot
+
+```
+
+Check out R Color Brewer for palettes and Color-Blind friendly color schemes:
+
+http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3
+
+Fun with Shapes: http://www.sthda.com/english/wiki/ggplot2-point-shapes
+
+
+#### Geom Violin and Boxplot
+
+If we would like to draw a geom_shape that you can "fill" with color, like a boxplot, histogram, violin plot, etc. then you use _fill_ instead of _color_ in the aesthetics command-- and similarly later when the colors are manually defined.
+
+```{r}
+
+
+ggplot(matching2, aes(x = Diagnosis, y = WASI_NVIQ, fill = Diagnosis)) +
+  geom_violin() +
+   scale_fill_manual(values = c("firebrick3", "dodgerblue3"))
+
+```
+
+You may also overlap geoms on top of other geoms. If they are similar objects (i.e., are both filler objects), then an aesthetic command does not need to be redefined, and just inherits the global grouping definition
+
+```{r}
+
+ggplot(matching2, aes(x = Diagnosis, y = WASI_NVIQ, fill = Diagnosis)) +
+  geom_violin() +
+   scale_fill_manual(values = c("firebrick3", "dodgerblue3")) +
+ geom_boxplot(width =.1) 
+
+```
+
+And keep adding!
+
+```{r}
+
+#Violin plots
+ggplot(matching2, aes(x=Diagnosis, y= WASI_NVIQ, fill = Diagnosis)) +
+  geom_violin() +
+  scale_color_manual(values = c("firebrick3","dodgerblue3")) +
+  geom_rug(aes(color = Diagnosis), show.legend = F, alpha = .9, position = "jitter", sides = "l") + 
+  guides(fill = guide_legend(title = "Group")) +
+  labs(title="Your title here :)", x = "Group", y = "WASI-II NVIQ") +
+  geom_boxplot(width = 0.1, fill = "white") +
+  scale_fill_manual(values = c("firebrick3","dodgerblue3")) + 
+   theme_classic()
+
+
+
+```
+
+Similar to the above chart with some subtle changes to tweak the chart to get it to show what we would like. For charts that involve multiple colors, it may be a good idea to define a vector of color names, and then coloring by that vector as shown in the code below.
+
+```{r}
+
+prettycols <- c("firebrick3", "dodgerblue3")
+
+#Violin plots v2
+ggplot(matching2, aes(x=Diagnosis, y= WASI_NVIQ, group = Diagnosis)) +
+  geom_violin(fill = "grey") +
+   geom_boxplot(aes(group = Diagnosis), fill= prettycols, width = 0.2) +
+  geom_rug(aes(color = Diagnosis), alpha = .9, position = "jitter", sides = "l") + 
+  scale_color_manual(values = prettycols, labels = c("ASD","TD"))+
+  labs(title="Your Centered title here", x = "Group", y = "WASI-II NVIQ") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5)) 
+```
+
+# 5/22/19  Fancier Plots for the Fancier Pants
+
+The plots above are nice, but visualizations are more than just traditional, static approaches and have potential to show multiple relations/trends by using varying graphical approaches visualized simultaneously. 
+
+This is more than layering points on a line or boxplot. Much of the packages reviewed here are based with ggplot commands and work well with tidyverse. The rest of the tutorial will only include these commands. It's likely though that with Base R, you'll still have most precision over a graphic. 
+
+### Corrplot
+
+```{r}
+#install.packages("corrplot")
+
+#Library code is called above at top of document
+
+
+str(TDcors)
+
+
+ASDcorrplot <- matching2 %>%
+      filter(Diagnosis == 'ASD') %>%
+      select_if(is.numeric) %>%
+      cor()
+
+
+corrplot(ASDcorrplot, type = "upper", order = "hclust", 
+         tl.col = "black", tl.srt = 45)
+
+
+TDcorrplot <- matching2 %>%
+      filter(Diagnosis == 'TD') %>%
+      select_if(is.numeric) %>%
+      cor()
+
+corrplot(TDcorrplot, type = "lower", order = "hclust", 
+         tl.col = "black", tl.srt = 45)
+
+
+
+
+```
+
+It would be great if we could compare, yes? Thinking about these matrices, we could just replace the values of the lower ASD matrix with the values from the TD matrix, creating a merged matrix-- then plot that, noting which upper or lower parts denote which group
+
+First rename the ASDcorrplot into something new-
+
+
+```{r}
+
+mergedcorrplot <- ASDcorrplot
+
+mergedcorrplot[lower.tri(mergedcorrplot)] <- TDcorrplot[lower.tri(TDcorrplot)]
+
+
+# Will give you
+
+mergedcorrplot
+
+```
+
+
+Then you can graph this, using the full matrix display option
+
+```{r}
+
+corrplot(mergedcorrplot, type = "full")  #ASD on top and TD on bottom
+
+
+#Add additional tweaks for easier readability, depending on what you want-- many options!
+
+corrplot(mergedcorrplot, type = "full", method = 'number', title = "ASD (top) and TD (bottom)", tl.col = 'black', tl.srt = 45, col = c("blue", "black", "red"))
+
+```
+
+Let's say we only want to display correlations that are significant at the p <.05 level. To do this we will need to modify the original matrices of ASDcors and TDcors-- used from the correlation discussion above.
+
+We will create new matrices of the P-values, first duplicating the ASD p-values taken from the ASDcor list. This becomes as the future merged matrix (this means the ASD p-values are in the upper triangle of the matrix). 
+
+Then TDcors$P is turn into its own matrix, before selecting out the lower triangle from it, and re-writing over the lower triangle of the merged p-value matrix.
+
+Now the p-values along the top triangle belong to the ASD group and the ones along the bottom triangle belong to the TD group. With this matrix now merged, it can be the "key" to mapping out significant values when the _corrplot()_ command is called. 
+
+**Importantly, the merged matrix correlation values must match a separate, similarly grouped merged to work**
+
+```{r}
+
+# From before
+
+ASDcors$P
+
+
+mergedpvals <- ASDcors$P
+
+
+
+
+#From before
+
+
+TDcors$P
+
+
+
+TDpvals <- TDcors$P
+
+
+mergedpvals[lower.tri(mergedpvals)] <- TDpvals[lower.tri(TDpvals)]
+
+mergedpvals
+
+```
+
+```{r}
+
+#the new pval matrix is set equal to the p.mat
+
+corrplot(mergedcorrplot, type = "full", method = 'number', title = "ASD (top) and TD (bottom)", tl.col = 'black', tl.srt = 45, col = c("blue", "black", "red"), p.mat = mergedpvals, sig.level = 0.05, insig = "blank")
+
+
+```
+
+
+Alternatively we can examine all of matching2 by treating it all as a matrix
+
+```{r}
+
+matchingnum <- matching2[-2] #Dropping participant ID
+
+matchingnum[c(1,5,6)] <- lapply(matchingnum[c(1,5,6)], as.integer) #Make factors their integer values
+
+matchingnum
+
+Binarycor <- cor(as.matrix(matchingnum))
+
+corrplot(Binarycor)
+
+
+Binarycorpval <-  rcorr(as.matrix(matchingnum))
+
+Binarycorpval$P # Only Age and RMSD are significantly correlated
+
+```
+
+### GGpairs
