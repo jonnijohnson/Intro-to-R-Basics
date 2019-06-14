@@ -19,36 +19,48 @@ output:
 
 # Yes, you can <3 R!
 
-I plead with people to learn R as it makes working with data easier than traditional programs, and everything can be down in a single program (i.e., data entry, cleaning, analyses, graphing). 
+**Note this top is for beginners, those familiar with R may skip down using the TOC on the side**
 
-I had a steep learning curve and often hear that time to learn R is often what stops them. I created the following tutorial that covers some introductory data exploration, analysis, and graphing-- to hopefully show others that R is not that intimidating
+Many of my colleagues resist using R because, well, it is like learning another languPetal.Length. But R is so spectacular and is a great introduction to using other--and some might say more complex, programming languPetal.Lengths too (e.g., python, SQL, C++, perl). </br> 
+
+What I like most about R is that working with data at any stPetal.Length can happen under one program's roof (i.e., data entry, cleaning, analyses, graphing). 
+
+I had a steep learning curve and often hear that time to learn R is often what stops them. I created the following tutorial that covers some introductory data exploration, analysis, and graphing-- to hopefully show others that R is not that intimidating. For the below I assume R studio is installed and you're familiar with terms such as script, console, environment, and library.
+
+One difficulty I had was grappling with the languPetal.Length syntax of R-- not just the literal coding-- but the way I should _say_ things to R to get it to perform certain functions. In the tutorial below I sometimes go into explanations about how this syntax of writing in R makes sense to me. In addition to learning commands, learning the R languPetal.Length (or any computer languPetal.Length) requires understanding of the languPetal.Length's syntax and semantic structures. 
+
+In this tutorial I use the **iris data set** as well as add some additional variables for graphing purposes and data analyses.
 
 </br>
 
-### Packages and Libraries....
+### packages and Libraries....
 
-...We use a lot of them. Make sure that the packages are installed first using the command function: _install.packages("Name of the package")_. Packages include:
+Your library is all commands you can use at the present time-- I usually think of Trinity in the movie the Matrix learning how to fly the helicopter. This knowledge is _"loaded"_ into her brain and suddenly she can perform new actions! Other than wearing all black, I have nothing in common with her. But it helps me understand that the library R uses can be modified with new packages so that you can learn new commands to perform new actions 
 
-install.packages("tidyverse") -- This loads dplyr, plyr, tidyr at once, no need for multiple packages- Note 'select()' function argument is masked in dplyr
+In this way, I think of packages as special dictionaries that, if loaded into your library of other dictionaries, can reference a specific argument of the packages. It is similar to typing a formula in excel to _sum_ the numbers of a column. You simply write the argument _sum()_ and indicate within parentheses which rows to sum across. The program understands that the command _sum_, otherwise known as **an argument** or **function**, means to add and print a total. 
 
-install.packages("psych")
-
-install.packages("tableone")
-
-install.packages("tadaatoolbox")
+Loading packages essentially provide definitions of arguments, like _sum_, so that once installed and put in your library, you may use the argument.
 
 
+This requires us to frequently down/update packages and load them into the library. In this tutorial there are several packages installed and loaded into the library. As such, some packages that use the same argument name (e.g., such as _'select'_) will print a warning message when loaded, notifying you of the two packages' conflict of using the same argument name. This really just means that we have to specify which package we mean when using the argument. 
+
+For fun, think of it as loading two packages into a magical program: American English and British English-- Go with me on this-- Both packages have a _boot()_ argument, but one package, American English, will turn an object into a shoe; the other package, British English, will turn an object into the back part of a car/trunk. ...This is why I specified that the program was magical. 
+
+
+
+...We use a lot of them. Make sure that the packages are installed first using the command function: _install.packages("Name of the package")_. packages include:
+
+tidyverse, psych, tableone, tadaatoolbox, ggplot2, corrplot, reshape2, magrittr, Hmisc, epiDisplay 
+
+* Some of these may not need to be installed just loaded into your library. Tadaatoolbox is just used to print nice tables in markdown documents (i.e., what you are reading). You otherwise don't need it, but it sure is _pretty!_
+
+
+If I wanted to use the commands in the tidyverse package I would write:
+
+install.packages("tidyverse")
 library(tidyverse)
 
-library(psych)
-
-library(tableone)
-
-library(magrittr) -- should be built in, if not install.packages
-
-library(car) -- is a built in package in Base R, no need to install anything special
-
-library(tadaatoolbox) -- Only needed for making pretty Rmarkdown tables
+Repeat for each of the packages above.
 
 
 
@@ -56,7 +68,10 @@ library(tadaatoolbox) -- Only needed for making pretty Rmarkdown tables
 
 ### Loading in Data
 
-Most of the time we will be loading in CSV files. But you can read in other types of files, SPSS, TXT, using other base argument commands. You can also load data from a browser, but that includes arguments not presented below. The data file, whatever its extension, should be saved in a folder which will become your _working directory_. It is a good idea to save scripts/markdowns, figures, and data sets in the same folder or parent folder for easy navigation. 
+Most of the time we will be loading in CSV files. In this tutorial I won't be loading data, but instead use a built in data set from R, df. 
+
+
+In addition to csv files, you can read in other types of files, SPSS, TXT, using other base argument commands. You can also load data from a browser, but that includes arguments not presented below. The data file, whatever its extension (.csv, .txt, etc.), should be saved in a folder which will become your _working directory_ for the project. 
 
 Useful commands for loading in data files include:
 
@@ -73,87 +88,122 @@ Useful commands for loading in data files include:
 |                   | _skip = 2_  Only needed if you want to skip the first X-number of lines-- in this example, 2|
 
 
-Once the data file is read, you'll want to assign it a name so that R saves it to its working environment
+Below I am asking to "get the working directory", otherwise asking, "What is my current directory?". ls() is asking for a list of the files and dir() is an alternative way to ask as well. 
+
+I have a **#** in front of the setwd() command. This is a comment notation in R; R will not run this command and it is handy to make brief comments within your code to explain processes along the way. 
+
+If the # symbol were not there, this command would otherwise set the working directory to the path specified in parentheses.
 
 
 ```r
-matching <- read.csv("Matching_sample.csv", header = T, stringsAsFactors = F)
-
-str(matching)  # Calling for the structure of this object
+getwd()
 ```
 
 ```
-## 'data.frame':	96 obs. of  9 variables:
-##  $ X                  : chr  "1" "1" "1" "1" ...
-##  $ PTs                : chr  "022A" "038A" "045A_V2" "046A" ...
-##  $ Subjects           : chr  "022A" "038A" "045A_V2" "046A" ...
-##  $ RMSD..5mm          : num  0.032 0.11 0.03 0.021 0.101 0.024 0.019 0.106 0.077 0.051 ...
-##  $ Age                : num  14.1 13.2 17.3 17.1 15.1 13.8 16.5 13.8 15.3 12.9 ...
-##  $ WASI_NVIQ          : num  140 103 106 126 121 112 104 127 129 100 ...
-##  $ Gender             : num  1 1 2 1 1 1 1 1 1 1 ...
-##  $ Handedness         : num  1 2 1 1 1 2 1 1 1 1 ...
-##  $ X1.ASD.m.R.2.TD.f.L: chr  "" "" "" "" ...
+## [1] "C:/Users/Jonni/Desktop/R Class/Intro-to-R-Basics"
 ```
 
-This file is loaded from the local C: drive, but you can also load directly from googlesheets
+```r
+ls()
+```
 
-It is similar to the above dataframe, but some variables have been coerced into a double type versus numeric or character. This is fine, just means they have to be manually changed later. For the rest of this markdown, I will just be working with the first matching file.  But it is otherwise useful to know that the below can be used when your data are housed online and accessed with a URL
+```
+## [1] "encoding"   "input_file" "out_dir"
+```
 
-##### Code does not fit with R Markdown but does in individual scripts
+```r
+#setwd("C:\\Users\\Jonni\\Desktop\\R Class")
 
-install.packages("googlesheets")
-library(googlesheets)
+dir()
+```
 
-online <- gs_url("https://docs.google.com/spreadsheets/d/1yXNJgcvfCVb_b-dx1-ZTE_siuTQA1N4HsbKuA4L_4ns/edit#gid=782498555")
+```
+## [1] "docs"                    "Intro-to-R-Basics.Rproj"
+## [3] "Intro to R.Rmd"          "Intro_to_R.Rmd"         
+## [5] "Matching_sample.csv"     "README.md"
+```
 
-onlinedf <- gs_read_csv(online, header = T, stringAsFactors = F)
+Once the data file is read, you'll want to assign it a name so that R saves it to its working environment
 
-str(onlinedf)
-
-
+If loading a csv file, simply use this:
 
 
-### Basic Viewing/Exploring Commands
+_df <- read.csv("example.csv", header = T, stringsAsFactors = F)_
+
+header = T or TRUE when the first row entry are the names of your columns, as is genuinely what most people see. This command also view string or character variables as strings, and not as factors or categories (more on this later)
+
+_str(df)_  # Calling for the structure of this object
+
+
+This file is loaded from my local C: drive just as an example of loading in a csv file after changing the directory with the setwd() command.
+
+
+
+The rest of this markdown I will just be working with the iris data set. For a complete list of available data sets in R, good for data reproducibility questions and learning R, type data() into the console/script.
+
+Leaving data() with nothing in parantheses will ask for a complete list of sets R has. Naming one data set within the parantheses is the equivalent of loading it into the environment and begin working with it.
+
+
+
+### Basic Viewing/Exploring/Cleaning Commands
 
 |This Argument.....  | ...... Performs This Function                                            |
 |--------------------|--------------------------------------------------------------------------|
-| _str()_            | Call for the 'str'ucture of an object, if a dataframe it return information about each column variable type, factor levels (if app), and number of variables and observations in the object/dataframe|
-| _head()_           | Calls for the first 6 rows or heading of the dataframe                   |
-| _tail()_           | Calls for the last 6 rows or tail end of data                            |
-| _dim()_            | Calls for the dimensions of an object-- more useful for lists, matrices, and tables|
-| _class()_          | Asking for how R is classifying an object (e.g., character, logic, number, integer, string, factor, double, dataframe)|
-| _$_                 | This operator command can be used with the name of the dataframe to call a column of interest by name. Such as _matching$ColumnName_ |
-| _view()_            | Useful to "see" what data look like in a traditional excel-type format, opens Viewer window | 
+| _data(iris)_       | This example is loading the data set iris, a dataset that automatically comes installed with R | | _str(iris)_            | Call for the 'str'ucture of an object, if a dataframe it return information about each column variable type, factor levels (if app), and number of variables and observations in the object/dataframe|
+| _head(iris)_           | Calls for the first 6 rows or heading of the dataframe                   |
+| _tail(iris)_           | Calls for the last 6 rows or tail end of data                            |
+| _dim(iris)_            | Calls for the dimensions of an object-- more useful for lists, matrices, and tables|
+| _class(iris)_          | Asking for how R is classifying an object (e.g., character, logic, number, integer, string, factor, double, dataframe)|
+| _$_                 | This operator command can be used with the name of the dataframe to call a column of interest by name. Such as _iris$ColumnName_ |
+| _View(iris)_            | Useful to "see" what data look like in a traditional excel-type format, opens Viewer window | 
+| _cbind()_           |   Base R command to add column                                          |
+| _rbind()_           |  Base R command to add row                                              |
 
-
-In this dataset, there appears to be some unnecessary columns and rows-- perhaps used for a temporary purpose or totalling in excel. It is common for excel files to have row entries be sums or means, as is the case here. Let's get rid of these rows.
-
-We can see in the viewer that rows 1-40 and 51-88 are where our data are, but we otherwise have 96 rows. 
-
-We'll create a new dataframe, **'matching2'** that only has the data we are interested in-- it is a good habit to not overwrite the original dataset read in-- that way you can always return to see if you need any additional information/variables without having to re-read the file in.
-
-
+Often times in this dataset, there may be unnecessary columns and rows-- perhaps used for a temporary purpose or totalling sums or means. Alternatively, data variables may need to be added.
 
 
 ```r
-matching2 <- matching[c(1:40,51:88),]  # "Create a new dataframe called 'matching2'; In it, take rows 1 through 40 and 51 through 88, and bring ALL columns"
-
-
-str(matching2)
+data(iris)
+View(iris) #Note this is with a capital "V"
+str(iris)
 ```
 
 ```
-## 'data.frame':	78 obs. of  9 variables:
-##  $ X                  : chr  "1" "1" "1" "1" ...
-##  $ PTs                : chr  "022A" "038A" "045A_V2" "046A" ...
-##  $ Subjects           : chr  "022A" "038A" "045A_V2" "046A" ...
-##  $ RMSD..5mm          : num  0.032 0.11 0.03 0.021 0.101 0.024 0.019 0.106 0.077 0.051 ...
-##  $ Age                : num  14.1 13.2 17.3 17.1 15.1 13.8 16.5 13.8 15.3 12.9 ...
-##  $ WASI_NVIQ          : num  140 103 106 126 121 112 104 127 129 100 ...
-##  $ Gender             : num  1 1 2 1 1 1 1 1 1 1 ...
-##  $ Handedness         : num  1 2 1 1 1 2 1 1 1 1 ...
-##  $ X1.ASD.m.R.2.TD.f.L: chr  "" "" "" "" ...
+## 'data.frame':	150 obs. of  5 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
 ```
+
+We'll create a new dataframe, **'df'** that only has the data we are interested in-- it is a good habit to not overwrite the original dataset read in/loaded-- that way you can always return to see if you need any additional information/variables without having to re-read the file in.
+
+This dataset currently has 5 variables and 150 observations. More about the types of variables in a moment~
+
+As stated above, some times loading in data from others has unnecessary rows or columns.
+
+For this example I'm just acting as if the row entries of observations 41 through 50 are not wanted, maybe they are comments or trials that there was an experimenter error, etc. 
+
+
+```r
+df <- iris[c(1:40,51:150),]  # "Create a new dataframe called 'df'; In it, take rows 1 through 40 and 51 through 150, and bring ALL columns"
+
+
+str(df)
+```
+
+```
+## 'data.frame':	140 obs. of  5 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+```
+
+Now we have 10 fewer observations, still same number of columns
+
 
 The _[  ]_ tell R to "look here" in this referenced spot. 
 
@@ -163,391 +213,561 @@ Above, we use the _c()_ command to let R know that the things in parentheses are
 
 Alternatively if there is only one thing within the brackets _without a comma_, R will assume it is the column position. 
 
-So matching[9] would be the equivalent of saying "Print the 9th column in dataframe matching" whereas matching[9,] says, "Print row 9 all columns"
+So df[9] would be the equivalent of saying "Print the 9th column in dataframe df" whereas df[9,] says, "Print row 9 all columns"
 
 
-Now we have a dataframe matching2. 
+Now we have a dataframe df. 
 
-Using the _str()_ command you can see that now we have fewer observations. It also appears as if columns 2 and 3 potentially are the same information. Also column 9 doesn't seem informative/consistently used/excel artifact
+Using the _str()_ command you can see that now we have fewer observations. 
 
-To check that columns 2 and 3 are identical we would use the _==_ operator meaning "is equal to" -- R will print a logic output saying either TRUE or FALSE, where columns 2 and 3 either match or differ, respectively. 
+I'll add some columns to this data set. For now, I will create a vector of numbers that is the same length of our dataframe-- that is-- it will have the same number of row entries, in our case, 140 in df.
+
+
+Below I'm saying, take a random sample, possible outcomes are 1,3, or 5, 140 times with replacement (i.e., if a 5 is chosen on one trial it has an equal probabilty of being chosen on the next trial). 
+
+
+```r
+x1 <- sample(x = c(1, 3, 5), size = 140, replace = TRUE)
+
+x1
+```
+
+```
+##   [1] 3 5 3 1 3 5 5 1 5 3 1 1 1 3 1 5 5 5 1 5 5 1 5 5 5 1 1 1 1 1 5 3 5 5 1
+##  [36] 3 3 5 1 3 5 5 1 5 3 5 1 1 1 5 3 3 3 3 1 5 1 3 1 5 5 3 5 3 5 1 1 5 3 3
+##  [71] 3 3 5 3 5 5 5 3 5 1 3 3 3 3 5 3 5 5 1 1 1 3 5 1 3 3 3 1 5 3 3 5 5 1 3
+## [106] 3 1 1 5 1 5 1 1 3 1 3 1 5 3 1 5 1 1 3 3 5 3 5 3 3 5 5 5 5 1 3 5 1 1 5
+```
+
+```r
+# Make another and call it x2
+
+x2 <- sample(x = c(1, 3, 5), size = 140, replace = TRUE)
+
+x2
+```
+
+```
+##   [1] 3 3 1 5 5 1 3 1 5 3 5 3 1 3 5 1 1 1 1 1 1 3 1 1 3 5 5 1 5 5 1 5 1 3 3
+##  [36] 3 3 3 3 5 5 5 1 3 5 3 1 1 5 5 1 5 5 5 5 5 1 5 3 3 3 3 5 1 5 1 3 5 5 1
+##  [71] 5 3 3 5 1 3 5 5 3 1 3 3 1 3 3 1 1 1 3 5 5 3 3 3 3 5 3 1 1 1 1 1 5 3 1
+## [106] 5 5 3 1 1 3 5 3 5 3 3 3 3 1 5 3 3 5 5 5 1 3 3 1 1 1 1 1 3 3 5 5 3 3 1
+```
+
+Let's add these variables x1 and x2 to our df using a base R command, _cbind()_. Thinking of this as "binding" information together the 'c' indicates these are columns that will be bound, but we can also bind rows together with _rbind()_
+
+
+The assignment operator **' <- '** or also **' = '** means we are writing over whatever the current df is. Here it says, "Bind together the dataframe df, vector x1, and vector x2."  We can think of vectors x1 and x2 as additional variables, perhaps categories, experimental conditions, or behavioral codes from two coders. 
+
+We otherwise can easily merge these because each is all the same _length_ or has 140 enteries 
+
+
+```r
+df <- cbind(df,x1,x2)
+
+
+str(df)
+```
+
+```
+## 'data.frame':	140 obs. of  7 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ x1          : num  3 5 3 1 3 5 5 1 5 3 ...
+##  $ x2          : num  3 3 1 5 5 1 3 1 5 3 ...
+```
+
+Let's act like columns x1 and x2 are behavioral codes from two coders who specified the number of bees on each flower species. Ideally, the coders would make the same observations, but we all know that isn't always the case, especially in behavioral data coding, which can be quite subjective at times.
+
+To check that columns x1 and x2 are similar/identical we would use the _==_ operator meaning "is equal to" -- R will print a logic output saying either TRUE or FALSE, where columns 2 and 3 either match or differ, respectively. 
 
 Below we are using the _$_ operator to individually select the columns by name.
 
 
 ```r
-matching2$PTs == matching2$Subjects
+df$x1 == df$x2
 ```
 
 ```
-##  [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-## [12]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE
-## [23]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-## [34]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-## [45]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-## [56]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-## [67]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-## [78]  TRUE
+##   [1]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE FALSE
+##  [12] FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
+##  [23] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
+##  [34] FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE  TRUE  TRUE FALSE
+##  [45] FALSE FALSE  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
+##  [56]  TRUE  TRUE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE  TRUE  TRUE
+##  [67] FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE
+##  [78] FALSE FALSE  TRUE  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE
+##  [89] FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE
+## [100] FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
+## [111] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
+## [122] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
+## [133] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
 ```
 
-```r
-str(matching2)
-```
-
-```
-## 'data.frame':	78 obs. of  9 variables:
-##  $ X                  : chr  "1" "1" "1" "1" ...
-##  $ PTs                : chr  "022A" "038A" "045A_V2" "046A" ...
-##  $ Subjects           : chr  "022A" "038A" "045A_V2" "046A" ...
-##  $ RMSD..5mm          : num  0.032 0.11 0.03 0.021 0.101 0.024 0.019 0.106 0.077 0.051 ...
-##  $ Age                : num  14.1 13.2 17.3 17.1 15.1 13.8 16.5 13.8 15.3 12.9 ...
-##  $ WASI_NVIQ          : num  140 103 106 126 121 112 104 127 129 100 ...
-##  $ Gender             : num  1 1 2 1 1 1 1 1 1 1 ...
-##  $ Handedness         : num  1 2 1 1 1 2 1 1 1 1 ...
-##  $ X1.ASD.m.R.2.TD.f.L: chr  "" "" "" "" ...
-```
-
-```r
-# Could also say:
-
-matching2[2] == matching2[3] # There's one False!
-```
-
-```
-##      PTs
-## 1   TRUE
-## 2   TRUE
-## 3   TRUE
-## 4   TRUE
-## 5   TRUE
-## 6   TRUE
-## 7   TRUE
-## 8   TRUE
-## 9   TRUE
-## 10  TRUE
-## 11  TRUE
-## 12  TRUE
-## 13  TRUE
-## 14  TRUE
-## 15  TRUE
-## 16  TRUE
-## 17  TRUE
-## 18  TRUE
-## 19  TRUE
-## 20  TRUE
-## 21 FALSE
-## 22  TRUE
-## 23  TRUE
-## 24  TRUE
-## 25  TRUE
-## 26  TRUE
-## 27  TRUE
-## 28  TRUE
-## 29  TRUE
-## 30  TRUE
-## 31  TRUE
-## 32  TRUE
-## 33  TRUE
-## 34  TRUE
-## 35  TRUE
-## 36  TRUE
-## 37  TRUE
-## 38  TRUE
-## 39  TRUE
-## 40  TRUE
-## 51  TRUE
-## 52  TRUE
-## 53  TRUE
-## 54  TRUE
-## 55  TRUE
-## 56  TRUE
-## 57  TRUE
-## 58  TRUE
-## 59  TRUE
-## 60  TRUE
-## 61  TRUE
-## 62  TRUE
-## 63  TRUE
-## 64  TRUE
-## 65  TRUE
-## 66  TRUE
-## 67  TRUE
-## 68  TRUE
-## 69  TRUE
-## 70  TRUE
-## 71  TRUE
-## 72  TRUE
-## 73  TRUE
-## 74  TRUE
-## 75  TRUE
-## 76  TRUE
-## 77  TRUE
-## 78  TRUE
-## 79  TRUE
-## 80  TRUE
-## 81  TRUE
-## 82  TRUE
-## 83  TRUE
-## 84  TRUE
-## 85  TRUE
-## 86  TRUE
-## 87  TRUE
-## 88  TRUE
-```
-
-If there were a larger dataset, you likely wouldn't want to eyeball. To find the row entry that doesn't match, we can use _which()_ and to print the contents of what's there we just index it using brackets. Since we know we want columns 2 and 3, we can concatenate them together and select out the entry. 
-
-The which command lets us know if it in row 21 and uses the _!=_ symbols to indicate "Does not equal" - so the command below reads as "Which entries in columns 2 and 3 of matching2 are not equal"
+Could also say this by index the number of each column. Examining the structure we see that x1 is column 6 and x2 is column 7:
 
 
 ```r
-which(matching2$PTs != matching2$Subjects)
+str(df)
 ```
 
 ```
-## [1] 21
+## 'data.frame':	140 obs. of  7 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ x1          : num  3 5 3 1 3 5 5 1 5 3 ...
+##  $ x2          : num  3 3 1 5 5 1 3 1 5 3 ...
 ```
 
 ```r
-matching2[which(matching2$PTs != matching2$Subjects),]
+table(df[6] == df[7]) # There's many falses, indicating many discrepancies
 ```
 
 ```
-##    X     PTs Subjects RMSD..5mm Age WASI_NVIQ Gender Handedness
-## 21 1 159A_V2     159A     0.036  15       123      2          2
-##    X1.ASD.m.R.2.TD.f.L
-## 21
+## 
+## FALSE  TRUE 
+##   102    38
 ```
-If this means something to us, we can decide what to do. One option is to overwrite the entry. Let's say that _V2 was some kind of data entry error. We can fix it by reassigning the value to just be "159A"
+
+If there were a larger dataset, you likely wouldn't want to eyeball. To find the row entry that doesn't match, we can use _which()_ and to print the contents of what's there we just index it using brackets. Since we know we want columns 6 and 7, we can concatenate them together and select out the entry. 
+
+The which command lets us know if it in row 21 and uses the _!=_ symbols to indicate "Does not equal" - so the command below reads as "Which entries in columns 6 and 7 of df are not equal"
 
 
 ```r
-matching2[21,2] <- "159A"  #In row 21, column 2, overwrite entry to read as "159A"
-
-#Double Check
-
-matching2[21,]
+which(df$x1 != df$x2)
 ```
 
 ```
-##    X  PTs Subjects RMSD..5mm Age WASI_NVIQ Gender Handedness
-## 21 1 159A     159A     0.036  15       123      2          2
-##    X1.ASD.m.R.2.TD.f.L
-## 21
+##   [1]   2   3   4   5   6   7  11  12  15  16  17  18  20  21  22  23  24
+##  [18]  25  26  27  29  30  31  32  33  34  35  38  39  40  44  45  46  49
+##  [35]  51  52  53  54  55  58  59  60  61  64  67  69  70  71  73  74  75
+##  [52]  76  78  79  83  85  86  87  88  89  90  91  93  94  96  99 100 101
+##  [69] 102 104 105 106 107 108 109 111 112 113 114 115 117 118 119 120 121
+##  [86] 122 123 124 125 126 128 129 130 131 132 133 134 135 136 138 139 140
 ```
 
-In reality, we are going to drop this column as it is redundant with column 3. We also don't want whatever column 9 is. We can drop things by  using minus sign  _-_ prior to a _c()_
+```r
+dferrors <- df[which(df$x1 != df$x2),]
+```
+
+Here, I'm selecting out all of the data that's associated with the instances where my coders did not make the same observation. Can be useful for going over discrepencies in coding, data entry errors, etc. I'm calling this new dataframe _'dferrors'_
 
 
 ```r
-matching2 <- matching2[-c(2,9)]  #We are overwrite the existing matching2, but matching still exists.
+str(dferrors) #Yikes a lot discrepencies!
 ```
 
-_NOTE_ Because there is no comma above outside of the c() argument, R reads 2 and 9 as columns. We could also write as:
+```
+## 'data.frame':	102 obs. of  7 variables:
+##  $ Sepal.Length: num  4.9 4.7 4.6 5 5.4 4.6 5.4 4.8 5.8 5.7 ...
+##  $ Sepal.Width : num  3 3.2 3.1 3.6 3.9 3.4 3.7 3.4 4 4.4 ...
+##  $ Petal.Length: num  1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.6 1.2 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.2 0.4 ...
+##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ x1          : num  5 3 1 3 5 5 1 1 1 5 ...
+##  $ x2          : num  3 1 5 5 1 3 5 3 5 1 ...
+```
 
-matching2[,-c(2,9)], if we wanted to retain all the rows.
+Let's say we speak to our coders about their discrepencies and coder 1 states that her 5's should actually be 3's. Let's see how this would change the results
+
+We'll again use base R commands here. Make a new df for potential errors. We need to do the comparison originally from our df, but since we are modifying the original, we may want to retain it as a cleaner copy. 
+
+*Note using tidyverse methods (outlined later) keeps your environment cleaner of objects
+
+
+We define a new dataframe, dferrors2 as a clone of df. Then say, 'In dataframe dferrors2, select out all instances where the value of variable x1 is equal to 5, in the 6th column (could also say dferrors2$x1), . 
+
+**Remember, [rows, columns]**
+
+You essentially are saying look for value 5 in column x1. But to define the row element, it takes the x1 specification. Since we only want this to rewrite over the values for our first coder, x1, we have to specify that this only applies to column x1 or column 6. If the 6 were omitted, then _all_ corresponding columns that had a '5' entered would be written.
+
+The first example omits the 5 column as it is non numeric, just for demonstration only
+
+
+```r
+dferrors2 <- df[-5] #For demonstration purposes dropping a categorical/factor variable
+
+str(dferrors2) #Now only 6 variables
+```
+
+```
+## 'data.frame':	140 obs. of  6 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ x1          : num  3 5 3 1 3 5 5 1 5 3 ...
+##  $ x2          : num  3 3 1 5 5 1 3 1 5 3 ...
+```
+
+```r
+dferrors2[dferrors2$x1 == 5,] <- 3  #Omiting the columns reference
+```
+
+We can confirm that some of the other columns, like Sepal.Length were also over written by comparing the entry from our dferrors2 set with the original df.  The places that read the logic output 'FALSE' are instances where the 5 was changed to the 3, but unfortunately, since we left out the column specification in the recode, we overwrote the original values that were in Sepal.Length (and other columns too!)
+
+
+```r
+dferrors2$Sepal.Length == df$Sepal.Length 
+```
+
+```
+##   [1]  TRUE FALSE  TRUE  TRUE  TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE
+##  [12]  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE
+##  [23] FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE
+##  [34] FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE FALSE FALSE  TRUE FALSE
+##  [45]  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [56] FALSE  TRUE  TRUE  TRUE FALSE FALSE  TRUE FALSE  TRUE FALSE  TRUE
+##  [67]  TRUE FALSE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE
+##  [78]  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE FALSE
+##  [89]  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE
+## [100]  TRUE  TRUE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE
+## [111] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE FALSE
+## [122]  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE FALSE
+## [133] FALSE FALSE  TRUE  TRUE FALSE  TRUE  TRUE FALSE
+```
+Let's recreate dferrors2. This time, I'm leaving all columns. Remember below, dferrors2 is initially a clone of df. We then re-write over the x1 variable because our coder says that her 5's were supposed to be 3. We specify this time that we only want to rewrite over column 6 (i.e., x1), and then ask which enteries of the coders do not match. This is what ultimately defines the dferrors2 dataframe. 
+
+
+
+```r
+dferrors2 <- df
+
+str(dferrors2) #Now has 7 variables
+```
+
+```
+## 'data.frame':	140 obs. of  7 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ x1          : num  3 5 3 1 3 5 5 1 5 3 ...
+##  $ x2          : num  3 3 1 5 5 1 3 1 5 3 ...
+```
+
+```r
+dferrors2[dferrors2$x1 == 5,6] <- 3
+
+which(dferrors2$x1 != dferrors2$x2)
+```
+
+```
+##  [1]   3   4   5   6   9  11  12  15  16  17  18  20  21  22  23  24  26
+## [18]  27  29  30  31  32  33  35  39  40  41  42  45  49  50  51  52  53
+## [35]  54  55  56  58  59  63  64  65  67  68  69  70  71  74  75  77  78
+## [52]  83  86  87  88  89  90  91  94  96  99 100 101 102 103 104 105 106
+## [69] 107 108 109 112 113 114 115 117 119 120 122 123 124 125 126 129 130
+## [86] 131 132 133 135 136 137 138 139 140
+```
+
+```r
+dferrors2 <- dferrors2[which(dferrors2$x1 != dferrors2$x2),]
+
+
+str(dferrors2) #Not much of an improvement 
+```
+
+```
+## 'data.frame':	94 obs. of  7 variables:
+##  $ Sepal.Length: num  4.7 4.6 5 5.4 4.4 5.4 4.8 5.8 5.7 5.4 ...
+##  $ Sepal.Width : num  3.2 3.1 3.6 3.9 2.9 3.7 3.4 4 4.4 3.9 ...
+##  $ Petal.Length: num  1.3 1.5 1.4 1.7 1.4 1.5 1.6 1.2 1.5 1.3 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.4 0.2 0.2 0.2 0.2 0.4 0.4 ...
+##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ x1          : num  3 1 3 3 3 1 1 1 3 3 ...
+##  $ x2          : num  1 5 5 1 5 5 3 5 1 1 ...
+```
+
+Above I dropped a column when defining the dferrors2 dataframe initially using the minus sign  _-_ . This can also be used in conjunction with _c()_ if I wanted to remove multiple columns. 
+
+Let's say, I'm not satisfied with coders' x1 and x2 scores, and want to drop them. 
+
+Here I'm back using our original dataframe, not the ones we were looking at with errors. 
+
+
+```r
+df <- df[-c(6,7)]  #We are overwrite the existing df now with just the first 5 columns and not columns 6 and 7 or variables x1 and x2
+
+str(df)
+```
+
+```
+## 'data.frame':	140 obs. of  5 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+```
+
+_NOTE_ Because there is no comma above outside of the c() argument, R reads 6 and 7 as columns. We could also write as:
+
+df[,-c(6,7)]    
+
+if we wanted to retain all the rows.
 
 
 We also could have subsetted these data in a single command with:
 
-_matching2 <- matching[c(1:40,51:88), -c(2,9)]_
+_df <- df[c(1:40,51:150), -c(6,7)]_
+
+If our original dataset had variables x1 and x2 included.
 
 
 ```r
-str(matching) #Compare original
+head(df) # Get a glimpse~
 ```
 
 ```
-## 'data.frame':	96 obs. of  9 variables:
-##  $ X                  : chr  "1" "1" "1" "1" ...
-##  $ PTs                : chr  "022A" "038A" "045A_V2" "046A" ...
-##  $ Subjects           : chr  "022A" "038A" "045A_V2" "046A" ...
-##  $ RMSD..5mm          : num  0.032 0.11 0.03 0.021 0.101 0.024 0.019 0.106 0.077 0.051 ...
-##  $ Age                : num  14.1 13.2 17.3 17.1 15.1 13.8 16.5 13.8 15.3 12.9 ...
-##  $ WASI_NVIQ          : num  140 103 106 126 121 112 104 127 129 100 ...
-##  $ Gender             : num  1 1 2 1 1 1 1 1 1 1 ...
-##  $ Handedness         : num  1 2 1 1 1 2 1 1 1 1 ...
-##  $ X1.ASD.m.R.2.TD.f.L: chr  "" "" "" "" ...
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa
 ```
 
-```r
-str(matching2)  #To cleaner version
-```
-
-```
-## 'data.frame':	78 obs. of  7 variables:
-##  $ X         : chr  "1" "1" "1" "1" ...
-##  $ Subjects  : chr  "022A" "038A" "045A_V2" "046A" ...
-##  $ RMSD..5mm : num  0.032 0.11 0.03 0.021 0.101 0.024 0.019 0.106 0.077 0.051 ...
-##  $ Age       : num  14.1 13.2 17.3 17.1 15.1 13.8 16.5 13.8 15.3 12.9 ...
-##  $ WASI_NVIQ : num  140 103 106 126 121 112 104 127 129 100 ...
-##  $ Gender    : num  1 1 2 1 1 1 1 1 1 1 ...
-##  $ Handedness: num  1 2 1 1 1 2 1 1 1 1 ...
-```
-
-```r
-head(matching2) # Get a glimpse~
-```
-
-```
-##   X Subjects RMSD..5mm  Age WASI_NVIQ Gender Handedness
-## 1 1     022A     0.032 14.1       140      1          1
-## 2 1     038A     0.110 13.2       103      1          2
-## 3 1  045A_V2     0.030 17.3       106      2          1
-## 4 1     046A     0.021 17.1       126      1          1
-## 5 1     056A     0.101 15.1       121      1          1
-## 6 1     071A     0.024 13.8       112      1          2
-```
 
 
 ### Data Modification
 
-Gender and Handedness were originally coded as 1's and 2's, where males were coded as 1 and females as 2. Similarly for handedness, 1 = Right handed and 2 = Left handed. The X variable is whether the participants have autism (ASD) or are typically developing (TD).
-
-We will need to overwrite these variables which are presently viewed as numbers and tell R that these are really _factors_ or a categorical variable.
-
-We could do this individually for our columns 1,6, and 7 -- Diagnosis, Gender, and Handedness. 
+To begin, I'm going to redefine our df with the original iris data set-- to keep the total sample to 150. Removing the rows above just serves as an example.
 
 
 ```r
-matching2$X <- factor(matching2$X, labels = c("ASD", "TD"))
+df <- iris
 
-matching2$X #check
+dim(df) #reports dimensions of the dataframe, 150 rows by 5 columns
 ```
 
 ```
-##  [1] ASD ASD ASD ASD ASD ASD ASD ASD ASD ASD ASD ASD ASD ASD ASD ASD ASD
-## [18] ASD ASD ASD ASD ASD ASD ASD ASD ASD ASD ASD ASD ASD ASD ASD ASD ASD
-## [35] ASD ASD ASD ASD ASD ASD TD  TD  TD  TD  TD  TD  TD  TD  TD  TD  TD 
-## [52] TD  TD  TD  TD  TD  TD  TD  TD  TD  TD  TD  TD  TD  TD  TD  TD  TD 
-## [69] TD  TD  TD  TD  TD  TD  TD  TD  TD  TD 
-## Levels: ASD TD
+## [1] 150   5
+```
+
+I'm going to add some additional variables, randomly selecting 0 or 1. These will serve as additional categorical variables for us to work with in analyses and graphing. Since these are flowers, let's say these variables represent rainfall conditions, Dry versus Wet, and use of fertilizer, yes or no. The rainfall variable would be a random effect and fertizlier was our experimental manipulation 
+
+
+
+```r
+rainfall <- sample(x = c(1,2), size = 150, replace = T)
+
+table(rainfall) #Note uneven number, perhaps expected since we can't control the whether
+```
+
+```
+## rainfall
+##  1  2 
+## 61 89
 ```
 
 ```r
-# Below is commented out and not run; however, would be how you would reassign these variables. 
+fert <- rep(c(1, 2),each = 75)
 
-
-#  matching2$Gender <- factor(matching2$Gender, labels = c("Male", "Female"))
-#  matching2$Handedness <- factor(matching2$Handedness, labels = c("Right", "Left"))
+fert
 ```
+
+```
+##   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+##  [36] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+##  [71] 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+## [106] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+## [141] 2 2 2 2 2 2 2 2 2 2
+```
+
+```r
+fert <- sample(fert) #Takes random sample of the order fert, essentially, randomizing it
+
+fert
+```
+
+```
+##   [1] 1 2 1 1 2 1 2 1 2 1 2 1 2 1 2 1 1 2 2 1 1 2 1 1 1 2 1 2 1 1 2 1 2 2 2
+##  [36] 1 1 2 2 2 1 1 2 2 1 1 1 2 1 2 1 2 1 2 1 1 2 2 2 2 1 2 1 1 2 1 1 1 1 2
+##  [71] 2 1 2 2 2 1 1 1 1 1 1 1 1 2 2 2 2 1 2 1 2 1 1 2 1 2 2 2 1 1 2 2 2 2 2
+## [106] 2 2 1 2 1 1 1 2 2 1 2 1 2 2 2 1 1 2 1 2 1 1 2 1 1 2 2 2 1 1 2 2 2 1 2
+## [141] 2 2 1 1 2 1 1 2 1 2
+```
+
+```r
+df <- cbind(df,rainfall, fert)
+
+str(df)
+```
+
+```
+## 'data.frame':	150 obs. of  7 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ rainfall    : num  1 2 2 1 2 2 2 1 2 2 ...
+##  $ fert        : num  1 2 1 1 2 1 2 1 2 1 ...
+```
+
+rainfall and fert were originally coded as 1's and 2's, where let's say 1 meant dry and 2 meant wet.  Similarly for fert, 1 = no and 2 = yes. The _Species_ variable is a categorical variable of the type of iris being observed.
+
+We will need to overwrite these rainfall and fert variables, which are presently viewed as numbers, and tell R that these are really _factors_ or a categorical variable. We want them to be similarly to how R views Species. 
+
+
+Below is one way to reassign these variables. 
+
+
+_df$rainfall <- factor(df$rainfall, labels = c("Dry", "Wet"))_
+
+_df$fert <- factor(df$fert, labels = c("No", "Yes"))_
 
 
 Or use _lapply()_  
 
-_lapply_ is essentially saying apply the following command _as.factor_ and returns a list object, in this case, a factor. The reassignment is like saying: "In matching2, columns 6 and 7, reassign to this value. This value should take all contents of what's in matching2 columns 6 and 7 ( _which presently are just numbers_ ), and make them into factors"
+_lapply_ is essentially saying apply the following command _as.factor_ and returns a list object, in this case, a factor. The reassignment is like saying: "In df, columns 6 and 7, reassign to this value. This value should take all contents of what's in df columns 6 and 7 ( _which presently are just numbers_ ), and make them into factors"
 
 
 ```r
-matching2$Gender # 1 = Male and 2 = Female
+df$rainfall # 1 = Dry and 2 = Wet
 ```
 
 ```
-##  [1] 1 1 2 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 2 1 2 1 2 1 2 1 1 1 1 2 1 1 2 1 1
-## [36] 1 1 1 1 1 1 1 1 2 1 1 1 1 1 2 1 1 2 2 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1
-## [71] 1 1 1 1 1 1 1 1
-```
-
-```r
-matching2$Handedness # 1 = Right and 2 = Left
-```
-
-```
-##  [1] 1 2 1 1 1 2 1 1 1 1 1 1 1 1 1 2 1 1 1 2 2 1 1 1 1 1 2 1 1 1 1 1 1 1 1
-## [36] 2 1 1 1 1 2 1 1 1 1 1 1 1 1 1 2 1 1 1 1 2 1 1 1 1 1 1 1 1 1 2 2 1 1 1
-## [71] 1 1 1 1 1 1 1 1
+##   [1] 1 2 2 1 2 2 2 1 2 2 2 2 1 2 1 1 1 1 2 1 2 2 2 2 2 2 2 1 2 2 1 2 2 1 1
+##  [36] 2 2 2 2 2 1 2 1 1 1 2 1 2 2 1 1 2 2 2 1 2 1 2 1 1 2 2 2 2 2 1 1 1 1 2
+##  [71] 2 1 2 1 1 1 2 2 1 1 2 2 2 2 1 2 2 2 1 1 1 2 2 2 2 1 2 2 2 1 1 2 2 2 1
+## [106] 2 1 1 1 2 1 2 1 1 2 2 2 2 2 2 2 1 1 1 2 2 1 2 2 2 1 1 1 2 1 2 1 2 1 2
+## [141] 2 1 2 2 2 1 2 2 2 1
 ```
 
 ```r
-matching2[c(6,7)] <- lapply(matching2[c(6,7)], as.factor)
-
-str(matching2[c(1,6,7)])
+df$fert # 1 = No and 2 = Yes
 ```
 
 ```
-## 'data.frame':	78 obs. of  3 variables:
-##  $ X         : Factor w/ 2 levels "ASD","TD": 1 1 1 1 1 1 1 1 1 1 ...
-##  $ Gender    : Factor w/ 2 levels "1","2": 1 1 2 1 1 1 1 1 1 1 ...
-##  $ Handedness: Factor w/ 2 levels "1","2": 1 2 1 1 1 2 1 1 1 1 ...
-```
-
-You'll notice that although Gender and Handedness are now factors like our X variable, they are still listed as 1's and 2's.
-
-When we changed X to be a factor above, we also supplied a _labels()_ argument and specified that it was "ASD" and "TD"
-
-**Order is _very_ important**
-
-The order that these are listed is how R determines what the 1 equals, 2 equals, etc.
-
-Calling for the _levels()_ of variable X reports that these are ASD and TD but for gender these are 1 and 2
-
-
-```r
-levels(matching2$X)
-```
-
-```
-## [1] "ASD" "TD"
+##   [1] 1 2 1 1 2 1 2 1 2 1 2 1 2 1 2 1 1 2 2 1 1 2 1 1 1 2 1 2 1 1 2 1 2 2 2
+##  [36] 1 1 2 2 2 1 1 2 2 1 1 1 2 1 2 1 2 1 2 1 1 2 2 2 2 1 2 1 1 2 1 1 1 1 2
+##  [71] 2 1 2 2 2 1 1 1 1 1 1 1 1 2 2 2 2 1 2 1 2 1 1 2 1 2 2 2 1 1 2 2 2 2 2
+## [106] 2 2 1 2 1 1 1 2 2 1 2 1 2 2 2 1 1 2 1 2 1 1 2 1 1 2 2 2 1 1 2 2 2 1 2
+## [141] 2 2 1 1 2 1 1 2 1 2
 ```
 
 ```r
-levels(matching2$Gender)
+str(df)
+```
+
+```
+## 'data.frame':	150 obs. of  7 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ rainfall    : num  1 2 2 1 2 2 2 1 2 2 ...
+##  $ fert        : num  1 2 1 1 2 1 2 1 2 1 ...
+```
+
+```r
+df[c(6,7)] <- lapply(df[c(6,7)], as.factor)
+
+str(df[c(6,7)])
+```
+
+```
+## 'data.frame':	150 obs. of  2 variables:
+##  $ rainfall: Factor w/ 2 levels "1","2": 1 2 2 1 2 2 2 1 2 2 ...
+##  $ fert    : Factor w/ 2 levels "1","2": 1 2 1 1 2 1 2 1 2 1 ...
+```
+
+You'll notice that although rainfall and fert are now factors like our Species variable, they are still listed as 1's and 2's.
+
+Our Species variable lists the levels of this factor in the structure print out. We can also print them with the command _levels()_
+
+
+```r
+levels(df$Species)
+```
+
+```
+## [1] "setosa"     "versicolor" "virginica"
+```
+
+```r
+levels(df$rainfall)
 ```
 
 ```
 ## [1] "1" "2"
 ```
 
-We need to "assign" labels to these levels. We are **not** changing the levels themselves, and since there currently are no labels, we cannot specify that without R printing an error message about labels not existing.
+We can assign labels to our levels of a factor using the _labels()_ argument
+
+**Order is _very_ important**
+
+The order that these labels are listed is how R determines what the 1 equals, 2 equals, etc.
+
+We need to "assign" labels to these levels. We are **not** changing the levels themselves. These exist as 1 and 2. All we are doing is defining what 1 and 2 are, and since there currently are no labels, we cannot specify that without R printing an error message about labels not existing.
 
 For this, we will need to say _levels()_ of the variable of interest and then assign a concatenated string as our labels. We do not use the _labels_ command here.
 
 
 
 ```r
-levels(matching2$Gender) <- c("Male", "Female")
-levels(matching2$Handedness) <- c("Right", "Left")
+levels(df$rainfall) <- c("Dry", "Wet")
+levels(df$fert) <- c("No", "Yes")
 
-str(matching2)
-```
-
-```
-## 'data.frame':	78 obs. of  7 variables:
-##  $ X         : Factor w/ 2 levels "ASD","TD": 1 1 1 1 1 1 1 1 1 1 ...
-##  $ Subjects  : chr  "022A" "038A" "045A_V2" "046A" ...
-##  $ RMSD..5mm : num  0.032 0.11 0.03 0.021 0.101 0.024 0.019 0.106 0.077 0.051 ...
-##  $ Age       : num  14.1 13.2 17.3 17.1 15.1 13.8 16.5 13.8 15.3 12.9 ...
-##  $ WASI_NVIQ : num  140 103 106 126 121 112 104 127 129 100 ...
-##  $ Gender    : Factor w/ 2 levels "Male","Female": 1 1 2 1 1 1 1 1 1 1 ...
-##  $ Handedness: Factor w/ 2 levels "Right","Left": 1 2 1 1 1 2 1 1 1 1 ...
-```
-
-```r
-head(matching2)
+str(df)
 ```
 
 ```
-##     X Subjects RMSD..5mm  Age WASI_NVIQ Gender Handedness
-## 1 ASD     022A     0.032 14.1       140   Male      Right
-## 2 ASD     038A     0.110 13.2       103   Male       Left
-## 3 ASD  045A_V2     0.030 17.3       106 Female      Right
-## 4 ASD     046A     0.021 17.1       126   Male      Right
-## 5 ASD     056A     0.101 15.1       121   Male      Right
-## 6 ASD     071A     0.024 13.8       112   Male       Left
+## 'data.frame':	150 obs. of  7 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ rainfall    : Factor w/ 2 levels "Dry","Wet": 1 2 2 1 2 2 2 1 2 2 ...
+##  $ fert        : Factor w/ 2 levels "No","Yes": 1 2 1 1 2 1 2 1 2 1 ...
 ```
 
 ```r
-tail(matching2) # Everything looks good!
+head(df)
 ```
 
 ```
-##     X Subjects RMSD..5mm  Age WASI_NVIQ Gender Handedness
-## 83 TD     402C     0.056 16.1        97   Male      Right
-## 84 TD     407C     0.059 14.8        90   Male      Right
-## 85 TD     415C     0.035 13.6       125   Male      Right
-## 86 TD  418C_V2     0.082  9.2       112   Male      Right
-## 87 TD     433C     0.088 14.1       112   Male      Right
-## 88 TD     434C     0.084 12.2       122   Male      Right
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species rainfall fert
+## 1          5.1         3.5          1.4         0.2  setosa      Dry   No
+## 2          4.9         3.0          1.4         0.2  setosa      Wet  Yes
+## 3          4.7         3.2          1.3         0.2  setosa      Wet   No
+## 4          4.6         3.1          1.5         0.2  setosa      Dry   No
+## 5          5.0         3.6          1.4         0.2  setosa      Wet  Yes
+## 6          5.4         3.9          1.7         0.4  setosa      Wet   No
+```
+
+```r
+tail(df) # Everything looks good!
+```
+
+```
+##     Sepal.Length Sepal.Width Petal.Length Petal.Width   Species rainfall
+## 145          6.7         3.3          5.7         2.5 virginica      Wet
+## 146          6.7         3.0          5.2         2.3 virginica      Dry
+## 147          6.3         2.5          5.0         1.9 virginica      Wet
+## 148          6.5         3.0          5.2         2.0 virginica      Wet
+## 149          6.2         3.4          5.4         2.3 virginica      Wet
+## 150          5.9         3.0          5.1         1.8 virginica      Dry
+##     fert
+## 145  Yes
+## 146   No
+## 147   No
+## 148  Yes
+## 149   No
+## 150  Yes
 ```
 
 Last few modifications we could consider are the variable names. Sometimes, variables have verbose names, and sometimes they are more ambiguous. Using _colnames()_  or simply _names()_ with the dataframe of interest inside will print. 
@@ -555,21 +775,21 @@ Last few modifications we could consider are the variable names. Sometimes, vari
 
 
 ```r
-colnames(matching2)
+colnames(df)
 ```
 
 ```
-## [1] "X"          "Subjects"   "RMSD..5mm"  "Age"        "WASI_NVIQ" 
-## [6] "Gender"     "Handedness"
+## [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width" 
+## [5] "Species"      "rainfall"     "fert"
 ```
 
 ```r
-names(matching2)
+names(df)
 ```
 
 ```
-## [1] "X"          "Subjects"   "RMSD..5mm"  "Age"        "WASI_NVIQ" 
-## [6] "Gender"     "Handedness"
+## [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width" 
+## [5] "Species"      "rainfall"     "fert"
 ```
 
 We can also assign these names all at once    **Not recommended for large datasets**
@@ -580,9 +800,9 @@ We can create a new object-- a character vector, then assign this character vect
 ```r
 newnames <- c("V1", "V2", "V3", "V4", "V5", "V6", "V7")
 
-colnames(matching2) <- newnames
+colnames(df) <- newnames
 
-colnames(matching2)
+colnames(df)
 ```
 
 ```
@@ -592,37 +812,48 @@ This would be very tedious with large data sets. Let's change back. Just re-assi
 
 
 ```r
-oldnames <- c("X", "Subjects", "RMSD..5mm", "Age", "WASI_NVIQ", "Gender", "Handedness")
+oldnames <- c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width", "Species", "rainfall", "fert")
 
-colnames(matching2) <- oldnames
+colnames(df) <- oldnames
 
-names(matching2)
+names(df)
 ```
 
 ```
-## [1] "X"          "Subjects"   "RMSD..5mm"  "Age"        "WASI_NVIQ" 
-## [6] "Gender"     "Handedness"
+## [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width" 
+## [5] "Species"      "rainfall"     "fert"
 ```
 
 
-While X might mean something to us, to someone else they might not get it. Also the "RMSD..5mm" is a bit annoying to type. We can just rename these columns specifically using _[  ]_ to index.
+Individual columns can be renamed as well. We can just rename these columns specifically using _[  ]_ to index.
 
 
 ```r
-colnames(matching2)[c(1,3)] <- c("Diagnosis", "RMSD")
+colnames(df)[c(1,3)] <- c("Example", "NewName")
 
-names(matching2)
+names(df)
 ```
 
 ```
-## [1] "Diagnosis"  "Subjects"   "RMSD"       "Age"        "WASI_NVIQ" 
-## [6] "Gender"     "Handedness"
+## [1] "Example"     "Sepal.Width" "NewName"     "Petal.Width" "Species"    
+## [6] "rainfall"    "fert"
+```
+
+```r
+names(df) <- oldnames  #Change it back
+
+names(df) #confirmed!
+```
+
+```
+## [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width" 
+## [5] "Species"      "rainfall"     "fert"
 ```
 
 
-Now we are ready to check some assumptions and see if our samples are matched on our variables of interest: RMSD, Age, IQ, Gender, and Handedness
+Now we are ready to check some assumptions about the data~
 
-# 5/8/19: Matching Basics 
+# 5/8/19: df Basics 
 
 
 ## Summaries and Quick Descriptives
@@ -643,97 +874,105 @@ _Easy-peasey, lemon squeazy~_
 | _describe_              | gives summary statistics, treating factors as numbers, cannot be grouped useful for whole sample descriptives of central tendency and variance                      |
 
 
-To start-- there is the base R _summary_ command. Calling this on our dataframe, matching2, will count factors, measure character lengths, and quartiles/means/medians of numeric variables. 
+To start-- there is the base R _summary_ command. Calling this on our dataframe, df, will count factors, measure character lengths, and quartiles/means/medians of numeric variables. 
 
 
 ```r
-summary(matching2)
+summary(df)
 ```
 
 ```
-##  Diagnosis   Subjects              RMSD              Age       
-##  ASD:40    Length:78          Min.   :0.01900   Min.   : 7.40  
-##  TD :38    Class :character   1st Qu.:0.03650   1st Qu.:11.57  
-##            Mode  :character   Median :0.05850   Median :13.85  
-##                               Mean   :0.06017   Mean   :13.66  
-##                               3rd Qu.:0.07875   3rd Qu.:15.88  
-##                               Max.   :0.12600   Max.   :18.00  
-##    WASI_NVIQ        Gender   Handedness
-##  Min.   : 53.0   Male  :65   Right:66  
-##  1st Qu.: 97.0   Female:13   Left :12  
-##  Median :104.5                         
-##  Mean   :105.8                         
-##  3rd Qu.:118.0                         
-##  Max.   :140.0
+##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
+##  Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
+##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+##  Median :5.800   Median :3.000   Median :4.350   Median :1.300  
+##  Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199  
+##  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+##  Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
+##        Species   rainfall  fert   
+##  setosa    :50   Dry:61   No :75  
+##  versicolor:50   Wet:89   Yes:75  
+##  virginica :50                    
+##                                   
+##                                   
+## 
 ```
 
-Continuing the base R way, if you want to look at some summaries across groups, say comparing ASD and TD, you can use _aggregate_ and _tapply_ commands.
+Continuing the base R way, if you want to look at some summaries across groups, say comparing fertilizer use, you can use _aggregate_ and _tapply_ commands.
 
-For each of these examples, R requires that numeric variables be treated as numbers and factors are not accepted as numbers-- but are categories. Consider this if you have 'non-numeric' error warnings and R is trying to average a category/factor.
+For each of these examples, R requires that numeric variables be treated as numbers and factors are not accepted as numbers-- but are categories. Consider this if you have 'non-numeric' error warnings and R is trying to averPetal.Length a category/factor.
 
 
 This formula is using aggregate's built in algorithm: _aggregate(df$frequencyVaraible, by=list(df$CategoryVariable), FUN = sum/mean/sd/etc.)_
 
 
 ```r
-aggregate(RMSD ~Diagnosis, matching2, mean)  # is the same as
+aggregate(Sepal.Length ~Species, df, mean)  # is the same as
 ```
 
 ```
-##   Diagnosis       RMSD
-## 1       ASD 0.06260000
-## 2        TD 0.05760526
-```
-
-```r
-aggregate(matching2$RMSD, by=list(matching2$Diagnosis), FUN = mean )
-```
-
-```
-##   Group.1          x
-## 1     ASD 0.06260000
-## 2      TD 0.05760526
+##      Species Sepal.Length
+## 1     setosa        5.006
+## 2 versicolor        5.936
+## 3  virginica        6.588
 ```
 
 ```r
-aggregate(RMSD ~ Diagnosis + Gender, matching2, mean) # Additional categories can be added to the formula
+aggregate(df$Sepal.Length, by=list(df$Species), FUN = mean )
 ```
 
 ```
-##   Diagnosis Gender       RMSD
-## 1       ASD   Male 0.06153125
-## 2        TD   Male 0.05596970
-## 3       ASD Female 0.06687500
-## 4        TD Female 0.06840000
+##      Group.1 mean.df$Sepal.Length
+## 1     setosa                5.006
+## 2 versicolor                5.936
+## 3  virginica                6.588
+```
+
+```r
+aggregate(Sepal.Length ~ Species + rainfall, df, mean) # Additional categories can be added to the formula
+```
+
+```
+##      Species rainfall Sepal.Length
+## 1     setosa      Dry     5.084211
+## 2 versicolor      Dry     6.009524
+## 3  virginica      Dry     6.480952
+## 4     setosa      Wet     4.958065
+## 5 versicolor      Wet     5.882759
+## 6  virginica      Wet     6.665517
 ```
 
 Or we could use _tapply_ 
 
 
 ```r
-tapply(matching2$RMSD, matching2$Diagnosis, FUN = mean)
+tapply(df$Sepal.Length, df$Species, FUN = mean)
 ```
 
 ```
-##        ASD         TD 
-## 0.06260000 0.05760526
+##     setosa versicolor  virginica 
+##      5.006      5.936      6.588
 ```
 
-Multiple summary statistics? There's a function for that.
+Multiple summary statistics? There's a function for that. This asks for the averPetal.Length and standard deviation
 
 
 ```r
-tapply(matching2$RMSD, matching2$Diagnosis, FUN = function(x) c( MN= mean(x), SD = sd(x)))
+tapply(df$Sepal.Length, df$Species, FUN = function(x) c( MN= mean(x), SD = sd(x)))
 ```
 
 ```
-## $ASD
-##         MN         SD 
-## 0.06260000 0.02696512 
+## $setosa
+##        MN        SD 
+## 5.0060000 0.3524897 
 ## 
-## $TD
-##         MN         SD 
-## 0.05760526 0.02695596
+## $versicolor
+##        MN        SD 
+## 5.9360000 0.5161711 
+## 
+## $virginica
+##        MN        SD 
+## 6.5880000 0.6358796
 ```
 
 
@@ -741,15 +980,17 @@ This individual/self-defined function also works with aggregate command as well.
 
 
 ```r
-with(matching2, aggregate(RMSD ~ Diagnosis + Gender, FUN = function(x) c(MN = mean(x), SD = sd(x))))
+with(df, aggregate(Sepal.Length ~ Species + rainfall, FUN = function(x) c(MN = mean(x), SD = sd(x))))
 ```
 
 ```
-##   Diagnosis Gender    RMSD.MN    RMSD.SD
-## 1       ASD   Male 0.06153125 0.02697787
-## 2        TD   Male 0.05596970 0.02559600
-## 3       ASD Female 0.06687500 0.02831677
-## 4        TD Female 0.06840000 0.03622568
+##      Species rainfall Sepal.Length.MN Sepal.Length.SD
+## 1     setosa      Dry       5.0842105       0.3419928
+## 2 versicolor      Dry       6.0095238       0.4948785
+## 3  virginica      Dry       6.4809524       0.7131753
+## 4     setosa      Wet       4.9580645       0.3556911
+## 5 versicolor      Wet       5.8827586       0.5332307
+## 6  virginica      Wet       6.6655172       0.5740059
 ```
 
 
@@ -757,29 +998,32 @@ Here we are using some tidyr commands and the **%>%** operator. This lets R know
 
 The tableone package is handy for providing descriptive statistics on each variable. However, because some of our variables are factors, R will count them as categories.
 
-Below is saying:  "Create the object tabave. Take matching2 -- then group by Diagnosis -- summarize the variable if it is numeric, and return the mean and standard deviation"
+Below is saying:  "Create the object tabave. Take df -- then group by Species -- summarize the variable if it is numeric, and return the mean and standard deviation"
 
 The initial assignment only assigns-- to see what we created-- call it's name~
 
 
 ```r
-tabave <- matching2 %>%
-            group_by(Diagnosis) %>%
+tabave <- df %>%
+            group_by(Species) %>%
             summarise_if(is.numeric, c(mean, sd))
 tabave
 ```
 
 ```
-## # A tibble: 2 x 7
-##   Diagnosis RMSD_fn1 Age_fn1 WASI_NVIQ_fn1 RMSD_fn2 Age_fn2 WASI_NVIQ_fn2
-##   <fct>        <dbl>   <dbl>         <dbl>    <dbl>   <dbl>         <dbl>
-## 1 ASD         0.0626    13.7          106.   0.0270    2.72          18.6
-## 2 TD          0.0576    13.7          105.   0.0270    2.66          14.2
+## # A tibble: 3 x 9
+##   Species Sepal.Length_fn1 Sepal.Width_fn1 Petal.Length_fn1 Petal.Width_fn1
+##   <fct>              <dbl>           <dbl>            <dbl>           <dbl>
+## 1 setosa              5.01            3.43             1.46           0.246
+## 2 versic~             5.94            2.77             4.26           1.33 
+## 3 virgin~             6.59            2.97             5.55           2.03 
+## # ... with 4 more variables: Sepal.Length_fn2 <dbl>,
+## #   Sepal.Width_fn2 <dbl>, Petal.Length_fn2 <dbl>, Petal.Width_fn2 <dbl>
 ```
 
-This prints out, by diagnosis, our group means-- listed first with a "_fn1" -- followed by the group SD with a "_fn2"
+This prints out, by Species, our group means-- listed first with a "_fn1" -- followed by the group SD with a "_fn2"
 
-_Note_ This did not print out anything with Gender or Handedness. That is because these variables are not numeric-- they are factors. This requries the *summarise_if()* command. 
+_Note_ This did not print out anything with rainfall or fert. That is because these variables are not numeric-- they are factors. This requries the *summarise_if()* command. 
 
 Alternative summarise (or summarize! both are accepted) commands include: summarize(), summarize_at, summarize_all.   
 
@@ -789,72 +1033,70 @@ There are other summary type commands-- such as using the **tableone** package
 
 
 ```r
-vars <- colnames(matching2)
-vars <- vars[c(3:7)]
+vars <- colnames(df)
+vars <- vars[c(1:4)]
 vars
 ```
 
 ```
-## [1] "RMSD"       "Age"        "WASI_NVIQ"  "Gender"     "Handedness"
+## [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"
 ```
 
 ```r
-CreateTableOne(vars = vars, data = matching2, strata = "Diagnosis", test = T) #Have true test to obtain p values
+CreateTableOne(vars = vars, data = df, strata = "Species", test = T) #Have true test to obtain p values
 ```
 
 ```
-##                        Stratified by Diagnosis
-##                         ASD            TD             p      test
-##   n                         40             38                    
-##   RMSD (mean (SD))        0.06 (0.03)    0.06 (0.03)   0.416     
-##   Age (mean (SD))        13.66 (2.72)   13.67 (2.66)   0.982     
-##   WASI_NVIQ (mean (SD)) 106.15 (18.55) 105.45 (14.21)  0.852     
-##   Gender = Female (%)        8 (20.0)       5 (13.2)   0.612     
-##   Handedness = Left (%)      7 (17.5)       5 (13.2)   0.828
+##                           Stratified by Species
+##                            setosa      versicolor  virginica   p      test
+##   n                          50          50          50                   
+##   Sepal.Length (mean (SD)) 5.01 (0.35) 5.94 (0.52) 6.59 (0.64) <0.001     
+##   Sepal.Width (mean (SD))  3.43 (0.38) 2.77 (0.31) 2.97 (0.32) <0.001     
+##   Petal.Length (mean (SD)) 1.46 (0.17) 4.26 (0.47) 5.55 (0.55) <0.001     
+##   Petal.Width (mean (SD))  0.25 (0.11) 1.33 (0.20) 2.03 (0.27) <0.001
 ```
 
 
 ## Chi-Square Tests
 
+A common test of independence and experimental check for adequate group representation examines whether expected frequencies of group membership match observed values or depend on other factors. That is, did a certain species inadvertainly experience a certain level of rainfall? Or did a species vary in its probability of receiving fertilizer?
+
+
 
 ```r
-chisq.test(matching2$Diagnosis, matching2$Gender)
+chisq.test(df$Species, df$rainfall)
 ```
 
 ```
 ## 
-## 	Pearson's Chi-squared test with Yates' continuity correction
+## 	Pearson's Chi-squared test
 ## 
-## data:  matching2$Diagnosis and matching2$Gender
-## X-squared = 0.25658, df = 1, p-value = 0.6125
-```
-
-```r
-chisq.test(matching2$Diagnosis, matching2$Handedness)
-```
-
-```
-## 
-## 	Pearson's Chi-squared test with Yates' continuity correction
-## 
-## data:  matching2$Diagnosis and matching2$Handedness
-## X-squared = 0.047234, df = 1, p-value = 0.8279
+## data:  df$Species and df$rainfall
+## X-squared = 0.22104, df = 2, p-value = 0.8954
 ```
 
 ```r
-tadaa_chisq(matching2, x = Diagnosis, y = Gender, print = "markdown")
+chisq.test(df$Species, df$fert)
 ```
 
 ```
-## Warning: Unknown or uninitialised column: 'cramers'.
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  df$Species and df$fert
+## X-squared = 1.92, df = 2, p-value = 0.3829
 ```
 
-Table 1: **Pearson's Chi-squared test with Yates' continuity correction**
+```r
+tadaa_chisq(df, x = Species, y = rainfall, print = "markdown")
+```
+
+Table 1: **Pearson's Chi-squared test**
 
 
-| $\chi^2$ |  p   | df | Odds Ratio | $\phi$ |
-|:--------:|:----:|:--:|:----------:|:------:|
-|   0.26   | .612 | 1  |    0.61    |  0.09  |
+| $\chi^2$ |  p   | df | Cramer\'s V |
+|:--------:|:----:|:--:|:-----------:|
+|   0.22   | .895 | 2  |    0.04     |
 
 
 <br>
@@ -862,170 +1104,230 @@ Table 1: **Pearson's Chi-squared test with Yates' continuity correction**
 
 <br>
 
-
+Both tests indicate a non-significant X-squared value, meaning we cannot reject the null hypothesis that the groups do not differ. That is, we observed no evidence to contradict the statement that the species of iris received similar variation of rainfall and fertilizer probabilities. 
 
 ## Variance Assumptions: Bartlett's and Levene's
 
-Before confirming that our means match, we need to check some assumptions about homogeneity of variance for each group. To do this, we can run Bartlett's test or Levene's test. For here we just specify _bartlett.test_ wrapped around our variable of interest, in this case RMSD, and our grouping variable Diagnosis. We then specify that the data file we are referring to is matching2
+We also want to examine homogeneity of variance for each group. To do this, we can run Bartlett's test or Levene's test. For here we just specify _bartlett.test_ wrapped around our variable of interest, in this case Sepal.Length, and our grouping variable Species. We then specify that the data file we are referring to is df
 
 Alternative way of writing this test using _leveneTest()_ similarly with a (y, group) ordering and specify the dataframe directly.
 
-Bartlett's test and Levene's are similar in testing for equal variances across groups for a continuous variable, with Levene's test being less influenced by outliers. This isn't a 
+Bartlett's test and Levene's are similar in testing for equal variances across groups for a continuous variable, with Levene's test being less influenced by outliers. 
 
 
 ```r
-bartlett.test(RMSD ~ Diagnosis, matching2) 
+bartlett.test(Sepal.Length ~ Species, df) 
 ```
 
 ```
 ## 
 ## 	Bartlett test of homogeneity of variances
 ## 
-## data:  RMSD by Diagnosis
-## Bartlett's K-squared = 4.3313e-06, df = 1, p-value = 0.9983
+## data:  Sepal.Length by Species
+## Bartlett's K-squared = 16.006, df = 2, p-value = 0.0003345
 ```
 
 ```r
-leveneTest(matching2$RMSD, matching2$Diagnosis)
+leveneTest(df$Sepal.Length, df$Species)
 ```
 
 ```
 ## Levene's Test for Homogeneity of Variance (center = median)
-##       Df F value Pr(>F)
-## group  1  0.2494  0.619
-##       76
+##        Df F value   Pr(>F)   
+## group   2  6.3527 0.002259 **
+##       147                    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
+These test strongly indicate that the variance in sepal length among the groups is not equal, some groups have a larger variance than others.
 
-Plotting normal qq-plots is also fairly easy. Here are examples with three methods-- you'll notice that once we start using tidyverse the output becomes a dataframe/double value. This will need to be unlisted first then changed to a number. This step is avoided in the other two methods because the RMSD variable is a number, but once it is filtered and selected it is created into its own dataframe.
+
+
+```r
+bartlett.test(Sepal.Length ~ rainfall, df) 
+```
+
+```
+## 
+## 	Bartlett test of homogeneity of variances
+## 
+## data:  Sepal.Length by rainfall
+## Bartlett's K-squared = 0.5323, df = 1, p-value = 0.4656
+```
+
+```r
+leveneTest(df$Sepal.Length, df$fert)
+```
+
+```
+## Levene's Test for Homogeneity of Variance (center = median)
+##        Df F value Pr(>F)
+## group   1  2.0505 0.1543
+##       148
+```
+
+For our other variables though, there appear to be similar variances among groups, when collapsing across species. It may be unrealistic to expect the different species variances to be similar, but good to keep in mind when running analyses
+
+
+### Q-Q plots
+
+Plotting normal qq-plots is also fairly easy. Here are examples with three methods-- you'll notice that once we start using tidyverse the output becomes a dataframe/double value. This will need to be unlisted first then changed to a number. This step is avoided in the other two methods because the Sepal.Length variable is a number, but once it is filtered and selected it is created into its own dataframe.
 
 
 ```r
 # Base R way
 
-qqnorm(matching2$RMSD[matching2$Diagnosis == "ASD"], main = "Q-QPlot for ASD RMSD"); qqline(matching2$RMSD[matching2$Diagnosis == "ASD"])
+qqnorm(df$Sepal.Length[df$rainfall == "Dry"], main = "Q-QPlot for Dry Sepal.Length"); qqline(df$Sepal.Length[df$rainfall == "Dry"])
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-28-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-35-1.png)<!-- -->
 
 ```r
 #Tidy way
 
-TDRMSD <- matching2 %>%
-dplyr::filter(Diagnosis == "TD") %>%
-  dplyr::select(RMSD) 
+WetSepal.Length <- df %>%
+dplyr::filter(rainfall == "Wet") %>%
+  dplyr::select(Sepal.Length) 
 
-qqnorm(as.numeric(unlist(TDRMSD)), main = "Q-QPlot for TD RMSD"); qqline(as.numeric(unlist(TDRMSD)))
+qqnorm(as.numeric(unlist(WetSepal.Length)), main = "Q-QPlot for Wet Sepal.Length"); qqline(as.numeric(unlist(WetSepal.Length)))
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-28-2.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-35-2.png)<!-- -->
 
 ```r
 ## A GGPLOT way
 
-matching2 %>%
-  ggplot(aes(sample = RMSD)) +
+df %>%
+  ggplot(aes(sample = Sepal.Length)) +
   geom_qq() + geom_qq_line() +
-  facet_wrap(~Diagnosis, scales = "free_y")
+  facet_wrap(~rainfall, scales = "free_y")
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-28-3.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-35-3.png)<!-- -->
+
 
 ## Skewedness and Kurtosis
 
 We might already have an idea if the data are skewed from the Q-Q Plots, but we can also print these values directly for the whole data set
 
-We can use _describeBy()_ and just like with summarize- the variable will need to be numeric. Below we are asking R to describe columns 3-5, all numeric, and by Diagnosis Group.
+We can use _describeBy()_ and just like with summarize- the variable will need to be numeric. Below we are asking R to describe columns 3-5, all numeric, and by Species Group.
 
 
 
 ```r
-describeBy(matching2[3:5], group = matching2$Diagnosis)
+describeBy(df[1:4], group = df$Species)
 ```
 
 ```
 ## 
 ##  Descriptive statistics by group 
-## group: ASD
-##           vars  n   mean    sd median trimmed   mad   min    max range
-## RMSD         1 40   0.06  0.03   0.06    0.06  0.03  0.02   0.11  0.09
-## Age          2 40  13.66  2.72  13.80   13.73  3.41  7.40  18.00 10.60
-## WASI_NVIQ    3 40 106.15 18.55 104.00  106.75 18.53 53.00 140.00 87.00
-##            skew kurtosis   se
-## RMSD       0.10    -1.32 0.00
-## Age       -0.17    -0.92 0.43
-## WASI_NVIQ -0.39     0.20 2.93
+## group: setosa
+##              vars  n mean   sd median trimmed  mad min max range skew
+## Sepal.Length    1 50 5.01 0.35    5.0    5.00 0.30 4.3 5.8   1.5 0.11
+## Sepal.Width     2 50 3.43 0.38    3.4    3.42 0.37 2.3 4.4   2.1 0.04
+## Petal.Length    3 50 1.46 0.17    1.5    1.46 0.15 1.0 1.9   0.9 0.10
+## Petal.Width     4 50 0.25 0.11    0.2    0.24 0.00 0.1 0.6   0.5 1.18
+##              kurtosis   se
+## Sepal.Length    -0.45 0.05
+## Sepal.Width      0.60 0.05
+## Petal.Length     0.65 0.02
+## Petal.Width      1.26 0.01
 ## -------------------------------------------------------- 
-## group: TD
-##           vars  n   mean    sd median trimmed   mad   min    max range
-## RMSD         1 38   0.06  0.03   0.06    0.06  0.03  0.02   0.13   0.1
-## Age          2 38  13.67  2.66  14.00   13.78  2.82  8.10  17.70   9.6
-## WASI_NVIQ    3 38 105.45 14.21 105.50  105.97 12.60 62.00 129.00  67.0
-##            skew kurtosis   se
-## RMSD       0.57    -0.57 0.00
-## Age       -0.41    -0.79 0.43
-## WASI_NVIQ -0.52     0.44 2.30
+## group: versicolor
+##              vars  n mean   sd median trimmed  mad min max range  skew
+## Sepal.Length    1 50 5.94 0.52   5.90    5.94 0.52 4.9 7.0   2.1  0.10
+## Sepal.Width     2 50 2.77 0.31   2.80    2.78 0.30 2.0 3.4   1.4 -0.34
+## Petal.Length    3 50 4.26 0.47   4.35    4.29 0.52 3.0 5.1   2.1 -0.57
+## Petal.Width     4 50 1.33 0.20   1.30    1.32 0.22 1.0 1.8   0.8 -0.03
+##              kurtosis   se
+## Sepal.Length    -0.69 0.07
+## Sepal.Width     -0.55 0.04
+## Petal.Length    -0.19 0.07
+## Petal.Width     -0.59 0.03
+## -------------------------------------------------------- 
+## group: virginica
+##              vars  n mean   sd median trimmed  mad min max range  skew
+## Sepal.Length    1 50 6.59 0.64   6.50    6.57 0.59 4.9 7.9   3.0  0.11
+## Sepal.Width     2 50 2.97 0.32   3.00    2.96 0.30 2.2 3.8   1.6  0.34
+## Petal.Length    3 50 5.55 0.55   5.55    5.51 0.67 4.5 6.9   2.4  0.52
+## Petal.Width     4 50 2.03 0.27   2.00    2.03 0.30 1.4 2.5   1.1 -0.12
+##              kurtosis   se
+## Sepal.Length    -0.20 0.09
+## Sepal.Width      0.38 0.05
+## Petal.Length    -0.37 0.08
+## Petal.Width     -0.75 0.04
 ```
+The Petal Width of the Setosa group appears slight skewed, but no other value indicates an issue
+
 
 We can also use regular _describe_ which can handle factors
 
 
 ```r
-describe(matching2[-2])  #Just droping Subject ID column
+describe(df)
 ```
 
 ```
-## matching2[-2] 
+## df 
 ## 
-##  6  Variables      78  Observations
+##  7  Variables      150  Observations
 ## ---------------------------------------------------------------------------
-## Diagnosis 
+## Sepal.Length 
+##        n  missing distinct     Info     Mean      Gmd      .05      .10 
+##      150        0       35    0.998    5.843   0.9462    4.600    4.800 
+##      .25      .50      .75      .90      .95 
+##    5.100    5.800    6.400    6.900    7.255 
+## 
+## lowest : 4.3 4.4 4.5 4.6 4.7, highest: 7.3 7.4 7.6 7.7 7.9
+## ---------------------------------------------------------------------------
+## Sepal.Width 
+##        n  missing distinct     Info     Mean      Gmd      .05      .10 
+##      150        0       23    0.992    3.057   0.4872    2.345    2.500 
+##      .25      .50      .75      .90      .95 
+##    2.800    3.000    3.300    3.610    3.800 
+## 
+## lowest : 2.0 2.2 2.3 2.4 2.5, highest: 3.9 4.0 4.1 4.2 4.4
+## ---------------------------------------------------------------------------
+## Petal.Length 
+##        n  missing distinct     Info     Mean      Gmd      .05      .10 
+##      150        0       43    0.998    3.758    1.979     1.30     1.40 
+##      .25      .50      .75      .90      .95 
+##     1.60     4.35     5.10     5.80     6.10 
+## 
+## lowest : 1.0 1.1 1.2 1.3 1.4, highest: 6.3 6.4 6.6 6.7 6.9
+## ---------------------------------------------------------------------------
+## Petal.Width 
+##        n  missing distinct     Info     Mean      Gmd      .05      .10 
+##      150        0       22     0.99    1.199   0.8676      0.2      0.2 
+##      .25      .50      .75      .90      .95 
+##      0.3      1.3      1.8      2.2      2.3 
+## 
+## lowest : 0.1 0.2 0.3 0.4 0.5, highest: 2.1 2.2 2.3 2.4 2.5
+## ---------------------------------------------------------------------------
+## Species 
 ##        n  missing distinct 
-##       78        0        2 
+##      150        0        3 
+##                                            
+## Value          setosa versicolor  virginica
+## Frequency          50         50         50
+## Proportion      0.333      0.333      0.333
+## ---------------------------------------------------------------------------
+## rainfall 
+##        n  missing distinct 
+##      150        0        2 
 ##                       
-## Value        ASD    TD
-## Frequency     40    38
-## Proportion 0.513 0.487
+## Value        Dry   Wet
+## Frequency     61    89
+## Proportion 0.407 0.593
 ## ---------------------------------------------------------------------------
-## RMSD 
-##        n  missing distinct     Info     Mean      Gmd      .05      .10 
-##       78        0       54        1  0.06017  0.03097  0.02385  0.02600 
-##      .25      .50      .75      .90      .95 
-##  0.03650  0.05850  0.07875  0.09730  0.10175 
-## 
-## lowest : 0.019 0.021 0.023 0.024 0.026, highest: 0.100 0.101 0.106 0.110 0.126
-## ---------------------------------------------------------------------------
-## Age 
-##        n  missing distinct     Info     Mean      Gmd      .05      .10 
-##       78        0       52    0.999    13.66    3.076    9.125    9.910 
-##      .25      .50      .75      .90      .95 
-##   11.575   13.850   15.875   17.130   17.600 
-## 
-## lowest :  7.4  8.1  8.7  9.2  9.6, highest: 17.5 17.6 17.7 17.8 18.0
-## ---------------------------------------------------------------------------
-## WASI_NVIQ 
-##        n  missing distinct     Info     Mean      Gmd      .05      .10 
-##       78        0       43    0.999    105.8    18.39     83.4     87.7 
-##      .25      .50      .75      .90      .95 
-##     97.0    104.5    118.0    126.0    129.0 
-## 
-## lowest :  53  62  70  80  84, highest: 126 127 129 134 140
-## ---------------------------------------------------------------------------
-## Gender 
+## fert 
 ##        n  missing distinct 
-##       78        0        2 
-##                         
-## Value        Male Female
-## Frequency      65     13
-## Proportion  0.833  0.167
-## ---------------------------------------------------------------------------
-## Handedness 
-##        n  missing distinct 
-##       78        0        2 
-##                       
-## Value      Right  Left
-## Frequency     66    12
-## Proportion 0.846 0.154
+##      150        0        2 
+##                   
+## Value       No Yes
+## Frequency   75  75
+## Proportion 0.5 0.5
 ## ---------------------------------------------------------------------------
 ```
 
@@ -1047,11 +1349,11 @@ Methods that are accepted include: "pearson", "spearman", or "kendall"
 
 
 ```r
-# Need to drop non-numeric variables which are in columns 1,2,6, and 7
+# Need to drop non-numeric variables which are in columns 5,6, and 7
 
-cor_matrix <- matching2 %>%
-                group_by(Diagnosis) %>%
-                  do(as.data.frame(cor(.[,-c(1,2,6,7)], method="spearman", use="pairwise.complete.obs")))
+cor_matrix <- df %>%
+                group_by(Species) %>%
+                  do(as.data.frame(cor(.[,-c(5:7)], method="spearman", use="pairwise.complete.obs")))
 
 #
 # to add row names
@@ -1061,16 +1363,16 @@ cor_matrix1 <- cor_matrix %>%
 #
 # calculate correlations and display in column format
 #
-num_col=ncol(matching2[,-c(1,2,6,7)])
+num_col=ncol(df[,-c(5,6,7)])
 out_indx <-  which(upper.tri(diag(num_col))) 
-cor_cols <- matching2 %>% group_by(Diagnosis) %>%
-            do(melt(cor(.[,-c(1,2,6,7)], method="spearman", use="pairwise.complete.obs"), value.name="cor")[out_indx,])
+cor_cols <- df %>% group_by(Species) %>%
+            do(melt(cor(.[,-c(5,6,7)], method="spearman", use="pairwise.complete.obs"), value.name="cor")[out_indx,])
 
-ncol(matching2[,-c(1,2,6,7)])
+ncol(df[,-c(5,6,7)])
 ```
 
 ```
-## [1] 3
+## [1] 4
 ```
 
 ```r
@@ -1078,13 +1380,32 @@ cor_matrix1
 ```
 
 ```
-##   Diagnosis        RMSD         Age   WASI_NVIQ       row
-## 1       ASD  1.00000000 -0.36602534 -0.08738912      RMSD
-## 2       ASD -0.36602534  1.00000000 -0.06561224       Age
-## 3       ASD -0.08738912 -0.06561224  1.00000000 WASI_NVIQ
-## 4        TD  1.00000000 -0.25498357 -0.21914882      RMSD
-## 5        TD -0.25498357  1.00000000 -0.27920478       Age
-## 6        TD -0.21914882 -0.27920478  1.00000000 WASI_NVIQ
+##       Species Sepal.Length Sepal.Width Petal.Length Petal.Width
+## 1      setosa    1.0000000   0.7553375    0.2788849   0.2994989
+## 2      setosa    0.7553375   1.0000000    0.1799110   0.2865359
+## 3      setosa    0.2788849   0.1799110    1.0000000   0.2711414
+## 4      setosa    0.2994989   0.2865359    0.2711414   1.0000000
+## 5  versicolor    1.0000000   0.5176060    0.7366251   0.5486791
+## 6  versicolor    0.5176060   1.0000000    0.5747272   0.6599826
+## 7  versicolor    0.7366251   0.5747272    1.0000000   0.7870096
+## 8  versicolor    0.5486791   0.6599826    0.7870096   1.0000000
+## 9   virginica    1.0000000   0.4265165    0.8243234   0.3157721
+## 10  virginica    0.4265165   1.0000000    0.3873587   0.5443098
+## 11  virginica    0.8243234   0.3873587    1.0000000   0.3629133
+## 12  virginica    0.3157721   0.5443098    0.3629133   1.0000000
+##             row
+## 1  Sepal.Length
+## 2   Sepal.Width
+## 3  Petal.Length
+## 4   Petal.Width
+## 5  Sepal.Length
+## 6   Sepal.Width
+## 7  Petal.Length
+## 8   Petal.Width
+## 9  Sepal.Length
+## 10  Sepal.Width
+## 11 Petal.Length
+## 12  Petal.Width
 ```
 
 
@@ -1092,7 +1413,7 @@ Not bad, but it would be nice to know if some of these are significant or not. W
 
 
 ```r
-examplecor <- cor.test(matching2$RMSD,matching2$Age)
+examplecor <- cor.test(df$Sepal.Length,df$Petal.Length)
 ```
 
 And as for its structure to understand what R has created-- unsurprisingly, it's a list!. But this is good to know as it will let us index individual aspects of the list if we would like more direct comparisons using it in conjunction with dplyr
@@ -1104,19 +1425,19 @@ str(examplecor)
 
 ```
 ## List of 9
-##  $ statistic  : Named num -3.01
+##  $ statistic  : Named num 21.6
 ##   ..- attr(*, "names")= chr "t"
-##  $ parameter  : Named int 76
+##  $ parameter  : Named int 148
 ##   ..- attr(*, "names")= chr "df"
-##  $ p.value    : num 0.00356
-##  $ estimate   : Named num -0.326
+##  $ p.value    : num 1.04e-47
+##  $ estimate   : Named num 0.872
 ##   ..- attr(*, "names")= chr "cor"
 ##  $ null.value : Named num 0
 ##   ..- attr(*, "names")= chr "correlation"
 ##  $ alternative: chr "two.sided"
 ##  $ method     : chr "Pearson's product-moment correlation"
-##  $ data.name  : chr "matching2$RMSD and matching2$Age"
-##  $ conf.int   : num [1:2] -0.512 -0.112
+##  $ data.name  : chr "df$Sepal.Length and df$Petal.Length"
+##  $ conf.int   : num [1:2] 0.827 0.906
 ##   ..- attr(*, "conf.level")= num 0.95
 ##  - attr(*, "class")= chr "htest"
 ```
@@ -1126,36 +1447,39 @@ examplecor$conf.int
 ```
 
 ```
-## [1] -0.5116297 -0.1118309
+## [1] 0.8270363 0.9055080
 ## attr(,"conf.level")
 ## [1] 0.95
 ```
 
+The structure reports this as a _list_ of information. We can index these as column names using the $ operator or [] indexing their number in the list.
+
+
 ```r
-matching2 %>%
-  group_by(Diagnosis) %>%
-  dplyr::summarize(cor = cor.test(RMSD,Age)$estimate, p.value = cor.test(RMSD, Age)$p.value, LowerCInt  = cor.test(RMSD, Age)$conf.int[[1]], UpperCInt  = cor.test(RMSD, Age)$conf.int[[2]])
+df %>%
+  group_by(fert) %>%
+  dplyr::summarize(cor = cor.test(Sepal.Length,Petal.Length)$estimate, p.value = cor.test(Sepal.Length, Petal.Length)$p.value, LowerCInt  = cor.test(Sepal.Length, Petal.Length)$conf.int[[1]], UpperCInt  = cor.test(Sepal.Length, Petal.Length)$conf.int[[2]])
 ```
 
 ```
 ## # A tibble: 2 x 5
-##   Diagnosis    cor p.value LowerCInt UpperCInt
-##   <fct>      <dbl>   <dbl>     <dbl>     <dbl>
-## 1 ASD       -0.368  0.0196    -0.609   -0.0635
-## 2 TD        -0.284  0.0840    -0.553    0.0392
+##   fert    cor  p.value LowerCInt UpperCInt
+##   <fct> <dbl>    <dbl>     <dbl>     <dbl>
+## 1 No    0.878 5.20e-25     0.812     0.921
+## 2 Yes   0.868 7.22e-24     0.798     0.915
 ```
 
 ```r
 #Ungrouped by commenting out the grouping part of the argument
 
-matching2 %>%
-  #group_by(Diagnosis) %>%
-  dplyr::summarize(cor = cor.test(RMSD,Age)$estimate, p.value = cor.test(RMSD, Age)$p.value, LowerCInt  = cor.test(RMSD, Age)$conf.int[[1]], UpperCInt  = cor.test(RMSD, Age)$conf.int[[2]])
+df %>%
+  #group_by(fert) %>%
+  dplyr::summarize(cor = cor.test(Sepal.Length,Petal.Length)$estimate, p.value = cor.test(Sepal.Length, Petal.Length)$p.value, LowerCInt  = cor.test(Sepal.Length, Petal.Length)$conf.int[[1]], UpperCInt  = cor.test(Sepal.Length, Petal.Length)$conf.int[[2]])
 ```
 
 ```
-##          cor     p.value  LowerCInt  UpperCInt
-## 1 -0.3262428 0.003557044 -0.5116297 -0.1118309
+##         cor      p.value LowerCInt UpperCInt
+## 1 0.8717538 1.038667e-47 0.8270363  0.905508
 ```
 
 OK, but what if we wanted a correlation matrix _and_ p-values?
@@ -1166,72 +1490,82 @@ For this we can use the Hmisc package using the _rcorr()_ command.
 
 This requires that a matrix be fed in and outputs a list, the first item, 'r',  being the correlation value and the second item, 'p', being the corresponding p-value
 
+Below I'm creating two dataframes that will ultimately be matrices, first grouping by fertilizer condition and then selecting only numeric values
 
 
 ```r
-ASDmat1 <- matching2 %>%
-  filter(Diagnosis == 'ASD') %>%
+nofertmat1 <- df %>%
+  filter(fert == 'No') %>%
   dplyr::select_if(is.numeric)
   
 
-TDmat1 <- matching2 %>%
-  filter(Diagnosis == 'TD') %>%
+yesfertmat1 <- df %>%
+  filter(fert == 'Yes') %>%
   dplyr::select_if(is.numeric)
 
 #Now both are now numeric values in dataframes-- still need to be made into matrices
 
   
-TDcors <- rcorr(as.matrix(TDmat1))  #Creates a list containing objects about the matrix's r-value, n of sample, and p-value or correlation
+nofertcors <- rcorr(as.matrix(nofertmat1))  #Creates a list containing objects about the matrix's r-value, n of sample, and p-value or correlation
 
 
 #As index by its structure
 
-str(TDcors)
+str(nofertcors)
 ```
 
 ```
 ## List of 3
-##  $ r: num [1:3, 1:3] 1 -0.284 -0.339 -0.284 1 ...
+##  $ r: num [1:4, 1:4] 1 -0.192 0.878 0.824 -0.192 ...
 ##   ..- attr(*, "dimnames")=List of 2
-##   .. ..$ : chr [1:3] "RMSD" "Age" "WASI_NVIQ"
-##   .. ..$ : chr [1:3] "RMSD" "Age" "WASI_NVIQ"
-##  $ n: int [1:3, 1:3] 38 38 38 38 38 38 38 38 38
+##   .. ..$ : chr [1:4] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width"
+##   .. ..$ : chr [1:4] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width"
+##  $ n: int [1:4, 1:4] 75 75 75 75 75 75 75 75 75 75 ...
 ##   ..- attr(*, "dimnames")=List of 2
-##   .. ..$ : chr [1:3] "RMSD" "Age" "WASI_NVIQ"
-##   .. ..$ : chr [1:3] "RMSD" "Age" "WASI_NVIQ"
-##  $ P: num [1:3, 1:3] NA 0.084 0.0371 0.084 NA ...
+##   .. ..$ : chr [1:4] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width"
+##   .. ..$ : chr [1:4] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width"
+##  $ P: num [1:4, 1:4] NA 0.0984 0 0 0.0984 ...
 ##   ..- attr(*, "dimnames")=List of 2
-##   .. ..$ : chr [1:3] "RMSD" "Age" "WASI_NVIQ"
-##   .. ..$ : chr [1:3] "RMSD" "Age" "WASI_NVIQ"
+##   .. ..$ : chr [1:4] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width"
+##   .. ..$ : chr [1:4] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width"
 ##  - attr(*, "class")= chr "rcorr"
 ```
 
 
-We can then bind the vectors from the list of separated groups, ASD and TD, and compare.
+We can then bind the vectors from the list of separated groups, Wet and Dry, and compare.
 
 
 
 ```r
-ASDcors <- rcorr(as.matrix(ASDmat1))
+yesfertcors <- rcorr(as.matrix(yesfertmat1))
 
 
-cbind(ASDcors$r,ASDcors$P,TDcors$r, TDcors$P)
+cbind(yesfertcors$r,yesfertcors$P,nofertcors$r, nofertcors$P)
 ```
 
 ```
-##                  RMSD        Age   WASI_NVIQ       RMSD        Age
-## RMSD       1.00000000 -0.3677081 -0.08950919         NA 0.01958063
-## Age       -0.36770811  1.0000000 -0.12476030 0.01958063         NA
-## WASI_NVIQ -0.08950919 -0.1247603  1.00000000 0.58282764 0.44305970
-##           WASI_NVIQ       RMSD        Age  WASI_NVIQ       RMSD        Age
-## RMSD      0.5828276  1.0000000 -0.2840247 -0.3393771         NA 0.08396134
-## Age       0.4430597 -0.2840247  1.0000000 -0.2847243 0.08396134         NA
-## WASI_NVIQ        NA -0.3393771 -0.2847243  1.0000000 0.03711561 0.08316823
-##            WASI_NVIQ
-## RMSD      0.03711561
-## Age       0.08316823
-## WASI_NVIQ         NA
+##              Sepal.Length Sepal.Width Petal.Length Petal.Width
+## Sepal.Length   1.00000000 -0.06026081    0.8677862   0.8124570
+## Sepal.Width   -0.06026081  1.00000000   -0.3953243  -0.3445470
+## Petal.Length   0.86778621 -0.39532430    1.0000000   0.9667531
+## Petal.Width    0.81245700 -0.34454705    0.9667531   1.0000000
+##              Sepal.Length Sepal.Width Petal.Length Petal.Width
+## Sepal.Length           NA 0.607548710  0.000000000 0.000000000
+## Sepal.Width     0.6075487          NA  0.000447683 0.002469815
+## Petal.Length    0.0000000 0.000447683           NA 0.000000000
+## Petal.Width     0.0000000 0.002469815  0.000000000          NA
+##              Sepal.Length Sepal.Width Petal.Length Petal.Width
+## Sepal.Length    1.0000000  -0.1922721    0.8775879   0.8241682
+## Sepal.Width    -0.1922721   1.0000000   -0.4831333  -0.4103438
+## Petal.Length    0.8775879  -0.4831333    1.0000000   0.9572902
+## Petal.Width     0.8241682  -0.4103438    0.9572902   1.0000000
+##              Sepal.Length  Sepal.Width Petal.Length  Petal.Width
+## Sepal.Length           NA 9.840895e-02 0.000000e+00 0.0000000000
+## Sepal.Width    0.09840895           NA 1.131866e-05 0.0002557579
+## Petal.Length   0.00000000 1.131866e-05           NA 0.0000000000
+## Petal.Width    0.00000000 2.557579e-04 0.000000e+00           NA
 ```
+
 Pretty messy, but there are other methods to that have more to do with visualization. _rcorr_ works well, when you are looking at full sample descriptives or not binding columns from different groups. 
 
 
@@ -1239,30 +1573,33 @@ One package, Performance Analytics, quickly gives visualizations and r/p values;
 
 
 
-```r
-#install.packages("PerformanceAnayltics")
-#library()
-```
 
 #### Point Biserial Correlations
 
 
+```r
+#I haven't read about this yet!
+```
 
 
-# 5/15/19: Plots! lots-ah plots-ah! {.tabset .tabset-fade .tabset-pill}
+# 5/15/19: Plots! {.tabset .tabset-fade .tabset-pill}
 
 ## Quick Base R plots
 
+_Who doesn't love a good plot, am I right?_
+
+There are many different kinds of plots you can use-- below covers just the basics to get you started with quick visualizations.Before making fancy plots with ggplot2 package, we can use Base R's plot commands to quickly visualize the data.
+
 ### Histograms
 
-Before making fancy plots with ggplot2 package, we can use Base R's plot commands to quickly visualize the distributions of the data with histograms - either whole group:
+We can exam a variables distribution across the whole sample:
 
 
 ```r
-hist(matching2$WASI_NVIQ)
+hist(df$Petal.Width)
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-39-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-46-1.png)<!-- -->
 
 Or by levels of a categorical variable of interest:
 
@@ -1270,61 +1607,61 @@ Or by levels of a categorical variable of interest:
 ```r
 # A tidy way
 
-TDhist <- matching2 %>%  
-dplyr::filter(Diagnosis == "TD") %>%
-  dplyr::select(WASI_NVIQ) %>%
-            lapply(hist, main = "Histogram Example", xlab = "TD", col.main = "red", cex.main = 2, col.lab = "darkblue")
+Dryhist <- df %>%  
+dplyr::filter(rainfall == "Dry") %>%
+  dplyr::select(Petal.Width) %>%
+            lapply(hist, main = "Histogram Dry Example", xlab = "Dry", col.main = "red", cex.main = 2, col.lab = "darkblue")
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-40-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-47-1.png)<!-- -->
 
 ```r
 ### Other way with more Base R
 
-hist(matching2$WASI_NVIQ[matching2$Diagnosis == "ASD"], xlab = "ASD", main = "Other Histogram Example", col = "purple")
+hist(df$Petal.Width[df$rainfall == "Wet"], xlab = "Wet", main = "Histogram Wet Example", col = "purple")
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-40-2.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-47-2.png)<!-- -->
 
+Notice that the _col_ placement is coloring various aspects of the plot, be it the bars, the title, the axis label, etc. and the addition of main title and axis titles with _main_ and _xlab_ the _cex.main_ refers to the size of the main title should be scaled to. _cex_ is otherwise used to reference scaling of an object -- quite useful graphing tool for a perfectionist. Other common graphical parameters can be found here:
 
+https://www.statmethods.net/advgraphs/parameters.html
 
-
-There are also boxplots, lines, and bar graphs. But personally I think ggplot looks nicer.
 
 ### Boxplots
 
 
 ```r
-boxplot(matching2$Age, data =  matching2)
+boxplot(df$Petal.Length, data =  df)
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-41-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-48-1.png)<!-- -->
 
 ```r
-boxplot(matching2$Age~matching2$Diagnosis, data =  matching2, ylab = "Age in Years")
+boxplot(df$Petal.Length~df$Species, data =  df, ylab = "Petal Length")
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-41-2.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-48-2.png)<!-- -->
 
 
 Want it horizontal? Or with notches?
 
 
 ```r
-boxplot(matching2$Age~matching2$Diagnosis, data =  matching2, xlab = "Age in Years", horizontal = TRUE, notch = TRUE, frame = FALSE)  #Note since this is being horizontal now we have to change our former "y lab" to an "x lab"
+boxplot(df$Petal.Length~df$Species, data =  df, xlab = "Petal Length", horizontal = TRUE, notch = TRUE, frame = FALSE)  #Note since this is being horizontal now we have to change our former "y lab" to an "x lab"
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-42-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-49-1.png)<!-- -->
 
 
 Can't forget the colors
 
 
 ```r
-boxplot(Age~Diagnosis, data =  matching2, ylab = "Age in Years", col = "grey", border = c("blue", "red"), frame = F)
+boxplot(Sepal.Length~Species, data =  df, ylab = "Sepal Length", col = "grey", border = c("blue", "red", "green"), frame = F)
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-43-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-50-1.png)<!-- -->
 
 
 
@@ -1338,33 +1675,34 @@ For counts, we can make a table object with _table()_ command
 
 
 ```r
-barplottab <- table(matching2$Diagnosis, matching2$Gender)
+barplottab <- table(df$Species, df$rainfall)
 
 barplottab # Which looks like this
 ```
 
 ```
-##      
-##       Male Female
-##   ASD   32      8
-##   TD    33      5
+##             
+##              Dry Wet
+##   setosa      19  31
+##   versicolor  21  29
+##   virginica   21  29
 ```
 
 ```r
 #Then graph it
 
-barplot(barplottab, legend = rownames(barplottab), beside = T, col = c("blue", "green"))
+barplot(barplottab, legend = rownames(barplottab), beside = T, col = c("blue", "red", "green"))
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-44-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-51-1.png)<!-- -->
 
 ```r
 #Note what happens when you leave the "beside = T" code out
 
-barplot(barplottab, legend = rownames(barplottab), col = c("blue", "green")) 
+barplot(barplottab, legend = rownames(barplottab), col = c("blue", "red", "green")) 
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-44-2.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-51-2.png)<!-- -->
 
 We can also use the _aggregate()_ command and _aggregate.plot()_. As we used above, aggregate performs summary stats in base R. Read more about aggregate function with  _?aggregate_ in your console.
 
@@ -1373,66 +1711,70 @@ We can also use the _aggregate()_ command and _aggregate.plot()_. As we used abo
 # This is a more recent package but is still pretty cool!
 
 #install.packages("epiDisplay")
-suppressMessages(library(epiDisplay))
+#library(epiDisplay)
 
 
-aggregate.plot(matching2$WASI_NVIQ,
-                              by=list(matching2$Diagnosis), error = "ci" ,
+aggregate.plot(df$Sepal.Width,
+                              by=list(df$Species), error = "ci" ,
                               FUN="median")
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-45-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-52-1.png)<!-- -->
 
 ```r
 # Get fancier
 
-aggregate.plot(matching2$WASI_NVIQ,
-                              by=list(matching2$Diagnosis, matching2$Gender), error = "ci" , bar.col = c("purple", "goldenrod"),
+aggregate.plot(df$Sepal.Width,
+                              by=list(df$Species, df$rainfall), error = "ci" , bar.col = c("steelblue1", "deeppink4", "turquoise3"),
                               FUN="mean", legend.site = "bottom")
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-45-2.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-52-2.png)<!-- -->
+
+_FUN FACT_ These were my favorite three colors in 2nd grade!
 
 ### Scatter Plots
 
 
 ```r
-plot(matching2$RMSD, matching2$WASI_NVIQ, main = "RMSD by IQ",
-     xlab = "RMSD", ylab = "NonVerbal IQ on WASI",
+plot(df$Sepal.Length, df$Petal.Width, main = "Sepal.Length by Petal.Width",
+     xlab = "Sepal.Length", ylab = "Petal.Width",
      pch = 19, frame = TRUE)  #pch is the shape of the scatter point
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-46-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-53-1.png)<!-- -->
 
 ```r
 # Add regression line
-plot(matching2$RMSD, matching2$WASI_NVIQ, main = "RMSD by IQ",
-     xlab = "RMSD", ylab = "NonVerbal IQ on WASI",
+plot(df$Sepal.Length, df$Petal.Width, main = "Sepal.Length by Petal.Width",
+     xlab = "Sepal.Length", ylab = "Petal.Width",
      pch = 10, frame = FALSE)
-abline(lm(WASI_NVIQ ~ RMSD, data = matching2), col = "blue")
+abline(lm(Petal.Width ~ Sepal.Length, data = df), col = "blue")
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-46-2.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-53-2.png)<!-- -->
 
 Can also use _scatterplot_ from the **cars** package
 
 
 ```r
-scatterplot(WASI_NVIQ ~ RMSD|Diagnosis, data = matching2)
+scatterplot(Petal.Width ~ Sepal.Length|Species, data = df)
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-47-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-54-1.png)<!-- -->
 
 Gross- too busy, but handy to visualize quickly adding the below makes it look somewhat better
 
 
 ```r
-scatterplot(WASI_NVIQ ~ RMSD|Diagnosis, data = matching2, smooth = FALSE, grid = FALSE, frame = FALSE)
+scatterplot(Petal.Width ~ Sepal.Length|Species, data = df, smooth = FALSE, grid = FALSE, frame = FALSE)
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-48-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-55-1.png)<!-- -->
 
-OK but if we want different colors? For base plotting, you'll need to create a vector of color names that needs to be the same length as your grouping factor(s). Since we just have 2, pick the two best colors. You can use names of colors, their hexadecimal numbers, or integer number placement on color palette 
+OK but if we want different colors? For base plotting, I've just been using random colors, but let's say I really like those three colors that were my favorite in 2nd grade.
+
+For this I can create a vector of color names that needs to be the same length as your grouping factor(s). Since we just have 3 groups for species, we just need to pick three colors. You can use names of colors, their hexadecimal numbers, or integer number placement on color palette 
 
 Check out more colors here: https://rstudio-pubs-static.s3.amazonaws.com/3486_79191ad32cf74955b4502b8530aad627.html
 
@@ -1440,23 +1782,23 @@ Check out more colors here: https://rstudio-pubs-static.s3.amazonaws.com/3486_79
 ```r
 #Color vector
 
-mycolors <- c("#0000CD","#B03060")
+mycolors <- c("steelblue1", "deeppink4", "turquoise3")
 
-scatterplot(WASI_NVIQ ~ RMSD|Diagnosis, data = matching2, smooth = FALSE, grid = FALSE, frame = FALSE, col =mycolors)
+scatterplot(Petal.Width ~ Sepal.Length|Species, data = df, smooth = FALSE, grid = FALSE, frame = FALSE, col =mycolors)
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-49-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-56-1.png)<!-- -->
 
 
 ## GGPlot2 
 
-GGplot2 is graphing package in R that can give a more polished touch, but Base R graphing can literally create anything. GGplot2 can accept tidyverse outputs which can be extremely efficient.
+GGplot2 is graphing package in R that can give a more polished touch (imo), but Base R graphing can literally create anything. GGplot2 can accept tidyverse outputs which can be extremely efficient.
 
 Things to note are the order of the argument, unless using the _%>%_ operator, the command is telling R to use the ggplot package then gives the name of the dataframe. This is followed by the _aes()_ argument defining the _aesthetic_ features of the graph. Here the x and y variables are defined as well as any group specification that would apply globally to the graph. You may define group variables in subsequent lines with an additional _aes()_ command. 
 
 Then the "+" symbol indicates that the following should be added to the plot. Here is where you define the type of "shape" R should draw using *geom_shapename*
 
-You can define a grouping variable many ways, in the sample below we have Diagnosis group defining the "coloring" of the plot.
+You can define a grouping variable many ways, in the sample below we have Species group defining the "coloring" of the plot.
 
 The use of _color_ here references a command that R should use when coloring things where a color can't be "filled in" as much as it can just have a single colored line/border. So for graphs like scatter plots and line graphs, the color command would be used in the aesthetic specification-- and similarly color is referenced again in the subsequent lines of code where we manually color with our color values of choice.
 
@@ -1464,22 +1806,22 @@ The use of _color_ here references a command that R should use when coloring thi
 #### Geom Point/Geom Line
 
 ```r
-plot <- ggplot(matching2, aes(x = Age, y= WASI_NVIQ, color = Diagnosis)) +  geom_point(aes(shape = Diagnosis)) + geom_smooth(method = lm) 
+plot <- ggplot(df, aes(x = Petal.Length, y= Petal.Width, color = Species)) +  geom_point(aes(shape = Species)) + geom_smooth(method = lm) 
 
 plot
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-50-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-57-1.png)<!-- -->
 
 ```r
-plot <- plot + labs(main = "Title", x = "Age", y = "IQ") + theme_classic()  # Add Titles and Labels as well as Theme
+plot <- plot + ggtitle("Petal Length and Width Plot") + labs(x = "Petal.Length", y = "Petal.Width") + theme_classic()  # Add Titles and Labels as well as Theme
 
-plot <- plot + scale_color_manual(values = c("firebrick3", "dodgerblue3"))  #Modify colors manually
+plot <- plot + scale_color_manual(values = mycolors)  #Modify colors manually
 
 plot
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-50-2.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-57-2.png)<!-- -->
 
 Check out R Color Brewer for palettes and Color-Blind friendly color schemes:
 
@@ -1494,63 +1836,60 @@ If we would like to draw a geom_shape that you can "fill" with color, like a box
 
 
 ```r
-ggplot(matching2, aes(x = Diagnosis, y = WASI_NVIQ, fill = Diagnosis)) +
+ggplot(df, aes(x = Species, y = Petal.Width, fill = Species)) +
   geom_violin() +
-   scale_fill_manual(values = c("firebrick3", "dodgerblue3"))
+   scale_fill_manual(values = mycolors)
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-51-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-58-1.png)<!-- -->
 
 You may also overlap geoms on top of other geoms. If they are similar objects (i.e., are both filler objects), then an aesthetic command does not need to be redefined, and just inherits the global grouping definition
 
 
 ```r
-ggplot(matching2, aes(x = Diagnosis, y = WASI_NVIQ, fill = Diagnosis)) +
+ggplot(df, aes(x = Species, y = Petal.Width, fill = Species)) +
   geom_violin() +
-   scale_fill_manual(values = c("firebrick3", "dodgerblue3")) +
+   scale_fill_manual(values = mycolors) +
  geom_boxplot(width =.1) 
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-52-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-59-1.png)<!-- -->
 
 And keep adding!
 
 
 ```r
 #Violin plots
-ggplot(matching2, aes(x=Diagnosis, y= WASI_NVIQ, fill = Diagnosis)) +
+ggplot(df, aes(x=Species, y= Petal.Width, fill = Species)) +
   geom_violin() +
-  scale_color_manual(values = c("firebrick3","dodgerblue3")) +
-  geom_rug(aes(color = Diagnosis), show.legend = F, alpha = .9, position = "jitter", sides = "l") + 
+  scale_color_manual(values = mycolors) +
+  geom_rug(aes(color = Species), show.legend = F, alpha = .9, position = "jitter", sides = "l") + 
   guides(fill = guide_legend(title = "Group")) +
-  labs(title="Your title here :)", x = "Group", y = "WASI-II NVIQ") +
+  labs(title="Your title here :)", x = "Group", y = "Petal.Width") +
   geom_boxplot(width = 0.1, fill = "white") +
-  scale_fill_manual(values = c("firebrick3","dodgerblue3")) + 
+  scale_fill_manual(values = mycolors) + 
    theme_classic()
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-53-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-60-1.png)<!-- -->
 
-Similar to the above chart with some subtle changes to tweak the chart to get it to show what we would like. For charts that involve multiple colors, it may be a good idea to define a vector of color names, and then coloring by that vector as shown in the code below.
 
 
 ```r
-prettycols <- c("firebrick3", "dodgerblue3")
-
 #Violin plots v2
-ggplot(matching2, aes(x=Diagnosis, y= WASI_NVIQ, group = Diagnosis)) +
-  geom_violin(fill = "grey") +
-   geom_boxplot(aes(group = Diagnosis), fill= prettycols, width = 0.2) +
-  geom_rug(aes(color = Diagnosis), alpha = .9, position = "jitter", sides = "l") + 
-  scale_color_manual(values = prettycols, labels = c("ASD","TD"))+
-  labs(title="Your Centered title here", x = "Group", y = "WASI-II NVIQ") +
+ggplot(df, aes(x=Species, y= Petal.Width, group = Species)) +
+  geom_violin(fill = "grey", width = 1) +
+   geom_boxplot(aes(group = Species), fill= mycolors, width = 0.1) +
+  geom_rug(aes(color = Species), alpha = .9, position = "jitter", sides = "l") + 
+  scale_color_manual(values = mycolors)+
+  labs(title="Your Centered title here", x = "Group", y = "Petal.Width") +
   theme_classic() +
   theme(plot.title = element_text(hjust = 0.5)) 
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-54-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-61-1.png)<!-- -->
 
-# 5/22/19  Fancier Plots for the Fancier Pants
+# 5/22/19  Slightly Fancier Plots
 
 The plots above are nice, but visualizations are more than just traditional, static approaches and have potential to show multiple relations/trends by using varying graphical approaches visualized simultaneously. 
 
@@ -1558,68 +1897,50 @@ This is more than layering points on a line or boxplot. Much of the packages rev
 
 ### Corrplot
 
+I'll be creating a slightly complicated corrplot which is basically a visualization of a correlation matrix. That is, let's say we want to graph the correlation between our four numeric variables, but we also want to know the specific group correlations based on their wet and dry group category. 
+
+For this, we will need to construct pieces of what we need, two matrices, then marge them together as one. Here I'm using the _corrplot package_
+
 
 ```r
-#install.packages("corrplot")
+#Make corrplot with only the Wet data
 
-#Library code is called above at top of document
-
-
-str(TDcors)
-```
-
-```
-## List of 3
-##  $ r: num [1:3, 1:3] 1 -0.284 -0.339 -0.284 1 ...
-##   ..- attr(*, "dimnames")=List of 2
-##   .. ..$ : chr [1:3] "RMSD" "Age" "WASI_NVIQ"
-##   .. ..$ : chr [1:3] "RMSD" "Age" "WASI_NVIQ"
-##  $ n: int [1:3, 1:3] 38 38 38 38 38 38 38 38 38
-##   ..- attr(*, "dimnames")=List of 2
-##   .. ..$ : chr [1:3] "RMSD" "Age" "WASI_NVIQ"
-##   .. ..$ : chr [1:3] "RMSD" "Age" "WASI_NVIQ"
-##  $ P: num [1:3, 1:3] NA 0.084 0.0371 0.084 NA ...
-##   ..- attr(*, "dimnames")=List of 2
-##   .. ..$ : chr [1:3] "RMSD" "Age" "WASI_NVIQ"
-##   .. ..$ : chr [1:3] "RMSD" "Age" "WASI_NVIQ"
-##  - attr(*, "class")= chr "rcorr"
-```
-
-```r
-ASDcorrplot <- matching2 %>%
-      filter(Diagnosis == 'ASD') %>%
+Wetcorrplot <- df %>%
+      filter(rainfall == 'Wet') %>%
       select_if(is.numeric) %>%
       cor()
 
 
-corrplot(ASDcorrplot, type = "upper", order = "hclust", 
+corrplot(Wetcorrplot, type = "upper", order = "hclust", 
          tl.col = "black", tl.srt = 45)
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-55-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-62-1.png)<!-- -->
 
 ```r
-TDcorrplot <- matching2 %>%
-      filter(Diagnosis == 'TD') %>%
+#Make similar one with Dry data
+
+Drycorrplot <- df %>%
+      filter(rainfall == 'Dry') %>%
       select_if(is.numeric) %>%
       cor()
 
-corrplot(TDcorrplot, type = "lower", order = "hclust", 
+corrplot(Drycorrplot, type = "lower", order = "hclust", 
          tl.col = "black", tl.srt = 45)
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-55-2.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-62-2.png)<!-- -->
 
-It would be great if we could compare, yes? Thinking about these matrices, we could just replace the values of the lower ASD matrix with the values from the TD matrix, creating a merged matrix-- then plot that, noting which upper or lower parts denote which group
+It would be great if we could compare, yes? Thinking about these matrices, we could just replace the values of the lower Wet matrix with the values from the Dry matrix, creating a merged matrix-- then plot that, noting which upper or lower parts denote which group
 
-First rename the ASDcorrplot into something new-
+First rename the Wetcorrplot into something new-
 
 
 
 ```r
-mergedcorrplot <- ASDcorrplot
+mergedcorrplot <- Wetcorrplot
 
-mergedcorrplot[lower.tri(mergedcorrplot)] <- TDcorrplot[lower.tri(TDcorrplot)]
+mergedcorrplot[lower.tri(mergedcorrplot)] <- Drycorrplot[lower.tri(Drycorrplot)]
 
 
 # Will give you
@@ -1628,10 +1949,11 @@ mergedcorrplot
 ```
 
 ```
-##                 RMSD        Age   WASI_NVIQ
-## RMSD       1.0000000 -0.3677081 -0.08950919
-## Age       -0.2840247  1.0000000 -0.12476030
-## WASI_NVIQ -0.3393771 -0.2847243  1.00000000
+##              Sepal.Length Sepal.Width Petal.Length Petal.Width
+## Sepal.Length    1.0000000 -0.05569628    0.9043477   0.8596161
+## Sepal.Width    -0.2218346  1.00000000   -0.3263910  -0.2712637
+## Petal.Length    0.8170632 -0.58939433    1.0000000   0.9694215
+## Petal.Width     0.7461571 -0.51898023    0.9520773   1.0000000
 ```
 
 
@@ -1639,210 +1961,526 @@ Then you can graph this, using the full matrix display option
 
 
 ```r
-corrplot(mergedcorrplot, type = "full")  #ASD on top and TD on bottom
+corrplot(mergedcorrplot, type = "full")  #Wet on top and Dry on bottom
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-57-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-64-1.png)<!-- -->
 
 ```r
 #Add additional tweaks for easier readability, depending on what you want-- many options!
 
-corrplot(mergedcorrplot, type = "full", method = 'number', title = "ASD (top) and TD (bottom)", tl.col = 'black', tl.srt = 45, col = c("blue", "black", "red"))
+corrplot(mergedcorrplot, type = "full", method = 'number', title = "Wet (top) and Dry (bottom)", tl.col = 'black', tl.srt = 45, col = c("blue", "black", "red"))
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-57-2.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-64-2.png)<!-- -->
 
-Let's say we only want to display correlations that are significant at the p <.05 level. To do this we will need to modify the original matrices of ASDcors and TDcors-- used from the correlation discussion above.
+Let's say we only want to display correlations that are significant at the p <.05 level. 
 
-We will create new matrices of the P-values, first duplicating the ASD p-values taken from the ASDcor list. This becomes as the future merged matrix (this means the ASD p-values are in the upper triangle of the matrix). 
-
-Then TDcors$P is turn into its own matrix, before selecting out the lower triangle from it, and re-writing over the lower triangle of the merged p-value matrix.
-
-Now the p-values along the top triangle belong to the ASD group and the ones along the bottom triangle belong to the TD group. With this matrix now merged, it can be the "key" to mapping out significant values when the _corrplot()_ command is called. 
-
-**Importantly, the merged matrix correlation values must match a separate, similarly grouped merged to work**
-
+We will create new matrices of the P-values, first duplicating the Wet p-values taken from the Wetcor list. This becomes as the future merged matrix (this means the Wet p-values are in the upper triangle of the matrix). 
 
 ```r
-# From before
+wetmat1 <- df %>%
+  filter(rainfall == 'Wet') %>%
+  dplyr::select_if(is.numeric)
+  
 
-ASDcors$P
+drymat1 <- df %>%
+  filter(rainfall == 'Dry') %>%
+  dplyr::select_if(is.numeric)
+
+
+drymat1
 ```
 
 ```
-##                 RMSD        Age WASI_NVIQ
-## RMSD              NA 0.01958063 0.5828276
-## Age       0.01958063         NA 0.4430597
-## WASI_NVIQ 0.58282764 0.44305970        NA
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width
+## 1           5.1         3.5          1.4         0.2
+## 2           4.6         3.1          1.5         0.2
+## 3           5.0         3.4          1.5         0.2
+## 4           4.8         3.0          1.4         0.1
+## 5           5.8         4.0          1.2         0.2
+## 6           5.7         4.4          1.5         0.4
+## 7           5.4         3.9          1.3         0.4
+## 8           5.1         3.5          1.4         0.3
+## 9           5.1         3.8          1.5         0.3
+## 10          5.2         3.5          1.5         0.2
+## 11          4.8         3.1          1.6         0.2
+## 12          5.5         4.2          1.4         0.2
+## 13          4.9         3.1          1.5         0.2
+## 14          5.0         3.5          1.3         0.3
+## 15          4.4         3.2          1.3         0.2
+## 16          5.0         3.5          1.6         0.6
+## 17          5.1         3.8          1.9         0.4
+## 18          5.1         3.8          1.6         0.2
+## 19          5.0         3.3          1.4         0.2
+## 20          7.0         3.2          4.7         1.4
+## 21          6.5         2.8          4.6         1.5
+## 22          6.3         3.3          4.7         1.6
+## 23          6.6         2.9          4.6         1.3
+## 24          5.2         2.7          3.9         1.4
+## 25          6.7         3.1          4.4         1.4
+## 26          5.6         3.0          4.5         1.5
+## 27          5.8         2.7          4.1         1.0
+## 28          6.2         2.2          4.5         1.5
+## 29          6.1         2.8          4.0         1.3
+## 30          6.1         2.8          4.7         1.2
+## 31          6.4         2.9          4.3         1.3
+## 32          6.6         3.0          4.4         1.4
+## 33          6.0         2.9          4.5         1.5
+## 34          5.7         2.6          3.5         1.0
+## 35          5.4         3.0          4.5         1.5
+## 36          5.6         3.0          4.1         1.3
+## 37          5.5         2.5          4.0         1.3
+## 38          5.5         2.6          4.4         1.2
+## 39          5.7         3.0          4.2         1.2
+## 40          5.7         2.8          4.1         1.3
+## 41          6.3         3.3          6.0         2.5
+## 42          6.5         3.0          5.8         2.2
+## 43          4.9         2.5          4.5         1.7
+## 44          7.3         2.9          6.3         1.8
+## 45          6.7         2.5          5.8         1.8
+## 46          6.5         3.2          5.1         2.0
+## 47          6.8         3.0          5.5         2.1
+## 48          5.7         2.5          5.0         2.0
+## 49          5.6         2.8          4.9         2.0
+## 50          7.7         2.8          6.7         2.0
+## 51          6.3         2.7          4.9         1.8
+## 52          6.2         2.8          4.8         1.8
+## 53          7.4         2.8          6.1         1.9
+## 54          7.9         3.8          6.4         2.0
+## 55          6.4         2.8          5.6         2.2
+## 56          6.1         2.6          5.6         1.4
+## 57          6.3         3.4          5.6         2.4
+## 58          6.0         3.0          4.8         1.8
+## 59          6.9         3.1          5.1         2.3
+## 60          6.7         3.0          5.2         2.3
+## 61          5.9         3.0          5.1         1.8
 ```
 
 ```r
-mergedpvals <- ASDcors$P
+#Now both are now numeric values in dataframes-- still need to be made into matrices
+
+  
+wetcors <- rcorr(as.matrix(wetmat1))  #Creates a list containing objects about the matrix's r-value, n of sample, and p-value or correlation
+
+drycors <- rcorr(as.matrix(drymat1))
 
 
+raincors <- wetcors$P #starting with making a clone
 
-
-#From before
-
-
-TDcors$P
+raincors
 ```
 
 ```
-##                 RMSD        Age  WASI_NVIQ
-## RMSD              NA 0.08396134 0.03711561
-## Age       0.08396134         NA 0.08316823
-## WASI_NVIQ 0.03711561 0.08316823         NA
+##              Sepal.Length Sepal.Width Petal.Length Petal.Width
+## Sepal.Length           NA 0.604170490  0.000000000  0.00000000
+## Sepal.Width     0.6041705          NA  0.001798726  0.01013101
+## Petal.Length    0.0000000 0.001798726           NA  0.00000000
+## Petal.Width     0.0000000 0.010131015  0.000000000          NA
 ```
 
 ```r
-TDpvals <- TDcors$P
-
-
-mergedpvals[lower.tri(mergedpvals)] <- TDpvals[lower.tri(TDpvals)]
-
-mergedpvals
+raincors[lower.tri(raincors)] 
 ```
 
 ```
-##                 RMSD        Age WASI_NVIQ
-## RMSD              NA 0.01958063 0.5828276
-## Age       0.08396134         NA 0.4430597
-## WASI_NVIQ 0.03711561 0.08316823        NA
+## [1] 0.604170490 0.000000000 0.000000000 0.001798726 0.010131015 0.000000000
 ```
+
+```r
+drycors1 <-  drycors$P
+
+drycors1
+```
+
+```
+##              Sepal.Length  Sepal.Width Petal.Length  Petal.Width
+## Sepal.Length           NA 8.575651e-02 8.881784e-16 5.157874e-12
+## Sepal.Width  8.575651e-02           NA 5.809454e-07 1.826152e-05
+## Petal.Length 8.881784e-16 5.809454e-07           NA 0.000000e+00
+## Petal.Width  5.157874e-12 1.826152e-05 0.000000e+00           NA
+```
+
+```r
+raincors[lower.tri(raincors)] <- drycors1[lower.tri(drycors1)]
+
+
+raincors #merged p-values matrix
+```
+
+```
+##              Sepal.Length  Sepal.Width Petal.Length Petal.Width
+## Sepal.Length           NA 6.041705e-01  0.000000000  0.00000000
+## Sepal.Width  8.575651e-02           NA  0.001798726  0.01013101
+## Petal.Length 8.881784e-16 5.809454e-07           NA  0.00000000
+## Petal.Width  5.157874e-12 1.826152e-05  0.000000000          NA
+```
+
+So the drycors p-values were first turned into a matrix, before selecting out the lower triangle from it, and re-writing over the lower triangle of the merged p-value matrix.
+
+Now the p-values along the top triangle belong to the Wet group and the ones along the bottom triangle belong to the Dry group. With this matrix now merged, it can be the "key" to mapping out significant values when the _corrplot()_ command is called. 
+
+**Importantly, the merged matrix correlation values must match a separate, similarly grouped/merged correlation or r-value matrix to work**
 
 
 ```r
 #the new pval matrix is set equal to the p.mat
 
-corrplot(mergedcorrplot, type = "full", method = 'number', title = "ASD (top) and TD (bottom)", tl.col = 'black', tl.srt = 45, col = c("blue", "black", "red"), p.mat = mergedpvals, sig.level = 0.05, insig = "blank")
+corrplot(mergedcorrplot, type = "full", title = "Wet (top) and Dry (bottom)", tl.col = 'black', tl.srt = 45, p.mat = raincors, sig.level = 0.05, insig = "blank")
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-59-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-66-1.png)<!-- -->
 
 
-Alternatively we can examine all of matching2 by treating it all as a matrix
+Alternatively we can examine all of df by treating it all as a matrix
 
 
 ```r
-matchingnum <- matching2[-2] #Dropping participant ID
+dfnum <- df #Dropping participant ID
 
-matchingnum[c(1,5,6)] <- lapply(matchingnum[c(1,5,6)], as.integer) #Make factors their integer values
+dfnum[c(5:7)] <- lapply(dfnum[c(5:7)], as.integer) #Make factors their integer values
 
-matchingnum
+dfnum
 ```
 
 ```
-##    Diagnosis  RMSD  Age WASI_NVIQ Gender Handedness
-## 1          1 0.032 14.1       140      1          1
-## 2          1 0.110 13.2       103      1          2
-## 3          1 0.030 17.3       106      2          1
-## 4          1 0.021 17.1       126      1          1
-## 5          1 0.101 15.1       121      1          1
-## 6          1 0.024 13.8       112      1          2
-## 7          1 0.019 16.5       104      1          1
-## 8          1 0.106 13.8       127      1          1
-## 9          1 0.077 15.3       129      1          1
-## 10         1 0.051 12.9       100      1          1
-## 11         1 0.032 13.9       125      1          1
-## 12         1 0.098 10.9       115      2          1
-## 13         1 0.071 13.4        84      1          1
-## 14         1 0.078 10.4        97      1          1
-## 15         1 0.041 10.8        96      1          1
-## 16         1 0.034 17.0       103      1          2
-## 17         1 0.026 17.8       102      1          1
-## 18         1 0.048 14.1        88      1          1
-## 19         1 0.096 18.0        80      2          1
-## 20         1 0.075 13.5       109      1          2
-## 21         1 0.036 15.0       123      2          2
-## 22         1 0.040 17.2        97      1          1
-## 23         1 0.061 15.5        53      2          1
-## 24         1 0.073  9.6       118      1          1
-## 25         1 0.093 16.8       114      2          1
-## 26         1 0.095  7.4       102      1          1
-## 27         1 0.078 11.0        86      1          2
-## 28         1 0.049 16.6        89      1          1
-## 29         1 0.101 12.1       120      1          1
-## 30         1 0.042 10.5       140      2          1
-## 31         1 0.090  9.2        99      1          1
-## 32         1 0.048 17.5       112      1          1
-## 33         1 0.079 13.4        90      2          1
-## 34         1 0.063 14.4       100      1          1
-## 35         1 0.045 11.5       104      1          1
-## 36         1 0.072 14.4        70      1          2
-## 37         1 0.047 11.5       134      1          1
-## 38         1 0.097 11.8       125      1          1
-## 39         1 0.061 12.0        93      1          1
-## 40         1 0.064 10.0       110      1          1
-## 51         2 0.050 16.6       120      1          2
-## 52         2 0.031 16.6       126      1          1
-## 53         2 0.055 12.6       129      1          1
-## 54         2 0.100 12.4        88      2          1
-## 55         2 0.031 12.9       103      1          1
-## 56         2 0.038 14.8       101      1          1
-## 57         2 0.024 15.5        92      1          1
-## 58         2 0.066 13.9       106      1          1
-## 59         2 0.054 12.9       106      1          1
-## 60         2 0.066 13.8        90      2          1
-## 61         2 0.030 16.0       114      1          2
-## 62         2 0.067 14.9       110      1          1
-## 63         2 0.031 14.1       112      2          1
-## 64         2 0.110  8.7       103      2          1
-## 65         2 0.068 11.0       118      1          1
-## 66         2 0.096  9.7       107      1          2
-## 67         2 0.021 15.3       111      1          1
-## 68         2 0.026  8.7       127      1          1
-## 69         2 0.055 11.3        99      1          1
-## 70         2 0.038 16.0       111      1          1
-## 71         2 0.035 10.9       122      2          1
-## 72         2 0.077  8.1       123      1          1
-## 73         2 0.090 16.2        92      1          1
-## 74         2 0.061 17.6       104      1          1
-## 75         2 0.126 15.0        62      1          1
-## 76         2 0.059 14.4        98      1          2
-## 77         2 0.040 17.7        87      1          2
-## 78         2 0.058 17.6       105      1          1
-## 79         2 0.023 11.2       102      1          1
-## 80         2 0.041 13.0        85      1          1
-## 81         2 0.092 13.0        95      1          1
-## 82         2 0.026 17.1       101      1          1
-## 83         2 0.056 16.1        97      1          1
-## 84         2 0.059 14.8        90      1          1
-## 85         2 0.035 13.6       125      1          1
-## 86         2 0.082  9.2       112      1          1
-## 87         2 0.088 14.1       112      1          1
-## 88         2 0.084 12.2       122      1          1
+##     Sepal.Length Sepal.Width Petal.Length Petal.Width Species rainfall
+## 1            5.1         3.5          1.4         0.2       1        1
+## 2            4.9         3.0          1.4         0.2       1        2
+## 3            4.7         3.2          1.3         0.2       1        2
+## 4            4.6         3.1          1.5         0.2       1        1
+## 5            5.0         3.6          1.4         0.2       1        2
+## 6            5.4         3.9          1.7         0.4       1        2
+## 7            4.6         3.4          1.4         0.3       1        2
+## 8            5.0         3.4          1.5         0.2       1        1
+## 9            4.4         2.9          1.4         0.2       1        2
+## 10           4.9         3.1          1.5         0.1       1        2
+## 11           5.4         3.7          1.5         0.2       1        2
+## 12           4.8         3.4          1.6         0.2       1        2
+## 13           4.8         3.0          1.4         0.1       1        1
+## 14           4.3         3.0          1.1         0.1       1        2
+## 15           5.8         4.0          1.2         0.2       1        1
+## 16           5.7         4.4          1.5         0.4       1        1
+## 17           5.4         3.9          1.3         0.4       1        1
+## 18           5.1         3.5          1.4         0.3       1        1
+## 19           5.7         3.8          1.7         0.3       1        2
+## 20           5.1         3.8          1.5         0.3       1        1
+## 21           5.4         3.4          1.7         0.2       1        2
+## 22           5.1         3.7          1.5         0.4       1        2
+## 23           4.6         3.6          1.0         0.2       1        2
+## 24           5.1         3.3          1.7         0.5       1        2
+## 25           4.8         3.4          1.9         0.2       1        2
+## 26           5.0         3.0          1.6         0.2       1        2
+## 27           5.0         3.4          1.6         0.4       1        2
+## 28           5.2         3.5          1.5         0.2       1        1
+## 29           5.2         3.4          1.4         0.2       1        2
+## 30           4.7         3.2          1.6         0.2       1        2
+## 31           4.8         3.1          1.6         0.2       1        1
+## 32           5.4         3.4          1.5         0.4       1        2
+## 33           5.2         4.1          1.5         0.1       1        2
+## 34           5.5         4.2          1.4         0.2       1        1
+## 35           4.9         3.1          1.5         0.2       1        1
+## 36           5.0         3.2          1.2         0.2       1        2
+## 37           5.5         3.5          1.3         0.2       1        2
+## 38           4.9         3.6          1.4         0.1       1        2
+## 39           4.4         3.0          1.3         0.2       1        2
+## 40           5.1         3.4          1.5         0.2       1        2
+## 41           5.0         3.5          1.3         0.3       1        1
+## 42           4.5         2.3          1.3         0.3       1        2
+## 43           4.4         3.2          1.3         0.2       1        1
+## 44           5.0         3.5          1.6         0.6       1        1
+## 45           5.1         3.8          1.9         0.4       1        1
+## 46           4.8         3.0          1.4         0.3       1        2
+## 47           5.1         3.8          1.6         0.2       1        1
+## 48           4.6         3.2          1.4         0.2       1        2
+## 49           5.3         3.7          1.5         0.2       1        2
+## 50           5.0         3.3          1.4         0.2       1        1
+## 51           7.0         3.2          4.7         1.4       2        1
+## 52           6.4         3.2          4.5         1.5       2        2
+## 53           6.9         3.1          4.9         1.5       2        2
+## 54           5.5         2.3          4.0         1.3       2        2
+## 55           6.5         2.8          4.6         1.5       2        1
+## 56           5.7         2.8          4.5         1.3       2        2
+## 57           6.3         3.3          4.7         1.6       2        1
+## 58           4.9         2.4          3.3         1.0       2        2
+## 59           6.6         2.9          4.6         1.3       2        1
+## 60           5.2         2.7          3.9         1.4       2        1
+## 61           5.0         2.0          3.5         1.0       2        2
+## 62           5.9         3.0          4.2         1.5       2        2
+## 63           6.0         2.2          4.0         1.0       2        2
+## 64           6.1         2.9          4.7         1.4       2        2
+## 65           5.6         2.9          3.6         1.3       2        2
+## 66           6.7         3.1          4.4         1.4       2        1
+## 67           5.6         3.0          4.5         1.5       2        1
+## 68           5.8         2.7          4.1         1.0       2        1
+## 69           6.2         2.2          4.5         1.5       2        1
+## 70           5.6         2.5          3.9         1.1       2        2
+## 71           5.9         3.2          4.8         1.8       2        2
+## 72           6.1         2.8          4.0         1.3       2        1
+## 73           6.3         2.5          4.9         1.5       2        2
+## 74           6.1         2.8          4.7         1.2       2        1
+## 75           6.4         2.9          4.3         1.3       2        1
+## 76           6.6         3.0          4.4         1.4       2        1
+## 77           6.8         2.8          4.8         1.4       2        2
+## 78           6.7         3.0          5.0         1.7       2        2
+## 79           6.0         2.9          4.5         1.5       2        1
+## 80           5.7         2.6          3.5         1.0       2        1
+## 81           5.5         2.4          3.8         1.1       2        2
+## 82           5.5         2.4          3.7         1.0       2        2
+## 83           5.8         2.7          3.9         1.2       2        2
+## 84           6.0         2.7          5.1         1.6       2        2
+## 85           5.4         3.0          4.5         1.5       2        1
+## 86           6.0         3.4          4.5         1.6       2        2
+## 87           6.7         3.1          4.7         1.5       2        2
+## 88           6.3         2.3          4.4         1.3       2        2
+## 89           5.6         3.0          4.1         1.3       2        1
+## 90           5.5         2.5          4.0         1.3       2        1
+## 91           5.5         2.6          4.4         1.2       2        1
+## 92           6.1         3.0          4.6         1.4       2        2
+## 93           5.8         2.6          4.0         1.2       2        2
+## 94           5.0         2.3          3.3         1.0       2        2
+## 95           5.6         2.7          4.2         1.3       2        2
+## 96           5.7         3.0          4.2         1.2       2        1
+## 97           5.7         2.9          4.2         1.3       2        2
+## 98           6.2         2.9          4.3         1.3       2        2
+## 99           5.1         2.5          3.0         1.1       2        2
+## 100          5.7         2.8          4.1         1.3       2        1
+## 101          6.3         3.3          6.0         2.5       3        1
+## 102          5.8         2.7          5.1         1.9       3        2
+## 103          7.1         3.0          5.9         2.1       3        2
+## 104          6.3         2.9          5.6         1.8       3        2
+## 105          6.5         3.0          5.8         2.2       3        1
+## 106          7.6         3.0          6.6         2.1       3        2
+## 107          4.9         2.5          4.5         1.7       3        1
+## 108          7.3         2.9          6.3         1.8       3        1
+## 109          6.7         2.5          5.8         1.8       3        1
+## 110          7.2         3.6          6.1         2.5       3        2
+## 111          6.5         3.2          5.1         2.0       3        1
+## 112          6.4         2.7          5.3         1.9       3        2
+## 113          6.8         3.0          5.5         2.1       3        1
+## 114          5.7         2.5          5.0         2.0       3        1
+## 115          5.8         2.8          5.1         2.4       3        2
+## 116          6.4         3.2          5.3         2.3       3        2
+## 117          6.5         3.0          5.5         1.8       3        2
+## 118          7.7         3.8          6.7         2.2       3        2
+## 119          7.7         2.6          6.9         2.3       3        2
+## 120          6.0         2.2          5.0         1.5       3        2
+## 121          6.9         3.2          5.7         2.3       3        2
+## 122          5.6         2.8          4.9         2.0       3        1
+## 123          7.7         2.8          6.7         2.0       3        1
+## 124          6.3         2.7          4.9         1.8       3        1
+## 125          6.7         3.3          5.7         2.1       3        2
+## 126          7.2         3.2          6.0         1.8       3        2
+## 127          6.2         2.8          4.8         1.8       3        1
+## 128          6.1         3.0          4.9         1.8       3        2
+## 129          6.4         2.8          5.6         2.1       3        2
+## 130          7.2         3.0          5.8         1.6       3        2
+## 131          7.4         2.8          6.1         1.9       3        1
+## 132          7.9         3.8          6.4         2.0       3        1
+## 133          6.4         2.8          5.6         2.2       3        1
+## 134          6.3         2.8          5.1         1.5       3        2
+## 135          6.1         2.6          5.6         1.4       3        1
+## 136          7.7         3.0          6.1         2.3       3        2
+## 137          6.3         3.4          5.6         2.4       3        1
+## 138          6.4         3.1          5.5         1.8       3        2
+## 139          6.0         3.0          4.8         1.8       3        1
+## 140          6.9         3.1          5.4         2.1       3        2
+## 141          6.7         3.1          5.6         2.4       3        2
+## 142          6.9         3.1          5.1         2.3       3        1
+## 143          5.8         2.7          5.1         1.9       3        2
+## 144          6.8         3.2          5.9         2.3       3        2
+## 145          6.7         3.3          5.7         2.5       3        2
+## 146          6.7         3.0          5.2         2.3       3        1
+## 147          6.3         2.5          5.0         1.9       3        2
+## 148          6.5         3.0          5.2         2.0       3        2
+## 149          6.2         3.4          5.4         2.3       3        2
+## 150          5.9         3.0          5.1         1.8       3        1
+##     fert
+## 1      1
+## 2      2
+## 3      1
+## 4      1
+## 5      2
+## 6      1
+## 7      2
+## 8      1
+## 9      2
+## 10     1
+## 11     2
+## 12     1
+## 13     2
+## 14     1
+## 15     2
+## 16     1
+## 17     1
+## 18     2
+## 19     2
+## 20     1
+## 21     1
+## 22     2
+## 23     1
+## 24     1
+## 25     1
+## 26     2
+## 27     1
+## 28     2
+## 29     1
+## 30     1
+## 31     2
+## 32     1
+## 33     2
+## 34     2
+## 35     2
+## 36     1
+## 37     1
+## 38     2
+## 39     2
+## 40     2
+## 41     1
+## 42     1
+## 43     2
+## 44     2
+## 45     1
+## 46     1
+## 47     1
+## 48     2
+## 49     1
+## 50     2
+## 51     1
+## 52     2
+## 53     1
+## 54     2
+## 55     1
+## 56     1
+## 57     2
+## 58     2
+## 59     2
+## 60     2
+## 61     1
+## 62     2
+## 63     1
+## 64     1
+## 65     2
+## 66     1
+## 67     1
+## 68     1
+## 69     1
+## 70     2
+## 71     2
+## 72     1
+## 73     2
+## 74     2
+## 75     2
+## 76     1
+## 77     1
+## 78     1
+## 79     1
+## 80     1
+## 81     1
+## 82     1
+## 83     1
+## 84     2
+## 85     2
+## 86     2
+## 87     2
+## 88     1
+## 89     2
+## 90     1
+## 91     2
+## 92     1
+## 93     1
+## 94     2
+## 95     1
+## 96     2
+## 97     2
+## 98     2
+## 99     1
+## 100    1
+## 101    2
+## 102    2
+## 103    2
+## 104    2
+## 105    2
+## 106    2
+## 107    2
+## 108    1
+## 109    2
+## 110    1
+## 111    1
+## 112    1
+## 113    2
+## 114    2
+## 115    1
+## 116    2
+## 117    1
+## 118    2
+## 119    2
+## 120    2
+## 121    1
+## 122    1
+## 123    2
+## 124    1
+## 125    2
+## 126    1
+## 127    1
+## 128    2
+## 129    1
+## 130    1
+## 131    2
+## 132    2
+## 133    2
+## 134    1
+## 135    1
+## 136    2
+## 137    2
+## 138    2
+## 139    1
+## 140    2
+## 141    2
+## 142    2
+## 143    1
+## 144    1
+## 145    2
+## 146    1
+## 147    1
+## 148    2
+## 149    1
+## 150    2
 ```
 
 ```r
-Binarycor <- cor(as.matrix(matchingnum))
+Binarycor <- cor(as.matrix(dfnum))
 
 corrplot(Binarycor)
 ```
 
-![](C:\Users\Jonni\Desktop\R Class\Intro-to-R-Basics\docs\index_files/figure-html/unnamed-chunk-60-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-67-1.png)<!-- -->
 
 ```r
-Binarycorpval <-  rcorr(as.matrix(matchingnum))
+Binarycorpval <-  rcorr(as.matrix(dfnum))
 
-Binarycorpval$P # Only Age and RMSD are significantly correlated
+Binarycorpval$P 
 ```
 
 ```
-##            Diagnosis        RMSD         Age  WASI_NVIQ    Gender
-## Diagnosis         NA 0.416017895 0.982326430 0.85211499 0.4242550
-## RMSD       0.4160179          NA 0.003557044 0.09556762 0.2871002
-## Age        0.9823264 0.003557044          NA 0.09602150 0.9700871
-## WASI_NVIQ  0.8521150 0.095567624 0.096021504         NA 0.4700171
-## Gender     0.4242550 0.287100215 0.970087073 0.47001707        NA
-## Handedness 0.6008653 0.835268456 0.331517586 0.47643584 0.4063273
-##            Handedness
-## Diagnosis   0.6008653
-## RMSD        0.8352685
-## Age         0.3315176
-## WASI_NVIQ   0.4764358
-## Gender      0.4063273
-## Handedness         NA
+##              Sepal.Length  Sepal.Width Petal.Length  Petal.Width
+## Sepal.Length           NA 1.518983e-01 0.000000e+00 0.000000e+00
+## Sepal.Width     0.1518983           NA 4.513314e-08 4.073229e-06
+## Petal.Length    0.0000000 4.513314e-08           NA 0.000000e+00
+## Petal.Width     0.0000000 4.073229e-06 0.000000e+00           NA
+## Species         0.0000000 5.201563e-08 0.000000e+00 0.000000e+00
+## rainfall        0.6235328 3.612725e-01 7.034678e-01 7.056062e-01
+## fert            0.3506239 5.019083e-01 1.791869e-01 1.549232e-01
+##                   Species  rainfall      fert
+## Sepal.Length 0.000000e+00 0.6235328 0.3506239
+## Sepal.Width  5.201563e-08 0.3612725 0.5019083
+## Petal.Length 0.000000e+00 0.7034678 0.1791869
+## Petal.Width  0.000000e+00 0.7056062 0.1549232
+## Species                NA 0.6863141 0.2329344
+## rainfall     6.863141e-01        NA 0.6208144
+## fert         2.329344e-01 0.6208144        NA
 ```
+It isn't really accurate to run a correlation analysis on the dichotomous variables, but you can quickly visualize things to spot large issues
+
 
 ### GGpairs
