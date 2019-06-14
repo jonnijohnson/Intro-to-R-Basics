@@ -23,11 +23,11 @@ output:
 
 Many of my colleagues resist using R because, well, it is like learning another languPetal.Length. But R is so spectacular and is a great introduction to using other--and some might say more complex, programming languPetal.Lengths too (e.g., python, SQL, C++, perl). </br> 
 
-What I like most about R is that working with data at any stPetal.Length can happen under one program's roof (i.e., data entry, cleaning, analyses, graphing). 
+What I like most about R is that working with data at any stage can happen under one program's roof (i.e., data entry, cleaning, analyses, graphing). 
 
 I had a steep learning curve and often hear that time to learn R is often what stops them. I created the following tutorial that covers some introductory data exploration, analysis, and graphing-- to hopefully show others that R is not that intimidating. For the below I assume R studio is installed and you're familiar with terms such as script, console, environment, and library.
 
-One difficulty I had was grappling with the languPetal.Length syntax of R-- not just the literal coding-- but the way I should _say_ things to R to get it to perform certain functions. In the tutorial below I sometimes go into explanations about how this syntax of writing in R makes sense to me. In addition to learning commands, learning the R languPetal.Length (or any computer languPetal.Length) requires understanding of the languPetal.Length's syntax and semantic structures. 
+One difficulty I had was grappling with the language syntax of R-- not just the literal coding-- but the way I should _say_ things to R to get it to perform certain functions. In the tutorial below I sometimes go into explanations about how this syntax of writing in R makes sense to me. In addition to learning commands, learning the R languPetal.Length (or any computer language) requires understanding of the language's syntax and semantic structures. 
 
 In this tutorial I use the **iris data set** as well as add some additional variables for graphing purposes and data analyses.
 
@@ -35,7 +35,9 @@ In this tutorial I use the **iris data set** as well as add some additional vari
 
 ### packages and Libraries....
 
-Your library is all commands you can use at the present time-- I usually think of Trinity in the movie the Matrix learning how to fly the helicopter. This knowledge is _"loaded"_ into her brain and suddenly she can perform new actions! Other than wearing all black, I have nothing in common with her. But it helps me understand that the library R uses can be modified with new packages so that you can learn new commands to perform new actions 
+Your library is all commands you can use at the present time-- 
+
+*NERD ALERT* I usually think of Trinity in the movie the Matrix learning how to fly the helicopter. This knowledge is _"loaded"_ into her brain and suddenly she can perform new actions! Other than wearing all black, I have nothing in common with her. But it helps me understand that the library R uses can be modified with new packages so that you can learn new commands to perform new actions 
 
 In this way, I think of packages as special dictionaries that, if loaded into your library of other dictionaries, can reference a specific argument of the packages. It is similar to typing a formula in excel to _sum_ the numbers of a column. You simply write the argument _sum()_ and indicate within parentheses which rows to sum across. The program understands that the command _sum_, otherwise known as **an argument** or **function**, means to add and print a total. 
 
@@ -233,10 +235,10 @@ x1
 ```
 
 ```
-##   [1] 3 5 3 1 3 5 5 1 5 3 1 1 1 3 1 5 5 5 1 5 5 1 5 5 5 1 1 1 1 1 5 3 5 5 1
-##  [36] 3 3 5 1 3 5 5 1 5 3 5 1 1 1 5 3 3 3 3 1 5 1 3 1 5 5 3 5 3 5 1 1 5 3 3
-##  [71] 3 3 5 3 5 5 5 3 5 1 3 3 3 3 5 3 5 5 1 1 1 3 5 1 3 3 3 1 5 3 3 5 5 1 3
-## [106] 3 1 1 5 1 5 1 1 3 1 3 1 5 3 1 5 1 1 3 3 5 3 5 3 3 5 5 5 5 1 3 5 1 1 5
+##   [1] 5 5 1 1 3 1 3 3 3 5 5 1 5 1 3 5 5 1 5 1 5 1 1 5 1 5 5 3 1 1 3 5 1 1 1
+##  [36] 3 5 1 5 5 3 3 1 5 5 3 3 3 5 1 3 1 5 3 1 3 5 5 3 1 1 5 5 5 1 3 5 1 1 3
+##  [71] 3 3 1 1 5 5 5 5 3 5 1 1 1 1 3 1 3 5 3 3 5 5 1 5 3 1 3 1 5 1 1 3 1 1 5
+## [106] 5 3 5 3 1 3 5 5 1 1 5 1 3 5 3 5 1 5 3 3 3 5 3 3 1 1 1 1 5 3 5 1 3 1 1
 ```
 
 ```r
@@ -248,10 +250,10 @@ x2
 ```
 
 ```
-##   [1] 3 3 1 5 5 1 3 1 5 3 5 3 1 3 5 1 1 1 1 1 1 3 1 1 3 5 5 1 5 5 1 5 1 3 3
-##  [36] 3 3 3 3 5 5 5 1 3 5 3 1 1 5 5 1 5 5 5 5 5 1 5 3 3 3 3 5 1 5 1 3 5 5 1
-##  [71] 5 3 3 5 1 3 5 5 3 1 3 3 1 3 3 1 1 1 3 5 5 3 3 3 3 5 3 1 1 1 1 1 5 3 1
-## [106] 5 5 3 1 1 3 5 3 5 3 3 3 3 1 5 3 3 5 5 5 1 3 3 1 1 1 1 1 3 3 5 5 3 3 1
+##   [1] 1 3 5 5 1 5 5 5 1 5 1 3 5 3 1 5 1 1 3 3 5 1 5 3 1 1 5 3 5 5 1 1 1 1 3
+##  [36] 3 1 5 3 3 3 1 3 5 3 1 5 1 3 3 1 3 1 3 3 1 3 1 5 3 1 1 5 1 3 3 1 5 1 3
+##  [71] 3 5 3 1 1 3 5 3 3 1 3 3 5 3 1 5 1 1 3 5 5 3 3 3 1 5 1 3 5 1 3 5 5 1 1
+## [106] 5 5 5 3 3 5 1 1 5 3 5 3 3 1 1 5 1 5 5 5 1 5 3 5 5 5 5 5 3 1 5 5 1 1 1
 ```
 
 Let's add these variables x1 and x2 to our df using a base R command, _cbind()_. Thinking of this as "binding" information together the 'c' indicates these are columns that will be bound, but we can also bind rows together with _rbind()_
@@ -276,8 +278,8 @@ str(df)
 ##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
 ##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
 ##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ x1          : num  3 5 3 1 3 5 5 1 5 3 ...
-##  $ x2          : num  3 3 1 5 5 1 3 1 5 3 ...
+##  $ x1          : num  5 5 1 1 3 1 3 3 3 5 ...
+##  $ x2          : num  1 3 5 5 1 5 5 5 1 5 ...
 ```
 
 Let's act like columns x1 and x2 are behavioral codes from two coders who specified the number of bees on each flower species. Ideally, the coders would make the same observations, but we all know that isn't always the case, especially in behavioral data coding, which can be quite subjective at times.
@@ -292,19 +294,19 @@ df$x1 == df$x2
 ```
 
 ```
-##   [1]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE FALSE
-##  [12] FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
-##  [23] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
-##  [34] FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE  TRUE  TRUE FALSE
-##  [45] FALSE FALSE  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
-##  [56]  TRUE  TRUE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE  TRUE  TRUE
-##  [67] FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE
-##  [78] FALSE FALSE  TRUE  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE
-##  [89] FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE
-## [100] FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
-## [111] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
-## [122] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
-## [133] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
+##   [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE
+##  [12] FALSE  TRUE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE  TRUE  TRUE
+##  [23] FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE  TRUE
+##  [34]  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE
+##  [45] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE
+##  [56] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE  TRUE
+##  [67] FALSE FALSE  TRUE  TRUE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE
+##  [78] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [89]  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
+## [100]  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE
+## [111] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE  TRUE
+## [122]  TRUE  TRUE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE
+## [133] FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE  TRUE
 ```
 
 Could also say this by index the number of each column. Examining the structure we see that x1 is column 6 and x2 is column 7:
@@ -321,8 +323,8 @@ str(df)
 ##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
 ##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
 ##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ x1          : num  3 5 3 1 3 5 5 1 5 3 ...
-##  $ x2          : num  3 3 1 5 5 1 3 1 5 3 ...
+##  $ x1          : num  5 5 1 1 3 1 3 3 3 5 ...
+##  $ x2          : num  1 3 5 5 1 5 5 5 1 5 ...
 ```
 
 ```r
@@ -332,7 +334,7 @@ table(df[6] == df[7]) # There's many falses, indicating many discrepancies
 ```
 ## 
 ## FALSE  TRUE 
-##   102    38
+##    98    42
 ```
 
 If there were a larger dataset, you likely wouldn't want to eyeball. To find the row entry that doesn't match, we can use _which()_ and to print the contents of what's there we just index it using brackets. Since we know we want columns 6 and 7, we can concatenate them together and select out the entry. 
@@ -345,12 +347,12 @@ which(df$x1 != df$x2)
 ```
 
 ```
-##   [1]   2   3   4   5   6   7  11  12  15  16  17  18  20  21  22  23  24
-##  [18]  25  26  27  29  30  31  32  33  34  35  38  39  40  44  45  46  49
-##  [35]  51  52  53  54  55  58  59  60  61  64  67  69  70  71  73  74  75
-##  [52]  76  78  79  83  85  86  87  88  89  90  91  93  94  96  99 100 101
-##  [69] 102 104 105 106 107 108 109 111 112 113 114 115 117 118 119 120 121
-##  [86] 122 123 124 125 126 128 129 130 131 132 133 134 135 136 138 139 140
+##  [1]   1   2   3   4   5   6   7   8   9  11  12  14  15  17  19  20  23
+## [18]  24  26  29  30  31  32  35  37  38  39  40  42  43  45  46  47  48
+## [35]  49  50  51  52  53  55  56  57  58  59  60  62  64  65  67  68  72
+## [52]  73  75  76  78  80  81  82  83  84  85  86  87  88  90  92  93  94
+## [69]  95  96  97  98 101 102 103 105 107 110 111 112 113 114 115 117 119
+## [86] 120 124 125 126 129 130 131 132 133 134 135 137 138
 ```
 
 ```r
@@ -365,14 +367,14 @@ str(dferrors) #Yikes a lot discrepencies!
 ```
 
 ```
-## 'data.frame':	102 obs. of  7 variables:
-##  $ Sepal.Length: num  4.9 4.7 4.6 5 5.4 4.6 5.4 4.8 5.8 5.7 ...
-##  $ Sepal.Width : num  3 3.2 3.1 3.6 3.9 3.4 3.7 3.4 4 4.4 ...
-##  $ Petal.Length: num  1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.6 1.2 1.5 ...
-##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.2 0.4 ...
+## 'data.frame':	98 obs. of  7 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 5.4 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.7 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.2 ...
 ##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ x1          : num  5 3 1 3 5 5 1 1 1 5 ...
-##  $ x2          : num  3 1 5 5 1 3 5 3 5 1 ...
+##  $ x1          : num  5 5 1 1 3 1 3 3 3 5 ...
+##  $ x2          : num  1 3 5 5 1 5 5 5 1 1 ...
 ```
 
 Let's say we speak to our coders about their discrepencies and coder 1 states that her 5's should actually be 3's. Let's see how this would change the results
@@ -403,8 +405,8 @@ str(dferrors2) #Now only 6 variables
 ##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
 ##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
 ##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
-##  $ x1          : num  3 5 3 1 3 5 5 1 5 3 ...
-##  $ x2          : num  3 3 1 5 5 1 3 1 5 3 ...
+##  $ x1          : num  5 5 1 1 3 1 3 3 3 5 ...
+##  $ x2          : num  1 3 5 5 1 5 5 5 1 5 ...
 ```
 
 ```r
@@ -419,19 +421,19 @@ dferrors2$Sepal.Length == df$Sepal.Length
 ```
 
 ```
-##   [1]  TRUE FALSE  TRUE  TRUE  TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE
-##  [12]  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE
-##  [23] FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE
-##  [34] FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE FALSE FALSE  TRUE FALSE
-##  [45]  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE
-##  [56] FALSE  TRUE  TRUE  TRUE FALSE FALSE  TRUE FALSE  TRUE FALSE  TRUE
-##  [67]  TRUE FALSE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE
-##  [78]  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE FALSE
-##  [89]  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE
-## [100]  TRUE  TRUE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE
-## [111] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE FALSE
-## [122]  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE FALSE
-## [133] FALSE FALSE  TRUE  TRUE FALSE  TRUE  TRUE FALSE
+##   [1] FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE
+##  [12]  TRUE FALSE  TRUE  TRUE FALSE FALSE  TRUE FALSE  TRUE FALSE  TRUE
+##  [23]  TRUE FALSE  TRUE FALSE FALSE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE
+##  [34]  TRUE  TRUE  TRUE FALSE  TRUE FALSE FALSE  TRUE  TRUE  TRUE FALSE
+##  [45] FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE
+##  [56]  TRUE FALSE FALSE  TRUE  TRUE  TRUE FALSE FALSE FALSE  TRUE  TRUE
+##  [67] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE
+##  [78] FALSE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE
+##  [89]  TRUE  TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE FALSE
+## [100]  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE
+## [111]  TRUE FALSE FALSE  TRUE  TRUE FALSE  TRUE  TRUE FALSE  TRUE FALSE
+## [122]  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE
+## [133]  TRUE FALSE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE
 ```
 Let's recreate dferrors2. This time, I'm leaving all columns. Remember below, dferrors2 is initially a clone of df. We then re-write over the x1 variable because our coder says that her 5's were supposed to be 3. We specify this time that we only want to rewrite over column 6 (i.e., x1), and then ask which enteries of the coders do not match. This is what ultimately defines the dferrors2 dataframe. 
 
@@ -450,8 +452,8 @@ str(dferrors2) #Now has 7 variables
 ##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
 ##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
 ##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ x1          : num  3 5 3 1 3 5 5 1 5 3 ...
-##  $ x2          : num  3 3 1 5 5 1 3 1 5 3 ...
+##  $ x1          : num  5 5 1 1 3 1 3 3 3 5 ...
+##  $ x2          : num  1 3 5 5 1 5 5 5 1 5 ...
 ```
 
 ```r
@@ -461,12 +463,12 @@ which(dferrors2$x1 != dferrors2$x2)
 ```
 
 ```
-##  [1]   3   4   5   6   9  11  12  15  16  17  18  20  21  22  23  24  26
-## [18]  27  29  30  31  32  33  35  39  40  41  42  45  49  50  51  52  53
-## [35]  54  55  56  58  59  63  64  65  67  68  69  70  71  74  75  77  78
-## [52]  83  86  87  88  89  90  91  94  96  99 100 101 102 103 104 105 106
-## [69] 107 108 109 112 113 114 115 117 119 120 122 123 124 125 126 129 130
-## [86] 131 132 133 135 136 137 138 139 140
+##   [1]   1   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  20
+##  [18]  21  23  26  27  29  30  31  32  35  37  38  42  43  44  46  47  48
+##  [35]  50  51  52  53  55  56  58  59  60  62  63  64  65  67  68  72  73
+##  [52]  75  77  80  81  82  83  84  85  86  87  88  90  91  93  95  96  97
+##  [69]  98  99 101 102 103 105 106 107 108 110 111 112 113 114 115 116 117
+##  [86] 119 120 121 123 124 125 126 127 129 130 131 132 133 135 136 137 138
 ```
 
 ```r
@@ -477,14 +479,14 @@ str(dferrors2) #Not much of an improvement
 ```
 
 ```
-## 'data.frame':	94 obs. of  7 variables:
-##  $ Sepal.Length: num  4.7 4.6 5 5.4 4.4 5.4 4.8 5.8 5.7 5.4 ...
-##  $ Sepal.Width : num  3.2 3.1 3.6 3.9 2.9 3.7 3.4 4 4.4 3.9 ...
-##  $ Petal.Length: num  1.3 1.5 1.4 1.7 1.4 1.5 1.6 1.2 1.5 1.3 ...
-##  $ Petal.Width : num  0.2 0.2 0.2 0.4 0.2 0.2 0.2 0.2 0.4 0.4 ...
+## 'data.frame':	102 obs. of  7 variables:
+##  $ Sepal.Length: num  5.1 4.7 4.6 5 5.4 4.6 5 4.4 4.9 5.4 ...
+##  $ Sepal.Width : num  3.5 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 3.7 ...
+##  $ Petal.Length: num  1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 0.2 ...
 ##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ x1          : num  3 1 3 3 3 1 1 1 3 3 ...
-##  $ x2          : num  1 5 5 1 5 5 3 5 1 1 ...
+##  $ x1          : num  3 1 1 3 1 3 3 3 3 3 ...
+##  $ x2          : num  1 5 5 1 5 5 5 1 5 1 ...
 ```
 
 Above I dropped a column when defining the dferrors2 dataframe initially using the minus sign  _-_ . This can also be used in conjunction with _c()_ if I wanted to remove multiple columns. 
@@ -567,7 +569,7 @@ table(rainfall) #Note uneven number, perhaps expected since we can't control the
 ```
 ## rainfall
 ##  1  2 
-## 61 89
+## 72 78
 ```
 
 ```r
@@ -591,11 +593,11 @@ fert
 ```
 
 ```
-##   [1] 1 2 1 1 2 1 2 1 2 1 2 1 2 1 2 1 1 2 2 1 1 2 1 1 1 2 1 2 1 1 2 1 2 2 2
-##  [36] 1 1 2 2 2 1 1 2 2 1 1 1 2 1 2 1 2 1 2 1 1 2 2 2 2 1 2 1 1 2 1 1 1 1 2
-##  [71] 2 1 2 2 2 1 1 1 1 1 1 1 1 2 2 2 2 1 2 1 2 1 1 2 1 2 2 2 1 1 2 2 2 2 2
-## [106] 2 2 1 2 1 1 1 2 2 1 2 1 2 2 2 1 1 2 1 2 1 1 2 1 1 2 2 2 1 1 2 2 2 1 2
-## [141] 2 2 1 1 2 1 1 2 1 2
+##   [1] 1 2 1 1 1 2 1 1 2 2 2 1 2 1 1 1 2 2 1 2 1 2 2 2 2 2 2 1 2 1 2 1 2 1 1
+##  [36] 2 1 1 2 1 2 2 2 1 1 1 1 1 2 1 1 2 2 1 2 1 2 2 1 2 1 1 1 2 1 2 1 2 2 2
+##  [71] 1 1 1 1 1 1 1 1 2 2 2 1 2 2 1 1 2 2 2 2 1 2 2 2 2 2 2 2 2 1 2 2 2 1 2
+## [106] 1 2 1 2 1 1 2 2 1 1 2 2 2 1 2 2 1 2 2 2 1 1 1 2 1 1 1 1 1 2 1 2 2 2 1
+## [141] 1 1 1 2 1 1 1 2 1 1
 ```
 
 ```r
@@ -611,8 +613,8 @@ str(df)
 ##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
 ##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
 ##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ rainfall    : num  1 2 2 1 2 2 2 1 2 2 ...
-##  $ fert        : num  1 2 1 1 2 1 2 1 2 1 ...
+##  $ rainfall    : num  1 2 1 1 2 2 2 2 2 1 ...
+##  $ fert        : num  1 2 1 1 1 2 1 1 2 2 ...
 ```
 
 rainfall and fert were originally coded as 1's and 2's, where let's say 1 meant dry and 2 meant wet.  Similarly for fert, 1 = no and 2 = yes. The _Species_ variable is a categorical variable of the type of iris being observed.
@@ -638,11 +640,11 @@ df$rainfall # 1 = Dry and 2 = Wet
 ```
 
 ```
-##   [1] 1 2 2 1 2 2 2 1 2 2 2 2 1 2 1 1 1 1 2 1 2 2 2 2 2 2 2 1 2 2 1 2 2 1 1
-##  [36] 2 2 2 2 2 1 2 1 1 1 2 1 2 2 1 1 2 2 2 1 2 1 2 1 1 2 2 2 2 2 1 1 1 1 2
-##  [71] 2 1 2 1 1 1 2 2 1 1 2 2 2 2 1 2 2 2 1 1 1 2 2 2 2 1 2 2 2 1 1 2 2 2 1
-## [106] 2 1 1 1 2 1 2 1 1 2 2 2 2 2 2 2 1 1 1 2 2 1 2 2 2 1 1 1 2 1 2 1 2 1 2
-## [141] 2 1 2 2 2 1 2 2 2 1
+##   [1] 1 2 1 1 2 2 2 2 2 1 1 2 2 2 1 2 2 2 2 2 1 2 2 2 1 1 1 2 2 2 1 1 1 1 1
+##  [36] 1 1 2 1 1 1 1 2 2 2 1 2 2 2 1 2 1 1 1 2 2 2 1 1 2 2 1 2 2 2 1 2 2 2 1
+##  [71] 1 1 1 1 1 2 2 2 2 1 2 1 1 1 2 1 1 2 1 1 1 2 2 2 1 2 1 2 1 2 2 1 1 2 1
+## [106] 2 1 2 1 2 1 1 1 2 1 2 2 2 1 2 1 2 2 1 1 1 2 1 2 2 2 2 2 2 1 1 2 1 2 1
+## [141] 1 2 2 1 2 1 2 1 2 1
 ```
 
 ```r
@@ -650,11 +652,11 @@ df$fert # 1 = No and 2 = Yes
 ```
 
 ```
-##   [1] 1 2 1 1 2 1 2 1 2 1 2 1 2 1 2 1 1 2 2 1 1 2 1 1 1 2 1 2 1 1 2 1 2 2 2
-##  [36] 1 1 2 2 2 1 1 2 2 1 1 1 2 1 2 1 2 1 2 1 1 2 2 2 2 1 2 1 1 2 1 1 1 1 2
-##  [71] 2 1 2 2 2 1 1 1 1 1 1 1 1 2 2 2 2 1 2 1 2 1 1 2 1 2 2 2 1 1 2 2 2 2 2
-## [106] 2 2 1 2 1 1 1 2 2 1 2 1 2 2 2 1 1 2 1 2 1 1 2 1 1 2 2 2 1 1 2 2 2 1 2
-## [141] 2 2 1 1 2 1 1 2 1 2
+##   [1] 1 2 1 1 1 2 1 1 2 2 2 1 2 1 1 1 2 2 1 2 1 2 2 2 2 2 2 1 2 1 2 1 2 1 1
+##  [36] 2 1 1 2 1 2 2 2 1 1 1 1 1 2 1 1 2 2 1 2 1 2 2 1 2 1 1 1 2 1 2 1 2 2 2
+##  [71] 1 1 1 1 1 1 1 1 2 2 2 1 2 2 1 1 2 2 2 2 1 2 2 2 2 2 2 2 2 1 2 2 2 1 2
+## [106] 1 2 1 2 1 1 2 2 1 1 2 2 2 1 2 2 1 2 2 2 1 1 1 2 1 1 1 1 1 2 1 2 2 2 1
+## [141] 1 1 1 2 1 1 1 2 1 1
 ```
 
 ```r
@@ -668,8 +670,8 @@ str(df)
 ##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
 ##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
 ##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ rainfall    : num  1 2 2 1 2 2 2 1 2 2 ...
-##  $ fert        : num  1 2 1 1 2 1 2 1 2 1 ...
+##  $ rainfall    : num  1 2 1 1 2 2 2 2 2 1 ...
+##  $ fert        : num  1 2 1 1 1 2 1 1 2 2 ...
 ```
 
 ```r
@@ -680,8 +682,8 @@ str(df[c(6,7)])
 
 ```
 ## 'data.frame':	150 obs. of  2 variables:
-##  $ rainfall: Factor w/ 2 levels "1","2": 1 2 2 1 2 2 2 1 2 2 ...
-##  $ fert    : Factor w/ 2 levels "1","2": 1 2 1 1 2 1 2 1 2 1 ...
+##  $ rainfall: Factor w/ 2 levels "1","2": 1 2 1 1 2 2 2 2 2 1 ...
+##  $ fert    : Factor w/ 2 levels "1","2": 1 2 1 1 1 2 1 1 2 2 ...
 ```
 
 You'll notice that although rainfall and fert are now factors like our Species variable, they are still listed as 1's and 2's.
@@ -731,8 +733,8 @@ str(df)
 ##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
 ##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
 ##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ rainfall    : Factor w/ 2 levels "Dry","Wet": 1 2 2 1 2 2 2 1 2 2 ...
-##  $ fert        : Factor w/ 2 levels "No","Yes": 1 2 1 1 2 1 2 1 2 1 ...
+##  $ rainfall    : Factor w/ 2 levels "Dry","Wet": 1 2 1 1 2 2 2 2 2 1 ...
+##  $ fert        : Factor w/ 2 levels "No","Yes": 1 2 1 1 1 2 1 1 2 2 ...
 ```
 
 ```r
@@ -743,10 +745,10 @@ head(df)
 ##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species rainfall fert
 ## 1          5.1         3.5          1.4         0.2  setosa      Dry   No
 ## 2          4.9         3.0          1.4         0.2  setosa      Wet  Yes
-## 3          4.7         3.2          1.3         0.2  setosa      Wet   No
+## 3          4.7         3.2          1.3         0.2  setosa      Dry   No
 ## 4          4.6         3.1          1.5         0.2  setosa      Dry   No
-## 5          5.0         3.6          1.4         0.2  setosa      Wet  Yes
-## 6          5.4         3.9          1.7         0.4  setosa      Wet   No
+## 5          5.0         3.6          1.4         0.2  setosa      Wet   No
+## 6          5.4         3.9          1.7         0.4  setosa      Wet  Yes
 ```
 
 ```r
@@ -758,16 +760,16 @@ tail(df) # Everything looks good!
 ## 145          6.7         3.3          5.7         2.5 virginica      Wet
 ## 146          6.7         3.0          5.2         2.3 virginica      Dry
 ## 147          6.3         2.5          5.0         1.9 virginica      Wet
-## 148          6.5         3.0          5.2         2.0 virginica      Wet
+## 148          6.5         3.0          5.2         2.0 virginica      Dry
 ## 149          6.2         3.4          5.4         2.3 virginica      Wet
 ## 150          5.9         3.0          5.1         1.8 virginica      Dry
 ##     fert
-## 145  Yes
+## 145   No
 ## 146   No
 ## 147   No
 ## 148  Yes
 ## 149   No
-## 150  Yes
+## 150   No
 ```
 
 Last few modifications we could consider are the variable names. Sometimes, variables have verbose names, and sometimes they are more ambiguous. Using _colnames()_  or simply _names()_ with the dataframe of interest inside will print. 
@@ -890,8 +892,8 @@ summary(df)
 ##  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
 ##  Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
 ##        Species   rainfall  fert   
-##  setosa    :50   Dry:61   No :75  
-##  versicolor:50   Wet:89   Yes:75  
+##  setosa    :50   Dry:72   No :75  
+##  versicolor:50   Wet:78   Yes:75  
 ##  virginica :50                    
 ##                                   
 ##                                   
@@ -934,12 +936,12 @@ aggregate(Sepal.Length ~ Species + rainfall, df, mean) # Additional categories c
 
 ```
 ##      Species rainfall Sepal.Length
-## 1     setosa      Dry     5.084211
-## 2 versicolor      Dry     6.009524
-## 3  virginica      Dry     6.480952
-## 4     setosa      Wet     4.958065
-## 5 versicolor      Wet     5.882759
-## 6  virginica      Wet     6.665517
+## 1     setosa      Dry     5.034783
+## 2 versicolor      Dry     5.920000
+## 3  virginica      Dry     6.545833
+## 4     setosa      Wet     4.981481
+## 5 versicolor      Wet     5.952000
+## 6  virginica      Wet     6.626923
 ```
 
 Or we could use _tapply_ 
@@ -985,12 +987,12 @@ with(df, aggregate(Sepal.Length ~ Species + rainfall, FUN = function(x) c(MN = m
 
 ```
 ##      Species rainfall Sepal.Length.MN Sepal.Length.SD
-## 1     setosa      Dry       5.0842105       0.3419928
-## 2 versicolor      Dry       6.0095238       0.4948785
-## 3  virginica      Dry       6.4809524       0.7131753
-## 4     setosa      Wet       4.9580645       0.3556911
-## 5 versicolor      Wet       5.8827586       0.5332307
-## 6  virginica      Wet       6.6655172       0.5740059
+## 1     setosa      Dry       5.0347826       0.3472079
+## 2 versicolor      Dry       5.9200000       0.5066228
+## 3  virginica      Dry       6.5458333       0.6121801
+## 4     setosa      Wet       4.9814815       0.3616597
+## 5 versicolor      Wet       5.9520000       0.5355060
+## 6  virginica      Wet       6.6269231       0.6666679
 ```
 
 
@@ -1072,7 +1074,7 @@ chisq.test(df$Species, df$rainfall)
 ## 	Pearson's Chi-squared test
 ## 
 ## data:  df$Species and df$rainfall
-## X-squared = 0.22104, df = 2, p-value = 0.8954
+## X-squared = 0.16026, df = 2, p-value = 0.923
 ```
 
 ```r
@@ -1084,7 +1086,7 @@ chisq.test(df$Species, df$fert)
 ## 	Pearson's Chi-squared test
 ## 
 ## data:  df$Species and df$fert
-## X-squared = 1.92, df = 2, p-value = 0.3829
+## X-squared = 1.12, df = 2, p-value = 0.5712
 ```
 
 ```r
@@ -1096,7 +1098,7 @@ Table 1: **Pearson's Chi-squared test**
 
 | $\chi^2$ |  p   | df | Cramer\'s V |
 |:--------:|:----:|:--:|:-----------:|
-|   0.22   | .895 | 2  |    0.04     |
+|   0.16   | .923 | 2  |    0.03     |
 
 
 <br>
@@ -1153,7 +1155,7 @@ bartlett.test(Sepal.Length ~ rainfall, df)
 ## 	Bartlett test of homogeneity of variances
 ## 
 ## data:  Sepal.Length by rainfall
-## Bartlett's K-squared = 0.5323, df = 1, p-value = 0.4656
+## Bartlett's K-squared = 0.59032, df = 1, p-value = 0.4423
 ```
 
 ```r
@@ -1163,7 +1165,7 @@ leveneTest(df$Sepal.Length, df$fert)
 ```
 ## Levene's Test for Homogeneity of Variance (center = median)
 ##        Df F value Pr(>F)
-## group   1  2.0505 0.1543
+## group   1  0.4215 0.5172
 ##       148
 ```
 
@@ -1316,10 +1318,10 @@ describe(df)
 ## rainfall 
 ##        n  missing distinct 
 ##      150        0        2 
-##                       
-## Value        Dry   Wet
-## Frequency     61    89
-## Proportion 0.407 0.593
+##                     
+## Value       Dry  Wet
+## Frequency    72   78
+## Proportion 0.48 0.52
 ## ---------------------------------------------------------------------------
 ## fert 
 ##        n  missing distinct 
@@ -1465,8 +1467,8 @@ df %>%
 ## # A tibble: 2 x 5
 ##   fert    cor  p.value LowerCInt UpperCInt
 ##   <fct> <dbl>    <dbl>     <dbl>     <dbl>
-## 1 No    0.878 5.20e-25     0.812     0.921
-## 2 Yes   0.868 7.22e-24     0.798     0.915
+## 1 No    0.864 1.91e-23     0.792     0.912
+## 2 Yes   0.886 4.62e-26     0.825     0.927
 ```
 
 ```r
@@ -1516,7 +1518,7 @@ str(nofertcors)
 
 ```
 ## List of 3
-##  $ r: num [1:4, 1:4] 1 -0.192 0.878 0.824 -0.192 ...
+##  $ r: num [1:4, 1:4] 1 -0.177 0.864 0.796 -0.177 ...
 ##   ..- attr(*, "dimnames")=List of 2
 ##   .. ..$ : chr [1:4] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width"
 ##   .. ..$ : chr [1:4] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width"
@@ -1524,7 +1526,7 @@ str(nofertcors)
 ##   ..- attr(*, "dimnames")=List of 2
 ##   .. ..$ : chr [1:4] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width"
 ##   .. ..$ : chr [1:4] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width"
-##  $ P: num [1:4, 1:4] NA 0.0984 0 0 0.0984 ...
+##  $ P: num [1:4, 1:4] NA 0.129 0 0 0.129 ...
 ##   ..- attr(*, "dimnames")=List of 2
 ##   .. ..$ : chr [1:4] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width"
 ##   .. ..$ : chr [1:4] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width"
@@ -1545,25 +1547,25 @@ cbind(yesfertcors$r,yesfertcors$P,nofertcors$r, nofertcors$P)
 
 ```
 ##              Sepal.Length Sepal.Width Petal.Length Petal.Width
-## Sepal.Length   1.00000000 -0.06026081    0.8677862   0.8124570
-## Sepal.Width   -0.06026081  1.00000000   -0.3953243  -0.3445470
-## Petal.Length   0.86778621 -0.39532430    1.0000000   0.9667531
-## Petal.Width    0.81245700 -0.34454705    0.9667531   1.0000000
+## Sepal.Length   1.00000000 -0.07433529    0.8859194   0.8465170
+## Sepal.Width   -0.07433529  1.00000000   -0.3654328  -0.3015800
+## Petal.Length   0.88591938 -0.36543284    1.0000000   0.9698363
+## Petal.Width    0.84651701 -0.30157997    0.9698363   1.0000000
 ##              Sepal.Length Sepal.Width Petal.Length Petal.Width
-## Sepal.Length           NA 0.607548710  0.000000000 0.000000000
-## Sepal.Width     0.6075487          NA  0.000447683 0.002469815
-## Petal.Length    0.0000000 0.000447683           NA 0.000000000
-## Petal.Width     0.0000000 0.002469815  0.000000000          NA
+## Sepal.Length           NA 0.526193234  0.000000000  0.00000000
+## Sepal.Width     0.5261932          NA  0.001264733  0.00855315
+## Petal.Length    0.0000000 0.001264733           NA  0.00000000
+## Petal.Width     0.0000000 0.008553150  0.000000000          NA
 ##              Sepal.Length Sepal.Width Petal.Length Petal.Width
-## Sepal.Length    1.0000000  -0.1922721    0.8775879   0.8241682
-## Sepal.Width    -0.1922721   1.0000000   -0.4831333  -0.4103438
-## Petal.Length    0.8775879  -0.4831333    1.0000000   0.9572902
-## Petal.Width     0.8241682  -0.4103438    0.9572902   1.0000000
+## Sepal.Length    1.0000000  -0.1766929    0.8639526   0.7964975
+## Sepal.Width    -0.1766929   1.0000000   -0.4965847  -0.4351760
+## Petal.Length    0.8639526  -0.4965847    1.0000000   0.9570866
+## Petal.Width     0.7964975  -0.4351760    0.9570866   1.0000000
 ##              Sepal.Length  Sepal.Width Petal.Length  Petal.Width
-## Sepal.Length           NA 9.840895e-02 0.000000e+00 0.0000000000
-## Sepal.Width    0.09840895           NA 1.131866e-05 0.0002557579
-## Petal.Length   0.00000000 1.131866e-05           NA 0.0000000000
-## Petal.Width    0.00000000 2.557579e-04 0.000000e+00           NA
+## Sepal.Length           NA 1.294023e-01 0.000000e+00 0.000000e+00
+## Sepal.Width     0.1294023           NA 5.862721e-06 9.549074e-05
+## Petal.Length    0.0000000 5.862721e-06           NA 0.000000e+00
+## Petal.Width     0.0000000 9.549074e-05 0.000000e+00           NA
 ```
 
 Pretty messy, but there are other methods to that have more to do with visualization. _rcorr_ works well, when you are looking at full sample descriptives or not binding columns from different groups. 
@@ -1683,9 +1685,9 @@ barplottab # Which looks like this
 ```
 ##             
 ##              Dry Wet
-##   setosa      19  31
-##   versicolor  21  29
-##   virginica   21  29
+##   setosa      23  27
+##   versicolor  25  25
+##   virginica   24  26
 ```
 
 ```r
@@ -1950,10 +1952,10 @@ mergedcorrplot
 
 ```
 ##              Sepal.Length Sepal.Width Petal.Length Petal.Width
-## Sepal.Length    1.0000000 -0.05569628    0.9043477   0.8596161
-## Sepal.Width    -0.2218346  1.00000000   -0.3263910  -0.2712637
-## Petal.Length    0.8170632 -0.58939433    1.0000000   0.9694215
-## Petal.Width     0.7461571 -0.51898023    0.9520773   1.0000000
+## Sepal.Length   1.00000000  -0.1426525    0.8827376   0.8111109
+## Sepal.Width   -0.08267591   1.0000000   -0.4294039  -0.3568522
+## Petal.Length   0.85866688  -0.4329609    1.0000000   0.9590961
+## Petal.Width    0.82775901  -0.3833991    0.9675820   1.0000000
 ```
 
 
@@ -1995,66 +1997,77 @@ drymat1
 ```
 ##    Sepal.Length Sepal.Width Petal.Length Petal.Width
 ## 1           5.1         3.5          1.4         0.2
-## 2           4.6         3.1          1.5         0.2
-## 3           5.0         3.4          1.5         0.2
-## 4           4.8         3.0          1.4         0.1
-## 5           5.8         4.0          1.2         0.2
-## 6           5.7         4.4          1.5         0.4
-## 7           5.4         3.9          1.3         0.4
-## 8           5.1         3.5          1.4         0.3
-## 9           5.1         3.8          1.5         0.3
-## 10          5.2         3.5          1.5         0.2
+## 2           4.7         3.2          1.3         0.2
+## 3           4.6         3.1          1.5         0.2
+## 4           4.9         3.1          1.5         0.1
+## 5           5.4         3.7          1.5         0.2
+## 6           5.8         4.0          1.2         0.2
+## 7           5.4         3.4          1.7         0.2
+## 8           4.8         3.4          1.9         0.2
+## 9           5.0         3.0          1.6         0.2
+## 10          5.0         3.4          1.6         0.4
 ## 11          4.8         3.1          1.6         0.2
-## 12          5.5         4.2          1.4         0.2
-## 13          4.9         3.1          1.5         0.2
-## 14          5.0         3.5          1.3         0.3
-## 15          4.4         3.2          1.3         0.2
-## 16          5.0         3.5          1.6         0.6
-## 17          5.1         3.8          1.9         0.4
-## 18          5.1         3.8          1.6         0.2
-## 19          5.0         3.3          1.4         0.2
-## 20          7.0         3.2          4.7         1.4
-## 21          6.5         2.8          4.6         1.5
-## 22          6.3         3.3          4.7         1.6
-## 23          6.6         2.9          4.6         1.3
-## 24          5.2         2.7          3.9         1.4
-## 25          6.7         3.1          4.4         1.4
-## 26          5.6         3.0          4.5         1.5
-## 27          5.8         2.7          4.1         1.0
-## 28          6.2         2.2          4.5         1.5
-## 29          6.1         2.8          4.0         1.3
-## 30          6.1         2.8          4.7         1.2
-## 31          6.4         2.9          4.3         1.3
-## 32          6.6         3.0          4.4         1.4
-## 33          6.0         2.9          4.5         1.5
-## 34          5.7         2.6          3.5         1.0
-## 35          5.4         3.0          4.5         1.5
-## 36          5.6         3.0          4.1         1.3
-## 37          5.5         2.5          4.0         1.3
-## 38          5.5         2.6          4.4         1.2
-## 39          5.7         3.0          4.2         1.2
-## 40          5.7         2.8          4.1         1.3
-## 41          6.3         3.3          6.0         2.5
-## 42          6.5         3.0          5.8         2.2
-## 43          4.9         2.5          4.5         1.7
-## 44          7.3         2.9          6.3         1.8
-## 45          6.7         2.5          5.8         1.8
-## 46          6.5         3.2          5.1         2.0
-## 47          6.8         3.0          5.5         2.1
-## 48          5.7         2.5          5.0         2.0
-## 49          5.6         2.8          4.9         2.0
-## 50          7.7         2.8          6.7         2.0
-## 51          6.3         2.7          4.9         1.8
-## 52          6.2         2.8          4.8         1.8
-## 53          7.4         2.8          6.1         1.9
-## 54          7.9         3.8          6.4         2.0
-## 55          6.4         2.8          5.6         2.2
-## 56          6.1         2.6          5.6         1.4
-## 57          6.3         3.4          5.6         2.4
-## 58          6.0         3.0          4.8         1.8
-## 59          6.9         3.1          5.1         2.3
-## 60          6.7         3.0          5.2         2.3
-## 61          5.9         3.0          5.1         1.8
+## 12          5.4         3.4          1.5         0.4
+## 13          5.2         4.1          1.5         0.1
+## 14          5.5         4.2          1.4         0.2
+## 15          4.9         3.1          1.5         0.2
+## 16          5.0         3.2          1.2         0.2
+## 17          5.5         3.5          1.3         0.2
+## 18          4.4         3.0          1.3         0.2
+## 19          5.1         3.4          1.5         0.2
+## 20          5.0         3.5          1.3         0.3
+## 21          4.5         2.3          1.3         0.3
+## 22          4.8         3.0          1.4         0.3
+## 23          5.0         3.3          1.4         0.2
+## 24          6.4         3.2          4.5         1.5
+## 25          6.9         3.1          4.9         1.5
+## 26          5.5         2.3          4.0         1.3
+## 27          4.9         2.4          3.3         1.0
+## 28          6.6         2.9          4.6         1.3
+## 29          5.9         3.0          4.2         1.5
+## 30          6.7         3.1          4.4         1.4
+## 31          5.6         2.5          3.9         1.1
+## 32          5.9         3.2          4.8         1.8
+## 33          6.1         2.8          4.0         1.3
+## 34          6.3         2.5          4.9         1.5
+## 35          6.1         2.8          4.7         1.2
+## 36          6.4         2.9          4.3         1.3
+## 37          5.7         2.6          3.5         1.0
+## 38          5.5         2.4          3.7         1.0
+## 39          5.8         2.7          3.9         1.2
+## 40          6.0         2.7          5.1         1.6
+## 41          6.0         3.4          4.5         1.6
+## 42          6.7         3.1          4.7         1.5
+## 43          5.6         3.0          4.1         1.3
+## 44          5.5         2.5          4.0         1.3
+## 45          5.5         2.6          4.4         1.2
+## 46          5.6         2.7          4.2         1.3
+## 47          5.7         2.9          4.2         1.3
+## 48          5.1         2.5          3.0         1.1
+## 49          5.8         2.7          5.1         1.9
+## 50          7.1         3.0          5.9         2.1
+## 51          6.5         3.0          5.8         2.2
+## 52          4.9         2.5          4.5         1.7
+## 53          6.7         2.5          5.8         1.8
+## 54          6.5         3.2          5.1         2.0
+## 55          6.4         2.7          5.3         1.9
+## 56          6.8         3.0          5.5         2.1
+## 57          5.8         2.8          5.1         2.4
+## 58          7.7         2.6          6.9         2.3
+## 59          6.9         3.2          5.7         2.3
+## 60          6.3         2.7          4.9         1.8
+## 61          6.7         3.3          5.7         2.1
+## 62          7.2         3.2          6.0         1.8
+## 63          6.1         3.0          4.9         1.8
+## 64          6.1         2.6          5.6         1.4
+## 65          7.7         3.0          6.1         2.3
+## 66          6.4         3.1          5.5         1.8
+## 67          6.9         3.1          5.4         2.1
+## 68          6.7         3.1          5.6         2.4
+## 69          6.8         3.2          5.9         2.3
+## 70          6.7         3.0          5.2         2.3
+## 71          6.5         3.0          5.2         2.0
+## 72          5.9         3.0          5.1         1.8
 ```
 
 ```r
@@ -2072,11 +2085,11 @@ raincors
 ```
 
 ```
-##              Sepal.Length Sepal.Width Petal.Length Petal.Width
-## Sepal.Length           NA 0.604170490  0.000000000  0.00000000
-## Sepal.Width     0.6041705          NA  0.001798726  0.01013101
-## Petal.Length    0.0000000 0.001798726           NA  0.00000000
-## Petal.Width     0.0000000 0.010131015  0.000000000          NA
+##              Sepal.Length  Sepal.Width Petal.Length Petal.Width
+## Sepal.Length           NA 2.127956e-01 0.000000e+00 0.000000000
+## Sepal.Width     0.2127956           NA 8.744102e-05 0.001341086
+## Petal.Length    0.0000000 8.744102e-05           NA 0.000000000
+## Petal.Width     0.0000000 1.341086e-03 0.000000e+00          NA
 ```
 
 ```r
@@ -2084,7 +2097,8 @@ raincors[lower.tri(raincors)]
 ```
 
 ```
-## [1] 0.604170490 0.000000000 0.000000000 0.001798726 0.010131015 0.000000000
+## [1] 2.127956e-01 0.000000e+00 0.000000e+00 8.744102e-05 1.341086e-03
+## [6] 0.000000e+00
 ```
 
 ```r
@@ -2095,10 +2109,10 @@ drycors1
 
 ```
 ##              Sepal.Length  Sepal.Width Petal.Length  Petal.Width
-## Sepal.Length           NA 8.575651e-02 8.881784e-16 5.157874e-12
-## Sepal.Width  8.575651e-02           NA 5.809454e-07 1.826152e-05
-## Petal.Length 8.881784e-16 5.809454e-07           NA 0.000000e+00
-## Petal.Width  5.157874e-12 1.826152e-05 0.000000e+00           NA
+## Sepal.Length           NA 0.4899213335  0.000000000 0.0000000000
+## Sepal.Width     0.4899213           NA  0.000145523 0.0008863358
+## Petal.Length    0.0000000 0.0001455230           NA 0.0000000000
+## Petal.Width     0.0000000 0.0008863358  0.000000000           NA
 ```
 
 ```r
@@ -2110,10 +2124,10 @@ raincors #merged p-values matrix
 
 ```
 ##              Sepal.Length  Sepal.Width Petal.Length Petal.Width
-## Sepal.Length           NA 6.041705e-01  0.000000000  0.00000000
-## Sepal.Width  8.575651e-02           NA  0.001798726  0.01013101
-## Petal.Length 8.881784e-16 5.809454e-07           NA  0.00000000
-## Petal.Width  5.157874e-12 1.826152e-05  0.000000000          NA
+## Sepal.Length           NA 0.2127956140 0.000000e+00 0.000000000
+## Sepal.Width     0.4899213           NA 8.744102e-05 0.001341086
+## Petal.Length    0.0000000 0.0001455230           NA 0.000000000
+## Petal.Width     0.0000000 0.0008863358 0.000000e+00          NA
 ```
 
 So the drycors p-values were first turned into a matrix, before selecting out the lower triangle from it, and re-writing over the lower triangle of the merged p-value matrix.
@@ -2147,91 +2161,91 @@ dfnum
 ##     Sepal.Length Sepal.Width Petal.Length Petal.Width Species rainfall
 ## 1            5.1         3.5          1.4         0.2       1        1
 ## 2            4.9         3.0          1.4         0.2       1        2
-## 3            4.7         3.2          1.3         0.2       1        2
+## 3            4.7         3.2          1.3         0.2       1        1
 ## 4            4.6         3.1          1.5         0.2       1        1
 ## 5            5.0         3.6          1.4         0.2       1        2
 ## 6            5.4         3.9          1.7         0.4       1        2
 ## 7            4.6         3.4          1.4         0.3       1        2
-## 8            5.0         3.4          1.5         0.2       1        1
+## 8            5.0         3.4          1.5         0.2       1        2
 ## 9            4.4         2.9          1.4         0.2       1        2
-## 10           4.9         3.1          1.5         0.1       1        2
-## 11           5.4         3.7          1.5         0.2       1        2
+## 10           4.9         3.1          1.5         0.1       1        1
+## 11           5.4         3.7          1.5         0.2       1        1
 ## 12           4.8         3.4          1.6         0.2       1        2
-## 13           4.8         3.0          1.4         0.1       1        1
+## 13           4.8         3.0          1.4         0.1       1        2
 ## 14           4.3         3.0          1.1         0.1       1        2
 ## 15           5.8         4.0          1.2         0.2       1        1
-## 16           5.7         4.4          1.5         0.4       1        1
-## 17           5.4         3.9          1.3         0.4       1        1
-## 18           5.1         3.5          1.4         0.3       1        1
+## 16           5.7         4.4          1.5         0.4       1        2
+## 17           5.4         3.9          1.3         0.4       1        2
+## 18           5.1         3.5          1.4         0.3       1        2
 ## 19           5.7         3.8          1.7         0.3       1        2
-## 20           5.1         3.8          1.5         0.3       1        1
-## 21           5.4         3.4          1.7         0.2       1        2
+## 20           5.1         3.8          1.5         0.3       1        2
+## 21           5.4         3.4          1.7         0.2       1        1
 ## 22           5.1         3.7          1.5         0.4       1        2
 ## 23           4.6         3.6          1.0         0.2       1        2
 ## 24           5.1         3.3          1.7         0.5       1        2
-## 25           4.8         3.4          1.9         0.2       1        2
-## 26           5.0         3.0          1.6         0.2       1        2
-## 27           5.0         3.4          1.6         0.4       1        2
-## 28           5.2         3.5          1.5         0.2       1        1
+## 25           4.8         3.4          1.9         0.2       1        1
+## 26           5.0         3.0          1.6         0.2       1        1
+## 27           5.0         3.4          1.6         0.4       1        1
+## 28           5.2         3.5          1.5         0.2       1        2
 ## 29           5.2         3.4          1.4         0.2       1        2
 ## 30           4.7         3.2          1.6         0.2       1        2
 ## 31           4.8         3.1          1.6         0.2       1        1
-## 32           5.4         3.4          1.5         0.4       1        2
-## 33           5.2         4.1          1.5         0.1       1        2
+## 32           5.4         3.4          1.5         0.4       1        1
+## 33           5.2         4.1          1.5         0.1       1        1
 ## 34           5.5         4.2          1.4         0.2       1        1
 ## 35           4.9         3.1          1.5         0.2       1        1
-## 36           5.0         3.2          1.2         0.2       1        2
-## 37           5.5         3.5          1.3         0.2       1        2
+## 36           5.0         3.2          1.2         0.2       1        1
+## 37           5.5         3.5          1.3         0.2       1        1
 ## 38           4.9         3.6          1.4         0.1       1        2
-## 39           4.4         3.0          1.3         0.2       1        2
-## 40           5.1         3.4          1.5         0.2       1        2
+## 39           4.4         3.0          1.3         0.2       1        1
+## 40           5.1         3.4          1.5         0.2       1        1
 ## 41           5.0         3.5          1.3         0.3       1        1
-## 42           4.5         2.3          1.3         0.3       1        2
-## 43           4.4         3.2          1.3         0.2       1        1
-## 44           5.0         3.5          1.6         0.6       1        1
-## 45           5.1         3.8          1.9         0.4       1        1
-## 46           4.8         3.0          1.4         0.3       1        2
-## 47           5.1         3.8          1.6         0.2       1        1
+## 42           4.5         2.3          1.3         0.3       1        1
+## 43           4.4         3.2          1.3         0.2       1        2
+## 44           5.0         3.5          1.6         0.6       1        2
+## 45           5.1         3.8          1.9         0.4       1        2
+## 46           4.8         3.0          1.4         0.3       1        1
+## 47           5.1         3.8          1.6         0.2       1        2
 ## 48           4.6         3.2          1.4         0.2       1        2
 ## 49           5.3         3.7          1.5         0.2       1        2
 ## 50           5.0         3.3          1.4         0.2       1        1
-## 51           7.0         3.2          4.7         1.4       2        1
-## 52           6.4         3.2          4.5         1.5       2        2
-## 53           6.9         3.1          4.9         1.5       2        2
-## 54           5.5         2.3          4.0         1.3       2        2
-## 55           6.5         2.8          4.6         1.5       2        1
+## 51           7.0         3.2          4.7         1.4       2        2
+## 52           6.4         3.2          4.5         1.5       2        1
+## 53           6.9         3.1          4.9         1.5       2        1
+## 54           5.5         2.3          4.0         1.3       2        1
+## 55           6.5         2.8          4.6         1.5       2        2
 ## 56           5.7         2.8          4.5         1.3       2        2
-## 57           6.3         3.3          4.7         1.6       2        1
-## 58           4.9         2.4          3.3         1.0       2        2
+## 57           6.3         3.3          4.7         1.6       2        2
+## 58           4.9         2.4          3.3         1.0       2        1
 ## 59           6.6         2.9          4.6         1.3       2        1
-## 60           5.2         2.7          3.9         1.4       2        1
+## 60           5.2         2.7          3.9         1.4       2        2
 ## 61           5.0         2.0          3.5         1.0       2        2
-## 62           5.9         3.0          4.2         1.5       2        2
+## 62           5.9         3.0          4.2         1.5       2        1
 ## 63           6.0         2.2          4.0         1.0       2        2
 ## 64           6.1         2.9          4.7         1.4       2        2
 ## 65           5.6         2.9          3.6         1.3       2        2
 ## 66           6.7         3.1          4.4         1.4       2        1
-## 67           5.6         3.0          4.5         1.5       2        1
-## 68           5.8         2.7          4.1         1.0       2        1
-## 69           6.2         2.2          4.5         1.5       2        1
-## 70           5.6         2.5          3.9         1.1       2        2
-## 71           5.9         3.2          4.8         1.8       2        2
+## 67           5.6         3.0          4.5         1.5       2        2
+## 68           5.8         2.7          4.1         1.0       2        2
+## 69           6.2         2.2          4.5         1.5       2        2
+## 70           5.6         2.5          3.9         1.1       2        1
+## 71           5.9         3.2          4.8         1.8       2        1
 ## 72           6.1         2.8          4.0         1.3       2        1
-## 73           6.3         2.5          4.9         1.5       2        2
+## 73           6.3         2.5          4.9         1.5       2        1
 ## 74           6.1         2.8          4.7         1.2       2        1
 ## 75           6.4         2.9          4.3         1.3       2        1
-## 76           6.6         3.0          4.4         1.4       2        1
+## 76           6.6         3.0          4.4         1.4       2        2
 ## 77           6.8         2.8          4.8         1.4       2        2
 ## 78           6.7         3.0          5.0         1.7       2        2
-## 79           6.0         2.9          4.5         1.5       2        1
+## 79           6.0         2.9          4.5         1.5       2        2
 ## 80           5.7         2.6          3.5         1.0       2        1
 ## 81           5.5         2.4          3.8         1.1       2        2
-## 82           5.5         2.4          3.7         1.0       2        2
-## 83           5.8         2.7          3.9         1.2       2        2
-## 84           6.0         2.7          5.1         1.6       2        2
-## 85           5.4         3.0          4.5         1.5       2        1
-## 86           6.0         3.4          4.5         1.6       2        2
-## 87           6.7         3.1          4.7         1.5       2        2
+## 82           5.5         2.4          3.7         1.0       2        1
+## 83           5.8         2.7          3.9         1.2       2        1
+## 84           6.0         2.7          5.1         1.6       2        1
+## 85           5.4         3.0          4.5         1.5       2        2
+## 86           6.0         3.4          4.5         1.6       2        1
+## 87           6.7         3.1          4.7         1.5       2        1
 ## 88           6.3         2.3          4.4         1.3       2        2
 ## 89           5.6         3.0          4.1         1.3       2        1
 ## 90           5.5         2.5          4.0         1.3       2        1
@@ -2239,60 +2253,60 @@ dfnum
 ## 92           6.1         3.0          4.6         1.4       2        2
 ## 93           5.8         2.6          4.0         1.2       2        2
 ## 94           5.0         2.3          3.3         1.0       2        2
-## 95           5.6         2.7          4.2         1.3       2        2
-## 96           5.7         3.0          4.2         1.2       2        1
-## 97           5.7         2.9          4.2         1.3       2        2
+## 95           5.6         2.7          4.2         1.3       2        1
+## 96           5.7         3.0          4.2         1.2       2        2
+## 97           5.7         2.9          4.2         1.3       2        1
 ## 98           6.2         2.9          4.3         1.3       2        2
-## 99           5.1         2.5          3.0         1.1       2        2
-## 100          5.7         2.8          4.1         1.3       2        1
-## 101          6.3         3.3          6.0         2.5       3        1
-## 102          5.8         2.7          5.1         1.9       3        2
-## 103          7.1         3.0          5.9         2.1       3        2
+## 99           5.1         2.5          3.0         1.1       2        1
+## 100          5.7         2.8          4.1         1.3       2        2
+## 101          6.3         3.3          6.0         2.5       3        2
+## 102          5.8         2.7          5.1         1.9       3        1
+## 103          7.1         3.0          5.9         2.1       3        1
 ## 104          6.3         2.9          5.6         1.8       3        2
 ## 105          6.5         3.0          5.8         2.2       3        1
 ## 106          7.6         3.0          6.6         2.1       3        2
 ## 107          4.9         2.5          4.5         1.7       3        1
-## 108          7.3         2.9          6.3         1.8       3        1
+## 108          7.3         2.9          6.3         1.8       3        2
 ## 109          6.7         2.5          5.8         1.8       3        1
 ## 110          7.2         3.6          6.1         2.5       3        2
 ## 111          6.5         3.2          5.1         2.0       3        1
-## 112          6.4         2.7          5.3         1.9       3        2
+## 112          6.4         2.7          5.3         1.9       3        1
 ## 113          6.8         3.0          5.5         2.1       3        1
-## 114          5.7         2.5          5.0         2.0       3        1
-## 115          5.8         2.8          5.1         2.4       3        2
+## 114          5.7         2.5          5.0         2.0       3        2
+## 115          5.8         2.8          5.1         2.4       3        1
 ## 116          6.4         3.2          5.3         2.3       3        2
 ## 117          6.5         3.0          5.5         1.8       3        2
 ## 118          7.7         3.8          6.7         2.2       3        2
-## 119          7.7         2.6          6.9         2.3       3        2
+## 119          7.7         2.6          6.9         2.3       3        1
 ## 120          6.0         2.2          5.0         1.5       3        2
-## 121          6.9         3.2          5.7         2.3       3        2
-## 122          5.6         2.8          4.9         2.0       3        1
-## 123          7.7         2.8          6.7         2.0       3        1
+## 121          6.9         3.2          5.7         2.3       3        1
+## 122          5.6         2.8          4.9         2.0       3        2
+## 123          7.7         2.8          6.7         2.0       3        2
 ## 124          6.3         2.7          4.9         1.8       3        1
-## 125          6.7         3.3          5.7         2.1       3        2
-## 126          7.2         3.2          6.0         1.8       3        2
-## 127          6.2         2.8          4.8         1.8       3        1
-## 128          6.1         3.0          4.9         1.8       3        2
+## 125          6.7         3.3          5.7         2.1       3        1
+## 126          7.2         3.2          6.0         1.8       3        1
+## 127          6.2         2.8          4.8         1.8       3        2
+## 128          6.1         3.0          4.9         1.8       3        1
 ## 129          6.4         2.8          5.6         2.1       3        2
 ## 130          7.2         3.0          5.8         1.6       3        2
-## 131          7.4         2.8          6.1         1.9       3        1
-## 132          7.9         3.8          6.4         2.0       3        1
-## 133          6.4         2.8          5.6         2.2       3        1
+## 131          7.4         2.8          6.1         1.9       3        2
+## 132          7.9         3.8          6.4         2.0       3        2
+## 133          6.4         2.8          5.6         2.2       3        2
 ## 134          6.3         2.8          5.1         1.5       3        2
 ## 135          6.1         2.6          5.6         1.4       3        1
-## 136          7.7         3.0          6.1         2.3       3        2
-## 137          6.3         3.4          5.6         2.4       3        1
-## 138          6.4         3.1          5.5         1.8       3        2
-## 139          6.0         3.0          4.8         1.8       3        1
-## 140          6.9         3.1          5.4         2.1       3        2
-## 141          6.7         3.1          5.6         2.4       3        2
-## 142          6.9         3.1          5.1         2.3       3        1
+## 136          7.7         3.0          6.1         2.3       3        1
+## 137          6.3         3.4          5.6         2.4       3        2
+## 138          6.4         3.1          5.5         1.8       3        1
+## 139          6.0         3.0          4.8         1.8       3        2
+## 140          6.9         3.1          5.4         2.1       3        1
+## 141          6.7         3.1          5.6         2.4       3        1
+## 142          6.9         3.1          5.1         2.3       3        2
 ## 143          5.8         2.7          5.1         1.9       3        2
-## 144          6.8         3.2          5.9         2.3       3        2
+## 144          6.8         3.2          5.9         2.3       3        1
 ## 145          6.7         3.3          5.7         2.5       3        2
 ## 146          6.7         3.0          5.2         2.3       3        1
 ## 147          6.3         2.5          5.0         1.9       3        2
-## 148          6.5         3.0          5.2         2.0       3        2
+## 148          6.5         3.0          5.2         2.0       3        1
 ## 149          6.2         3.4          5.4         2.3       3        2
 ## 150          5.9         3.0          5.1         1.8       3        1
 ##     fert
@@ -2300,152 +2314,152 @@ dfnum
 ## 2      2
 ## 3      1
 ## 4      1
-## 5      2
-## 6      1
-## 7      2
+## 5      1
+## 6      2
+## 7      1
 ## 8      1
 ## 9      2
-## 10     1
+## 10     2
 ## 11     2
 ## 12     1
 ## 13     2
 ## 14     1
-## 15     2
+## 15     1
 ## 16     1
-## 17     1
+## 17     2
 ## 18     2
-## 19     2
-## 20     1
+## 19     1
+## 20     2
 ## 21     1
 ## 22     2
-## 23     1
-## 24     1
-## 25     1
+## 23     2
+## 24     2
+## 25     2
 ## 26     2
-## 27     1
-## 28     2
-## 29     1
+## 27     2
+## 28     1
+## 29     2
 ## 30     1
 ## 31     2
 ## 32     1
 ## 33     2
-## 34     2
-## 35     2
-## 36     1
+## 34     1
+## 35     1
+## 36     2
 ## 37     1
-## 38     2
+## 38     1
 ## 39     2
-## 40     2
-## 41     1
-## 42     1
+## 40     1
+## 41     2
+## 42     2
 ## 43     2
-## 44     2
+## 44     1
 ## 45     1
 ## 46     1
 ## 47     1
-## 48     2
-## 49     1
-## 50     2
+## 48     1
+## 49     2
+## 50     1
 ## 51     1
 ## 52     2
-## 53     1
-## 54     2
-## 55     1
+## 53     2
+## 54     1
+## 55     2
 ## 56     1
 ## 57     2
 ## 58     2
-## 59     2
+## 59     1
 ## 60     2
 ## 61     1
-## 62     2
+## 62     1
 ## 63     1
-## 64     1
-## 65     2
-## 66     1
+## 64     2
+## 65     1
+## 66     2
 ## 67     1
-## 68     1
-## 69     1
+## 68     2
+## 69     2
 ## 70     2
-## 71     2
+## 71     1
 ## 72     1
-## 73     2
-## 74     2
-## 75     2
+## 73     1
+## 74     1
+## 75     1
 ## 76     1
 ## 77     1
 ## 78     1
-## 79     1
-## 80     1
-## 81     1
+## 79     2
+## 80     2
+## 81     2
 ## 82     1
-## 83     1
+## 83     2
 ## 84     2
-## 85     2
-## 86     2
+## 85     1
+## 86     1
 ## 87     2
-## 88     1
+## 88     2
 ## 89     2
-## 90     1
-## 91     2
-## 92     1
-## 93     1
+## 90     2
+## 91     1
+## 92     2
+## 93     2
 ## 94     2
-## 95     1
+## 95     2
 ## 96     2
 ## 97     2
 ## 98     2
-## 99     1
+## 99     2
 ## 100    1
 ## 101    2
 ## 102    2
 ## 103    2
-## 104    2
+## 104    1
 ## 105    2
-## 106    2
+## 106    1
 ## 107    2
 ## 108    1
 ## 109    2
 ## 110    1
 ## 111    1
-## 112    1
+## 112    2
 ## 113    2
-## 114    2
+## 114    1
 ## 115    1
 ## 116    2
-## 117    1
+## 117    2
 ## 118    2
-## 119    2
+## 119    1
 ## 120    2
-## 121    1
+## 121    2
 ## 122    1
 ## 123    2
-## 124    1
+## 124    2
 ## 125    2
 ## 126    1
 ## 127    1
-## 128    2
-## 129    1
+## 128    1
+## 129    2
 ## 130    1
-## 131    2
-## 132    2
-## 133    2
+## 131    1
+## 132    1
+## 133    1
 ## 134    1
-## 135    1
-## 136    2
+## 135    2
+## 136    1
 ## 137    2
 ## 138    2
-## 139    1
-## 140    2
-## 141    2
-## 142    2
+## 139    2
+## 140    1
+## 141    1
+## 142    1
 ## 143    1
-## 144    1
-## 145    2
+## 144    2
+## 145    1
 ## 146    1
 ## 147    1
 ## 148    2
 ## 149    1
-## 150    2
+## 150    1
 ```
 
 ```r
@@ -2469,16 +2483,16 @@ Binarycorpval$P
 ## Petal.Length    0.0000000 4.513314e-08           NA 0.000000e+00
 ## Petal.Width     0.0000000 4.073229e-06 0.000000e+00           NA
 ## Species         0.0000000 5.201563e-08 0.000000e+00 0.000000e+00
-## rainfall        0.6235328 3.612725e-01 7.034678e-01 7.056062e-01
-## fert            0.3506239 5.019083e-01 1.791869e-01 1.549232e-01
+## rainfall        0.9718036 2.737137e-01 9.688459e-01 9.238605e-01
+## fert            0.2929378 1.782768e-01 8.431262e-01 7.572252e-01
 ##                   Species  rainfall      fert
-## Sepal.Length 0.000000e+00 0.6235328 0.3506239
-## Sepal.Width  5.201563e-08 0.3612725 0.5019083
-## Petal.Length 0.000000e+00 0.7034678 0.1791869
-## Petal.Width  0.000000e+00 0.7056062 0.1549232
-## Species                NA 0.6863141 0.2329344
-## rainfall     6.863141e-01        NA 0.6208144
-## fert         2.329344e-01 0.6208144        NA
+## Sepal.Length 0.000000e+00 0.9718036 0.2929378
+## Sepal.Width  5.201563e-08 0.2737137 0.1782768
+## Petal.Length 0.000000e+00 0.9688459 0.8431262
+## Petal.Width  0.000000e+00 0.9238605 0.7572252
+## Species                NA 0.8426547 0.8427790
+## rainfall     8.426547e-01        NA 0.3300852
+## fert         8.427790e-01 0.3300852        NA
 ```
 It isn't really accurate to run a correlation analysis on the dichotomous variables, but you can quickly visualize things to spot large issues
 
