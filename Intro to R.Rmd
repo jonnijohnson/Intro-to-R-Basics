@@ -52,7 +52,7 @@ For fun, think of it as loading two packages into a magical program: American En
 
 ...We use a lot of them. Make sure that the packages are installed first using the command function: _install.packages("Name of the package")_. packages include:
 
-tidyverse, psych, tableone, tadaatoolbox, ggplot2, corrplot, reshape2, magrittr, Hmisc, epiDisplay 
+tidyverse, psych, tableone, tadaatoolbox, ggplot2, corrplot, reshape2, magrittr, Hmisc, epiDisplay, GGally 
 
 * Some of these may not need to be installed just loaded into your library. Tadaatoolbox is just used to print nice tables in markdown documents (i.e., what you are reading). You otherwise don't need it, but it sure is _pretty!_
 
@@ -76,6 +76,7 @@ library(reshape2)
 library(Hmisc)
 library(corrplot)
 library(epiDisplay)
+library(GGally)
 
 ```
 
@@ -504,7 +505,7 @@ names(df) #confirmed!
 
 Now we are ready to check some assumptions about the data~
 
-# 5/8/19: df Basics 
+# The Basics 
 
 
 ## Summaries and Quick Descriptives
@@ -861,7 +862,7 @@ One package, Performance Analytics, quickly gives visualizations and r/p values;
 ```
 
 
-# 5/15/19: Plots! {.tabset .tabset-fade .tabset-pill}
+# Plots {.tabset .tabset-fade .tabset-pill}
 
 ## Quick Base R plots
 
@@ -1126,7 +1127,7 @@ ggplot(df, aes(x=Species, y= Petal.Width, group = Species)) +
   theme(plot.title = element_text(hjust = 0.5)) 
 ```
 
-# 5/22/19  Slightly Fancier Plots
+# Slightly Fancier Plots
 
 The plots above are nice, but visualizations are more than just traditional, static approaches and have potential to show multiple relations/trends by using varying graphical approaches visualized simultaneously. 
 
@@ -1265,7 +1266,8 @@ dfnum <- df #Dropping participant ID
 
 dfnum[c(5:7)] <- lapply(dfnum[c(5:7)], as.integer) #Make factors their integer values
 
-dfnum
+str(dfnum[5:7]) #Now they are numbers
+
 
 Binarycor <- cor(as.matrix(dfnum))
 
@@ -1281,3 +1283,40 @@ It isn't really accurate to run a correlation analysis on the dichotomous variab
 
 
 ### GGpairs
+
+I also really like this package and it is quite useful for looking at analyses that have 3-7 variables. 
+
+For this, I am going to drop the rainfall and fertilizer variables and consider only the numerical variables and species below. Hence I'm dropping columns 6 and 7 when defining this new object
+
+```{r message=FALSE, warning=FALSE}
+
+gg <- 
+  ggpairs(df[-c(6,7)], aes(color = df$Species),
+    upper = list(continuous = function(data, mapping, ...) {
+      
+         ggally_cor(data = df, mapping = mapping, size = 1.75, hjust = 0.8, fontface = "bold") +
+          scale_colour_manual(values = mycolors)},
+         
+         combo = function(data, mapping, ...) {
+         ggally_dot(data = df, mapping = mapping, alpha = .2) +
+             scale_color_manual(values = mycolors)}),
+    
+    lower = list(continuous = function(data, mapping, ...) {
+         ggally_smooth_lm(data = df, mapping = mapping, alpha = .2) +
+        scale_colour_manual(values = mycolors)},
+        combo = function(data, mapping, ...) {
+         ggally_box_no_facet(data = df, mapping = mapping) + 
+            scale_fill_manual(values = mycolors)}),
+    
+    diag = list(continuous = function(data, mapping, ...) {
+         ggally_densityDiag(data = df, mapping = mapping, alpha = .5) + 
+        scale_fill_manual(values = mycolors)},
+        discrete = function(data, mapping, ...) {
+         ggally_barDiag(data = df, mapping = mapping) + 
+            scale_fill_manual(values = mycolors)}), legend = c(5,2))
+
+
+gg <-   gg + theme_classic() + theme(legend.position = "bottom", legend.title = element_blank(), legend.text = element_text(size = 16))
+
+gg
+```
