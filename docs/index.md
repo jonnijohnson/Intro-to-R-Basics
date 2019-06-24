@@ -21,13 +21,13 @@ output:
 
 **Note this top is for beginners, those familiar with R may skip down using the TOC on the side**
 
-Many of my colleagues resist using R because, well, it is like learning another languPetal.Length. But R is so spectacular and is a great introduction to using other--and some might say more complex, programming languPetal.Lengths too (e.g., python, SQL, C++, perl). </br> 
+Many of my colleagues resist using R because, well, it is like learning another language. But R is so spectacular and is a great introduction to using other--and some might say more complex, programming language too (e.g., python, SQL, C++, perl). </br> 
 
 What I like most about R is that working with data at any stage can happen under one program's roof (i.e., data entry, cleaning, analyses, graphing). 
 
 I had a steep learning curve and often hear that time to learn R is often what stops them. I created the following tutorial that covers some introductory data exploration, analysis, and graphing-- to hopefully show others that R is not that intimidating. For the below I assume R studio is installed and you're familiar with terms such as script, console, environment, and library.
 
-One difficulty I had was grappling with the language syntax of R-- not just the literal coding-- but the way I should _say_ things to R to get it to perform certain functions. In the tutorial below I sometimes go into explanations about how this syntax of writing in R makes sense to me. In addition to learning commands, learning the R languPetal.Length (or any computer language) requires understanding of the language's syntax and semantic structures. 
+One difficulty I had was grappling with the language syntax of R-- not just the literal coding-- but the way I should _say_ things to R to get it to perform certain functions. In the tutorial below I sometimes go into explanations about how this syntax of writing in R makes sense to me. In addition to learning commands, learning the R language (or any computer language) requires understanding of the language's syntax and semantic structures. 
 
 In this tutorial I use the **iris data set** as well as add some additional variables for graphing purposes and data analyses.
 
@@ -62,7 +62,15 @@ If I wanted to use the commands in the tidyverse package I would write:
 install.packages("tidyverse")
 library(tidyverse)
 
-Repeat for each of the packages above.
+Repeat for each of the packages above. or include all packages' names in a single vector. Paste this code to install all packages presently discussed in this markdown:
+
+
+
+pckgs <- c('tidyverse', 'psych', 'tableone', 'tadaatoolbox', 'ggplot2', 'corrplot', 'reshape2', 'magrittr', 'Hmisc', 'epiDisplay', 'GGally')
+
+install.packages(pckgs)
+library(pckgs)
+
 
 
 
@@ -143,7 +151,7 @@ This file is loaded from my local C: drive just as an example of loading in a cs
 
 The rest of this markdown I will just be working with the iris data set. For a complete list of available data sets in R, good for data reproducibility questions and learning R, type data() into the console/script.
 
-Leaving data() with nothing in parantheses will ask for a complete list of sets R has. Naming one data set within the parantheses is the equivalent of loading it into the environment and begin working with it.
+Leaving data() with nothing in parentheses will ask for a complete list of sets R has. Naming one data set within the parentheses is the equivalent of loading it into the environment and begin working with it.
 
 
 
@@ -235,10 +243,10 @@ x1
 ```
 
 ```
-##   [1] 3 5 3 5 5 1 1 3 3 5 5 5 5 1 3 3 1 1 3 1 5 3 1 1 5 3 3 3 5 3 5 1 5 1 5
-##  [36] 5 5 1 5 1 1 5 5 3 5 3 5 1 5 5 3 1 3 3 1 5 3 5 1 3 1 5 1 1 3 3 1 1 1 3
-##  [71] 3 5 1 5 3 3 5 3 3 5 3 1 1 5 5 5 1 3 3 5 5 5 5 5 1 5 1 1 5 3 1 5 5 3 1
-## [106] 3 5 5 5 1 5 5 3 3 3 3 5 5 1 3 3 3 5 5 5 3 3 5 5 1 3 3 3 5 5 3 3 3 1 5
+##   [1] 1 1 1 3 5 5 1 1 3 1 3 1 1 5 3 3 5 1 1 3 3 5 3 1 1 1 1 1 1 5 3 1 5 1 3
+##  [36] 5 1 1 1 5 1 3 1 1 1 3 3 5 5 5 1 3 5 5 5 1 5 1 3 3 1 1 5 5 5 3 5 5 5 3
+##  [71] 5 5 1 1 3 1 5 3 1 3 1 3 1 3 3 1 5 3 3 3 5 3 1 3 5 5 3 3 1 3 5 5 5 5 5
+## [106] 1 3 3 5 3 5 1 1 3 5 5 1 1 1 5 3 5 1 1 3 3 3 5 3 3 5 5 1 5 3 3 1 1 1 5
 ```
 
 ```r
@@ -250,10 +258,10 @@ x2
 ```
 
 ```
-##   [1] 1 5 3 1 1 5 3 3 3 1 5 3 3 1 5 5 5 3 5 1 1 1 1 1 1 3 3 3 1 3 3 5 1 1 5
-##  [36] 1 1 5 3 3 1 5 5 1 3 5 3 1 3 1 5 1 3 5 3 5 3 1 5 1 5 1 3 1 1 1 3 1 5 1
-##  [71] 3 3 5 3 1 5 1 5 5 1 1 1 5 3 3 3 1 3 5 5 5 1 3 5 3 3 1 5 1 1 3 1 3 1 1
-## [106] 1 5 1 5 1 5 3 5 5 5 5 3 1 3 5 5 1 3 1 1 5 1 1 5 3 3 3 3 3 3 3 5 5 1 5
+##   [1] 1 1 5 1 3 5 1 5 5 1 5 1 1 1 3 1 5 1 3 5 5 1 3 3 5 1 3 1 1 1 1 1 1 5 1
+##  [36] 3 3 5 1 5 3 5 5 1 5 5 5 3 5 3 5 5 5 1 1 3 1 5 1 1 1 1 3 3 3 5 3 3 3 1
+##  [71] 1 5 3 5 5 3 1 3 5 5 1 3 1 5 1 3 1 1 1 5 3 5 1 5 1 1 3 1 5 5 3 3 5 3 5
+## [106] 1 5 5 3 1 5 1 3 5 1 3 5 5 1 1 5 1 3 3 1 5 5 1 1 1 5 1 5 5 5 3 5 3 1 3
 ```
 
 Let's add these variables x1 and x2 to our df using a base R command, _cbind()_. Thinking of this as "binding" information together the 'c' indicates these are columns that will be bound, but we can also bind rows together with _rbind()_
@@ -278,8 +286,8 @@ str(df)
 ##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
 ##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
 ##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ x1          : num  3 5 3 5 5 1 1 3 3 5 ...
-##  $ x2          : num  1 5 3 1 1 5 3 3 3 1 ...
+##  $ x1          : num  1 1 1 3 5 5 1 1 3 1 ...
+##  $ x2          : num  1 1 5 1 3 5 1 5 5 1 ...
 ```
 
 Let's act like columns x1 and x2 are behavioral codes from two coders who specified the number of bees on each flower species. Ideally, the coders would make the same observations, but we all know that isn't always the case, especially in behavioral data coding, which can be quite subjective at times.
@@ -294,19 +302,19 @@ df$x1 == df$x2
 ```
 
 ```
-##   [1] FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE  TRUE
-##  [12] FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
-##  [23]  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE
-##  [34]  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE FALSE
-##  [45] FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE
-##  [56]  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
-##  [67] FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
-##  [78] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE  TRUE
-##  [89] FALSE  TRUE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE
-## [100] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE  TRUE  TRUE
-## [111]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-## [122] FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE  TRUE
-## [133]  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE  TRUE
+##   [1]  TRUE  TRUE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE  TRUE FALSE
+##  [12]  TRUE  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE
+##  [23]  TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE FALSE  TRUE FALSE
+##  [34] FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE
+##  [45] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE
+##  [56] FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE
+##  [67] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
+##  [78]  TRUE FALSE FALSE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE
+##  [89] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE
+## [100] FALSE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE
+## [111]  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
+## [122] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE
+## [133] FALSE  TRUE FALSE  TRUE FALSE FALSE  TRUE FALSE
 ```
 
 Could also say this by index the number of each column. Examining the structure we see that x1 is column 6 and x2 is column 7:
@@ -323,8 +331,8 @@ str(df)
 ##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
 ##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
 ##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ x1          : num  3 5 3 5 5 1 1 3 3 5 ...
-##  $ x2          : num  1 5 3 1 1 5 3 3 3 1 ...
+##  $ x1          : num  1 1 1 3 5 5 1 1 3 1 ...
+##  $ x2          : num  1 1 5 1 3 5 1 5 5 1 ...
 ```
 
 ```r
@@ -334,7 +342,7 @@ table(df[6] == df[7]) # There's many falses, indicating many discrepancies
 ```
 ## 
 ## FALSE  TRUE 
-##    95    45
+##   101    39
 ```
 
 If there were a larger dataset, you likely wouldn't want to eyeball. To find the row entry that doesn't match, we can use _which()_ and to print the contents of what's there we just index it using brackets. Since we know we want columns 6 and 7, we can concatenate them together and select out the entry. 
@@ -347,12 +355,12 @@ which(df$x1 != df$x2)
 ```
 
 ```
-##  [1]   1   4   5   6   7  10  12  13  15  16  17  18  19  21  22  25  29
-## [18]  31  32  33  36  37  38  39  40  44  45  46  47  49  50  51  54  55
-## [35]  58  59  60  61  62  63  65  66  67  69  70  72  73  74  75  76  77
-## [52]  78  79  80  81  83  84  85  86  89  92  93  95  96  98  99 100 101
-## [69] 102 103 104 106 108 112 113 114 115 116 117 118 119 120 121 122 123
-## [86] 124 125 126 127 128 130 134 135 137 138
+##   [1]   3   4   5   8   9  11  14  16  19  20  21  22  24  25  27  30  31
+##  [18]  33  34  35  36  37  38  41  42  43  45  46  47  48  50  51  52  54
+##  [35]  55  56  57  58  59  60  63  64  65  66  67  68  69  70  71  73  74
+##  [52]  75  76  77  79  80  84  85  86  87  88  89  90  91  92  94  95  96
+##  [69]  98  99 100 101 102 104 107 108 109 110 113 114 115 116 117 118 120
+##  [86] 121 122 123 124 125 126 127 128 129 130 132 133 135 137 138 140
 ```
 
 ```r
@@ -367,14 +375,14 @@ str(dferrors) #Yikes a lot discrepencies!
 ```
 
 ```
-## 'data.frame':	95 obs. of  7 variables:
-##  $ Sepal.Length: num  5.1 4.6 5 5.4 4.6 4.9 4.8 4.8 5.8 5.7 ...
-##  $ Sepal.Width : num  3.5 3.1 3.6 3.9 3.4 3.1 3.4 3 4 4.4 ...
-##  $ Petal.Length: num  1.4 1.5 1.4 1.7 1.4 1.5 1.6 1.4 1.2 1.5 ...
-##  $ Petal.Width : num  0.2 0.2 0.2 0.4 0.3 0.1 0.2 0.1 0.2 0.4 ...
+## 'data.frame':	101 obs. of  7 variables:
+##  $ Sepal.Length: num  4.7 4.6 5 5 4.4 5.4 4.3 5.7 5.7 5.1 ...
+##  $ Sepal.Width : num  3.2 3.1 3.6 3.4 2.9 3.7 3 4.4 3.8 3.8 ...
+##  $ Petal.Length: num  1.3 1.5 1.4 1.5 1.4 1.5 1.1 1.5 1.7 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.2 0.1 0.4 0.3 0.3 ...
 ##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ x1          : num  3 5 5 1 1 5 5 5 3 3 ...
-##  $ x2          : num  1 1 1 5 3 1 3 3 5 5 ...
+##  $ x1          : num  1 3 5 1 3 3 5 3 1 3 ...
+##  $ x2          : num  5 1 3 5 5 5 1 1 3 5 ...
 ```
 
 Let's say we speak to our coders about their discrepencies and coder 1 states that her 5's should actually be 3's. Let's see how this would change the results
@@ -405,8 +413,8 @@ str(dferrors2) #Now only 6 variables
 ##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
 ##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
 ##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
-##  $ x1          : num  3 5 3 5 5 1 1 3 3 5 ...
-##  $ x2          : num  1 5 3 1 1 5 3 3 3 1 ...
+##  $ x1          : num  1 1 1 3 5 5 1 1 3 1 ...
+##  $ x2          : num  1 1 5 1 3 5 1 5 5 1 ...
 ```
 
 ```r
@@ -421,19 +429,19 @@ dferrors2$Sepal.Length == df$Sepal.Length
 ```
 
 ```
-##   [1]  TRUE FALSE  TRUE FALSE FALSE  TRUE  TRUE  TRUE  TRUE FALSE FALSE
-##  [12] FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE
-##  [23]  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE FALSE  TRUE FALSE
-##  [34]  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE FALSE  TRUE
-##  [45] FALSE  TRUE FALSE  TRUE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE
-##  [56] FALSE  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE
-##  [67]  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE
-##  [78]  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE FALSE FALSE  TRUE  TRUE
-##  [89]  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE
-## [100]  TRUE  TRUE FALSE FALSE  TRUE  TRUE  TRUE FALSE FALSE FALSE  TRUE
-## [111] FALSE FALSE  TRUE  TRUE  TRUE  TRUE FALSE FALSE  TRUE  TRUE  TRUE
-## [122]  TRUE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE  TRUE  TRUE  TRUE
-## [133]  TRUE FALSE FALSE  TRUE  TRUE  TRUE  TRUE FALSE
+##   [1]  TRUE  TRUE  TRUE  TRUE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [12]  TRUE  TRUE FALSE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE FALSE
+##  [23]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE FALSE
+##  [34]  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE
+##  [45]  TRUE  TRUE  TRUE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE
+##  [56]  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE  TRUE
+##  [67] FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE  TRUE  TRUE  TRUE FALSE
+##  [78]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE
+##  [89]  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE FALSE  TRUE  TRUE  TRUE
+## [100]  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE FALSE  TRUE
+## [111] FALSE  TRUE  TRUE  TRUE FALSE FALSE  TRUE  TRUE  TRUE FALSE  TRUE
+## [122] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE FALSE FALSE
+## [133]  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE
 ```
 Let's recreate dferrors2. This time, I'm leaving all columns. Remember below, dferrors2 is initially a clone of df. We then re-write over the x1 variable because our coder says that her 5's were supposed to be 3. We specify this time that we only want to rewrite over column 6 (i.e., x1), and then ask which enteries of the coders do not match. This is what ultimately defines the dferrors2 dataframe. 
 
@@ -452,8 +460,8 @@ str(dferrors2) #Now has 7 variables
 ##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
 ##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
 ##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ x1          : num  3 5 3 5 5 1 1 3 3 5 ...
-##  $ x2          : num  1 5 3 1 1 5 3 3 3 1 ...
+##  $ x1          : num  1 1 1 3 5 5 1 1 3 1 ...
+##  $ x2          : num  1 1 5 1 3 5 1 5 5 1 ...
 ```
 
 ```r
@@ -463,12 +471,12 @@ which(dferrors2$x1 != dferrors2$x2)
 ```
 
 ```
-##  [1]   1   2   4   5   6   7  10  11  15  16  17  18  19  21  22  25  29
-## [18]  32  33  35  36  37  38  40  42  43  44  46  50  51  54  55  56  58
-## [35]  59  60  61  62  63  65  66  67  69  70  73  75  76  77  78  79  80
-## [52]  81  83  89  90  91  92  94  95  98  99 100 101 102 104 106 107 108
-## [69] 109 111 113 114 115 116 118 119 120 121 122 124 125 126 127 128 129
-## [86] 130 137 138 140
+##  [1]   3   4   6   8   9  11  14  16  17  19  20  21  22  24  25  27  30
+## [18]  31  33  34  35  37  38  40  41  42  43  45  46  47  49  51  52  53
+## [35]  54  55  56  57  58  59  60  66  70  71  72  73  74  75  76  77  79
+## [52]  80  84  85  86  87  88  89  90  92  94  95  96  98  99 100 103 105
+## [69] 107 108 110 111 113 114 115 117 118 120 121 122 123 124 125 126 127
+## [86] 128 129 130 131 132 133 134 135 137 138
 ```
 
 ```r
@@ -479,14 +487,14 @@ str(dferrors2) #Not much of an improvement
 ```
 
 ```
-## 'data.frame':	89 obs. of  7 variables:
-##  $ Sepal.Length: num  5.1 4.9 4.6 5 5.4 4.6 4.9 5.4 5.8 5.7 ...
-##  $ Sepal.Width : num  3.5 3 3.1 3.6 3.9 3.4 3.1 3.7 4 4.4 ...
-##  $ Petal.Length: num  1.4 1.4 1.5 1.4 1.7 1.4 1.5 1.5 1.2 1.5 ...
-##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.4 0.3 0.1 0.2 0.2 0.4 ...
+## 'data.frame':	95 obs. of  7 variables:
+##  $ Sepal.Length: num  4.7 4.6 5.4 5 4.4 5.4 4.3 5.7 5.4 5.7 ...
+##  $ Sepal.Width : num  3.2 3.1 3.9 3.4 2.9 3.7 3 4.4 3.9 3.8 ...
+##  $ Petal.Length: num  1.3 1.5 1.7 1.5 1.4 1.5 1.1 1.5 1.3 1.7 ...
+##  $ Petal.Width : num  0.2 0.2 0.4 0.2 0.2 0.2 0.1 0.4 0.4 0.3 ...
 ##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ x1          : num  3 3 3 3 1 1 3 3 3 3 ...
-##  $ x2          : num  1 5 1 1 5 3 1 5 5 5 ...
+##  $ x1          : num  1 3 3 1 3 3 3 3 3 1 ...
+##  $ x2          : num  5 1 5 5 5 5 1 1 5 3 ...
 ```
 
 Above I dropped a column when defining the dferrors2 dataframe initially using the minus sign  _-_ . This can also be used in conjunction with _c()_ if I wanted to remove multiple columns. 
@@ -569,7 +577,7 @@ table(rainfall) #Note uneven number, perhaps expected since we can't control the
 ```
 ## rainfall
 ##  1  2 
-## 79 71
+## 70 80
 ```
 
 ```r
@@ -593,11 +601,11 @@ fert
 ```
 
 ```
-##   [1] 2 1 2 2 1 2 2 2 1 2 1 2 2 2 1 2 1 2 1 1 1 2 1 2 1 2 1 2 1 1 2 2 1 2 2
-##  [36] 1 1 2 2 1 2 1 2 1 1 2 2 2 2 1 1 2 2 1 2 2 1 2 1 2 1 1 2 1 2 2 2 1 2 1
-##  [71] 2 1 2 1 1 2 2 1 1 2 1 1 2 2 1 1 1 1 1 1 2 2 2 2 2 1 2 1 1 1 1 2 2 2 1
-## [106] 2 1 1 1 1 2 2 2 2 1 2 2 1 1 2 2 2 1 1 2 1 2 1 2 1 2 1 1 2 2 2 1 1 2 1
-## [141] 1 1 1 1 1 2 1 2 1 1
+##   [1] 1 2 2 2 2 1 2 1 1 2 2 2 2 1 2 2 2 1 2 1 2 1 1 1 2 1 1 2 2 2 1 1 2 2 1
+##  [36] 2 2 1 2 2 1 1 2 2 1 2 2 1 1 1 1 1 1 1 2 1 1 1 2 1 2 1 2 1 2 2 1 2 1 1
+##  [71] 2 1 1 1 1 2 2 2 1 2 1 1 1 1 2 2 1 2 1 2 2 2 1 2 2 2 1 1 2 1 2 1 1 2 1
+## [106] 1 2 2 2 1 1 2 2 2 2 2 2 1 1 1 1 2 1 2 1 2 1 2 1 1 1 2 1 2 2 1 2 1 2 1
+## [141] 2 2 2 2 1 1 1 1 1 2
 ```
 
 ```r
@@ -613,8 +621,8 @@ str(df)
 ##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
 ##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
 ##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ rainfall    : num  2 1 2 2 1 1 1 2 1 1 ...
-##  $ fert        : num  2 1 2 2 1 2 2 2 1 2 ...
+##  $ rainfall    : num  2 1 1 2 2 1 2 1 1 1 ...
+##  $ fert        : num  1 2 2 2 2 1 2 1 1 2 ...
 ```
 
 rainfall and fert were originally coded as 1's and 2's, where let's say 1 meant dry and 2 meant wet.  Similarly for fert, 1 = no and 2 = yes. The _Species_ variable is a categorical variable of the type of iris being observed.
@@ -640,11 +648,11 @@ df$rainfall # 1 = Dry and 2 = Wet
 ```
 
 ```
-##   [1] 2 1 2 2 1 1 1 2 1 1 2 1 2 2 1 1 2 2 1 2 2 2 2 1 2 1 1 2 1 1 1 1 1 2 1
-##  [36] 2 1 1 1 1 1 1 2 1 1 2 1 1 1 2 2 2 1 1 2 2 1 1 1 1 1 1 2 2 2 2 1 1 1 2
-##  [71] 1 1 2 2 1 2 1 1 2 2 2 1 1 2 2 2 2 1 1 2 2 2 2 1 2 2 2 1 2 2 2 1 1 1 1
-## [106] 2 1 2 1 2 1 2 1 2 1 1 2 2 2 2 1 2 2 1 2 1 2 1 2 2 2 1 1 1 1 1 1 2 1 2
-## [141] 1 1 2 2 1 2 1 1 1 2
+##   [1] 2 1 1 2 2 1 2 1 1 1 1 2 1 1 1 2 1 2 2 1 1 1 2 1 2 2 1 2 1 2 1 1 2 2 1
+##  [36] 2 2 2 2 1 2 2 1 2 1 1 2 1 1 2 1 1 2 2 2 2 2 1 2 2 2 1 2 2 1 1 2 1 1 2
+##  [71] 1 2 2 2 2 1 2 2 2 1 1 1 2 2 1 2 1 2 1 2 2 1 2 2 2 2 1 2 1 2 2 1 1 1 2
+## [106] 2 1 1 1 2 1 1 1 2 1 2 1 1 2 1 2 1 2 2 1 2 1 2 2 2 1 2 2 1 2 1 1 2 2 2
+## [141] 1 2 2 1 1 1 2 2 2 1
 ```
 
 ```r
@@ -652,11 +660,11 @@ df$fert # 1 = No and 2 = Yes
 ```
 
 ```
-##   [1] 2 1 2 2 1 2 2 2 1 2 1 2 2 2 1 2 1 2 1 1 1 2 1 2 1 2 1 2 1 1 2 2 1 2 2
-##  [36] 1 1 2 2 1 2 1 2 1 1 2 2 2 2 1 1 2 2 1 2 2 1 2 1 2 1 1 2 1 2 2 2 1 2 1
-##  [71] 2 1 2 1 1 2 2 1 1 2 1 1 2 2 1 1 1 1 1 1 2 2 2 2 2 1 2 1 1 1 1 2 2 2 1
-## [106] 2 1 1 1 1 2 2 2 2 1 2 2 1 1 2 2 2 1 1 2 1 2 1 2 1 2 1 1 2 2 2 1 1 2 1
-## [141] 1 1 1 1 1 2 1 2 1 1
+##   [1] 1 2 2 2 2 1 2 1 1 2 2 2 2 1 2 2 2 1 2 1 2 1 1 1 2 1 1 2 2 2 1 1 2 2 1
+##  [36] 2 2 1 2 2 1 1 2 2 1 2 2 1 1 1 1 1 1 1 2 1 1 1 2 1 2 1 2 1 2 2 1 2 1 1
+##  [71] 2 1 1 1 1 2 2 2 1 2 1 1 1 1 2 2 1 2 1 2 2 2 1 2 2 2 1 1 2 1 2 1 1 2 1
+## [106] 1 2 2 2 1 1 2 2 2 2 2 2 1 1 1 1 2 1 2 1 2 1 2 1 1 1 2 1 2 2 1 2 1 2 1
+## [141] 2 2 2 2 1 1 1 1 1 2
 ```
 
 ```r
@@ -670,8 +678,8 @@ str(df)
 ##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
 ##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
 ##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ rainfall    : num  2 1 2 2 1 1 1 2 1 1 ...
-##  $ fert        : num  2 1 2 2 1 2 2 2 1 2 ...
+##  $ rainfall    : num  2 1 1 2 2 1 2 1 1 1 ...
+##  $ fert        : num  1 2 2 2 2 1 2 1 1 2 ...
 ```
 
 ```r
@@ -682,8 +690,8 @@ str(df[c(6,7)])
 
 ```
 ## 'data.frame':	150 obs. of  2 variables:
-##  $ rainfall: Factor w/ 2 levels "1","2": 2 1 2 2 1 1 1 2 1 1 ...
-##  $ fert    : Factor w/ 2 levels "1","2": 2 1 2 2 1 2 2 2 1 2 ...
+##  $ rainfall: Factor w/ 2 levels "1","2": 2 1 1 2 2 1 2 1 1 1 ...
+##  $ fert    : Factor w/ 2 levels "1","2": 1 2 2 2 2 1 2 1 1 2 ...
 ```
 
 You'll notice that although rainfall and fert are now factors like our Species variable, they are still listed as 1's and 2's.
@@ -733,8 +741,8 @@ str(df)
 ##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
 ##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
 ##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ rainfall    : Factor w/ 2 levels "Dry","Wet": 2 1 2 2 1 1 1 2 1 1 ...
-##  $ fert        : Factor w/ 2 levels "No","Yes": 2 1 2 2 1 2 2 2 1 2 ...
+##  $ rainfall    : Factor w/ 2 levels "Dry","Wet": 2 1 1 2 2 1 2 1 1 1 ...
+##  $ fert        : Factor w/ 2 levels "No","Yes": 1 2 2 2 2 1 2 1 1 2 ...
 ```
 
 ```r
@@ -743,12 +751,12 @@ head(df)
 
 ```
 ##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species rainfall fert
-## 1          5.1         3.5          1.4         0.2  setosa      Wet  Yes
-## 2          4.9         3.0          1.4         0.2  setosa      Dry   No
-## 3          4.7         3.2          1.3         0.2  setosa      Wet  Yes
+## 1          5.1         3.5          1.4         0.2  setosa      Wet   No
+## 2          4.9         3.0          1.4         0.2  setosa      Dry  Yes
+## 3          4.7         3.2          1.3         0.2  setosa      Dry  Yes
 ## 4          4.6         3.1          1.5         0.2  setosa      Wet  Yes
-## 5          5.0         3.6          1.4         0.2  setosa      Dry   No
-## 6          5.4         3.9          1.7         0.4  setosa      Dry  Yes
+## 5          5.0         3.6          1.4         0.2  setosa      Wet  Yes
+## 6          5.4         3.9          1.7         0.4  setosa      Dry   No
 ```
 
 ```r
@@ -758,18 +766,18 @@ tail(df) # Everything looks good!
 ```
 ##     Sepal.Length Sepal.Width Petal.Length Petal.Width   Species rainfall
 ## 145          6.7         3.3          5.7         2.5 virginica      Dry
-## 146          6.7         3.0          5.2         2.3 virginica      Wet
-## 147          6.3         2.5          5.0         1.9 virginica      Dry
-## 148          6.5         3.0          5.2         2.0 virginica      Dry
-## 149          6.2         3.4          5.4         2.3 virginica      Dry
-## 150          5.9         3.0          5.1         1.8 virginica      Wet
+## 146          6.7         3.0          5.2         2.3 virginica      Dry
+## 147          6.3         2.5          5.0         1.9 virginica      Wet
+## 148          6.5         3.0          5.2         2.0 virginica      Wet
+## 149          6.2         3.4          5.4         2.3 virginica      Wet
+## 150          5.9         3.0          5.1         1.8 virginica      Dry
 ##     fert
 ## 145   No
-## 146  Yes
+## 146   No
 ## 147   No
-## 148  Yes
+## 148   No
 ## 149   No
-## 150   No
+## 150  Yes
 ```
 
 Last few modifications we could consider are the variable names. Sometimes, variables have verbose names, and sometimes they are more ambiguous. Using _colnames()_  or simply _names()_ with the dataframe of interest inside will print. 
@@ -892,8 +900,8 @@ summary(df)
 ##  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
 ##  Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
 ##        Species   rainfall  fert   
-##  setosa    :50   Dry:79   No :75  
-##  versicolor:50   Wet:71   Yes:75  
+##  setosa    :50   Dry:70   No :75  
+##  versicolor:50   Wet:80   Yes:75  
 ##  virginica :50                    
 ##                                   
 ##                                   
@@ -936,12 +944,12 @@ aggregate(Sepal.Length ~ Species + rainfall, df, mean) # Additional categories c
 
 ```
 ##      Species rainfall Sepal.Length
-## 1     setosa      Dry     5.033333
-## 2 versicolor      Dry     5.918182
-## 3  virginica      Dry     6.492593
-## 4     setosa      Wet     4.965000
-## 5 versicolor      Wet     5.950000
-## 6  virginica      Wet     6.700000
+## 1     setosa      Dry     5.011538
+## 2 versicolor      Dry     5.910526
+## 3  virginica      Dry     6.512000
+## 4     setosa      Wet     5.000000
+## 5 versicolor      Wet     5.951613
+## 6  virginica      Wet     6.664000
 ```
 
 Or we could use _tapply_ 
@@ -987,12 +995,12 @@ with(df, aggregate(Sepal.Length ~ Species + rainfall, FUN = function(x) c(MN = m
 
 ```
 ##      Species rainfall Sepal.Length.MN Sepal.Length.SD
-## 1     setosa      Dry       5.0333333       0.3651484
-## 2 versicolor      Dry       5.9181818       0.5917177
-## 3  virginica      Dry       6.4925926       0.5948018
-## 4     setosa      Wet       4.9650000       0.3375999
-## 5 versicolor      Wet       5.9500000       0.4590651
-## 6  virginica      Wet       6.7000000       0.6768913
+## 1     setosa      Dry       5.0115385       0.3592514
+## 2 versicolor      Dry       5.9105263       0.5694976
+## 3  virginica      Dry       6.5120000       0.6534014
+## 4     setosa      Wet       5.0000000       0.3526299
+## 5 versicolor      Wet       5.9516129       0.4898101
+## 6  virginica      Wet       6.6640000       0.6217449
 ```
 
 
@@ -1074,7 +1082,7 @@ chisq.test(df$Species, df$rainfall)
 ## 	Pearson's Chi-squared test
 ## 
 ## data:  df$Species and df$rainfall
-## X-squared = 2.6208, df = 2, p-value = 0.2697
+## X-squared = 2.3036, df = 2, p-value = 0.3161
 ```
 
 ```r
@@ -1086,7 +1094,7 @@ chisq.test(df$Species, df$fert)
 ## 	Pearson's Chi-squared test
 ## 
 ## data:  df$Species and df$fert
-## X-squared = 1.12, df = 2, p-value = 0.5712
+## X-squared = 1.44, df = 2, p-value = 0.4868
 ```
 
 ```r
@@ -1096,9 +1104,9 @@ tadaa_chisq(df, x = Species, y = rainfall, print = "markdown")
 Table 1: **Pearson's Chi-squared test**
 
 
-| $\chi^2$ |  p  | df | Cramer\'s V |
-|:--------:|:---:|:--:|:-----------:|
-|   2.62   | .27 | 2  |    0.13     |
+| $\chi^2$ |  p   | df | Cramer\'s V |
+|:--------:|:----:|:--:|:-----------:|
+|   2.3    | .316 | 2  |    0.12     |
 
 
 <br>
@@ -1155,7 +1163,7 @@ bartlett.test(Sepal.Length ~ rainfall, df)
 ## 	Bartlett test of homogeneity of variances
 ## 
 ## data:  Sepal.Length by rainfall
-## Bartlett's K-squared = 0.13858, df = 1, p-value = 0.7097
+## Bartlett's K-squared = 0.023414, df = 1, p-value = 0.8784
 ```
 
 ```r
@@ -1165,7 +1173,7 @@ leveneTest(df$Sepal.Length, df$fert)
 ```
 ## Levene's Test for Homogeneity of Variance (center = median)
 ##        Df F value Pr(>F)
-## group   1   0.038 0.8456
+## group   1  1.9041 0.1697
 ##       148
 ```
 
@@ -1320,8 +1328,8 @@ describe(df)
 ##      150        0        2 
 ##                       
 ## Value        Dry   Wet
-## Frequency     79    71
-## Proportion 0.527 0.473
+## Frequency     70    80
+## Proportion 0.467 0.533
 ## ---------------------------------------------------------------------------
 ## fert 
 ##        n  missing distinct 
@@ -1467,8 +1475,8 @@ df %>%
 ## # A tibble: 2 x 5
 ##   fert    cor  p.value LowerCInt UpperCInt
 ##   <fct> <dbl>    <dbl>     <dbl>     <dbl>
-## 1 No    0.859 6.14e-23     0.785     0.909
-## 2 Yes   0.882 1.49e-25     0.819     0.924
+## 1 No    0.916 9.97e-31     0.870     0.946
+## 2 Yes   0.822 1.74e-19     0.731     0.884
 ```
 
 ```r
@@ -1518,7 +1526,7 @@ str(nofertcors)
 
 ```
 ## List of 3
-##  $ r: num [1:4, 1:4] 1 -0.0131 0.8592 0.7765 -0.0131 ...
+##  $ r: num [1:4, 1:4] 1 -0.112 0.916 0.876 -0.112 ...
 ##   ..- attr(*, "dimnames")=List of 2
 ##   .. ..$ : chr [1:4] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width"
 ##   .. ..$ : chr [1:4] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width"
@@ -1526,7 +1534,7 @@ str(nofertcors)
 ##   ..- attr(*, "dimnames")=List of 2
 ##   .. ..$ : chr [1:4] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width"
 ##   .. ..$ : chr [1:4] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width"
-##  $ P: num [1:4, 1:4] NA 9.11e-01 0.00 2.22e-16 9.11e-01 ...
+##  $ P: num [1:4, 1:4] NA 0.338 0 0 0.338 ...
 ##   ..- attr(*, "dimnames")=List of 2
 ##   .. ..$ : chr [1:4] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width"
 ##   .. ..$ : chr [1:4] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width"
@@ -1547,41 +1555,35 @@ cbind(yesfertcors$r,yesfertcors$P,nofertcors$r, nofertcors$P)
 
 ```
 ##              Sepal.Length Sepal.Width Petal.Length Petal.Width
-## Sepal.Length    1.0000000  -0.2485563    0.8819652   0.8570378
-## Sepal.Width    -0.2485563   1.0000000   -0.5502062  -0.4769278
-## Petal.Length    0.8819652  -0.5502062    1.0000000   0.9715065
-## Petal.Width     0.8570378  -0.4769278    0.9715065   1.0000000
+## Sepal.Length    1.0000000  -0.1101615    0.8215142   0.7570141
+## Sepal.Width    -0.1101615   1.0000000   -0.4878724  -0.4261916
+## Petal.Length    0.8215142  -0.4878724    1.0000000   0.9577143
+## Petal.Width     0.7570141  -0.4261916    0.9577143   1.0000000
 ##              Sepal.Length  Sepal.Width Petal.Length  Petal.Width
-## Sepal.Length           NA 3.153347e-02 0.000000e+00 0.000000e+00
-## Sepal.Width    0.03153347           NA 3.162346e-07 1.519103e-05
-## Petal.Length   0.00000000 3.162346e-07           NA 0.000000e+00
-## Petal.Width    0.00000000 1.519103e-05 0.000000e+00           NA
+## Sepal.Length           NA 3.467714e-01 0.000000e+00 3.996803e-15
+## Sepal.Width  3.467714e-01           NA 9.005638e-06 1.375949e-04
+## Petal.Length 0.000000e+00 9.005638e-06           NA 0.000000e+00
+## Petal.Width  3.996803e-15 1.375949e-04 0.000000e+00           NA
 ##              Sepal.Length Sepal.Width Petal.Length Petal.Width
-## Sepal.Length   1.00000000 -0.01311588    0.8591880   0.7765337
-## Sepal.Width   -0.01311588  1.00000000   -0.3320325  -0.2807891
-## Petal.Length   0.85918802 -0.33203252    1.0000000   0.9538042
-## Petal.Width    0.77653371 -0.28078913    0.9538042   1.0000000
-##              Sepal.Length Sepal.Width Petal.Length  Petal.Width
-## Sepal.Length           NA 0.911074067  0.000000000 2.220446e-16
-## Sepal.Width  9.110741e-01          NA  0.003611545 1.468032e-02
-## Petal.Length 0.000000e+00 0.003611545           NA 0.000000e+00
-## Petal.Width  2.220446e-16 0.014680322  0.000000000           NA
+## Sepal.Length    1.0000000  -0.1122360    0.9162799   0.8757751
+## Sepal.Width    -0.1122360   1.0000000   -0.3538536  -0.2853720
+## Petal.Length    0.9162799  -0.3538536    1.0000000   0.9679589
+## Petal.Width     0.8757751  -0.2853720    0.9679589   1.0000000
+##              Sepal.Length Sepal.Width Petal.Length Petal.Width
+## Sepal.Length           NA 0.337709846  0.000000000  0.00000000
+## Sepal.Width     0.3377098          NA  0.001843082  0.01307483
+## Petal.Length    0.0000000 0.001843082           NA  0.00000000
+## Petal.Width     0.0000000 0.013074833  0.000000000          NA
 ```
 
 Pretty messy, but there are other methods to that have more to do with visualization. _rcorr_ works well, when you are looking at full sample descriptives or not binding columns from different groups. 
 
 
-One package, Performance Analytics, quickly gives visualizations and r/p values; however, specification is limited as of now in separting groups on the same graph. * I currently don't have a more recent version of R to run this package-- I'm updating, don't judge. As such, I'm skipping this part for now.
+One package, Performance Analytics, quickly gives visualizations and r/p values; however, specification is limited as of now in separting groups on the same graph. * I currently don't have a more recent version of R to run this package.
 
 
 
 
-#### Point Biserial Correlations
-
-
-```r
-#I haven't read about this yet!
-```
 
 
 # Plots {.tabset .tabset-fade .tabset-pill}
@@ -1601,7 +1603,7 @@ We can exam a variables distribution across the whole sample:
 hist(df$Petal.Width)
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-46-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-45-1.png)<!-- -->
 
 Or by levels of a categorical variable of interest:
 
@@ -1615,7 +1617,7 @@ dplyr::filter(rainfall == "Dry") %>%
             lapply(hist, main = "Histogram Dry Example", xlab = "Dry", col.main = "red", cex.main = 2, col.lab = "darkblue")
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-47-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-46-1.png)<!-- -->
 
 ```r
 ### Other way with more Base R
@@ -1623,7 +1625,7 @@ dplyr::filter(rainfall == "Dry") %>%
 hist(df$Petal.Width[df$rainfall == "Wet"], xlab = "Wet", main = "Histogram Wet Example", col = "purple")
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-47-2.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-46-2.png)<!-- -->
 
 Notice that the _col_ placement is coloring various aspects of the plot, be it the bars, the title, the axis label, etc. and the addition of main title and axis titles with _main_ and _xlab_ the _cex.main_ refers to the size of the main title should be scaled to. _cex_ is otherwise used to reference scaling of an object -- quite useful graphing tool for a perfectionist. Other common graphical parameters can be found here:
 
@@ -1637,13 +1639,13 @@ https://www.statmethods.net/advgraphs/parameters.html
 boxplot(df$Petal.Length, data =  df)
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-48-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-47-1.png)<!-- -->
 
 ```r
 boxplot(df$Petal.Length~df$Species, data =  df, ylab = "Petal Length")
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-48-2.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-47-2.png)<!-- -->
 
 
 Want it horizontal? Or with notches?
@@ -1653,7 +1655,7 @@ Want it horizontal? Or with notches?
 boxplot(df$Petal.Length~df$Species, data =  df, xlab = "Petal Length", horizontal = TRUE, notch = TRUE, frame = FALSE)  #Note since this is being horizontal now we have to change our former "y lab" to an "x lab"
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-49-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-48-1.png)<!-- -->
 
 
 Can't forget the colors
@@ -1663,7 +1665,7 @@ Can't forget the colors
 boxplot(Sepal.Length~Species, data =  df, ylab = "Sepal Length", col = "grey", border = c("blue", "red", "green"), frame = F)
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-50-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-49-1.png)<!-- -->
 
 
 
@@ -1685,9 +1687,9 @@ barplottab # Which looks like this
 ```
 ##             
 ##              Dry Wet
-##   setosa      30  20
-##   versicolor  22  28
-##   virginica   27  23
+##   setosa      26  24
+##   versicolor  19  31
+##   virginica   25  25
 ```
 
 ```r
@@ -1696,7 +1698,7 @@ barplottab # Which looks like this
 barplot(barplottab, legend = rownames(barplottab), beside = T, col = c("blue", "red", "green"))
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-51-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-50-1.png)<!-- -->
 
 ```r
 #Note what happens when you leave the "beside = T" code out
@@ -1704,7 +1706,7 @@ barplot(barplottab, legend = rownames(barplottab), beside = T, col = c("blue", "
 barplot(barplottab, legend = rownames(barplottab), col = c("blue", "red", "green")) 
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-51-2.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-50-2.png)<!-- -->
 
 We can also use the _aggregate()_ command and _aggregate.plot()_. As we used above, aggregate performs summary stats in base R. Read more about aggregate function with  _?aggregate_ in your console.
 
@@ -1721,7 +1723,7 @@ aggregate.plot(df$Sepal.Width,
                               FUN="median")
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-52-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-51-1.png)<!-- -->
 
 ```r
 # Get fancier
@@ -1731,7 +1733,7 @@ aggregate.plot(df$Sepal.Width,
                               FUN="mean", legend.site = "bottom")
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-52-2.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-51-2.png)<!-- -->
 
 _FUN FACT_ These were my favorite three colors in 2nd grade!
 
@@ -1744,7 +1746,7 @@ plot(df$Sepal.Length, df$Petal.Width, main = "Sepal.Length by Petal.Width",
      pch = 19, frame = TRUE)  #pch is the shape of the scatter point
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-53-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-52-1.png)<!-- -->
 
 ```r
 # Add regression line
@@ -1754,7 +1756,7 @@ plot(df$Sepal.Length, df$Petal.Width, main = "Sepal.Length by Petal.Width",
 abline(lm(Petal.Width ~ Sepal.Length, data = df), col = "blue")
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-53-2.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-52-2.png)<!-- -->
 
 Can also use _scatterplot_ from the **cars** package
 
@@ -1763,7 +1765,7 @@ Can also use _scatterplot_ from the **cars** package
 scatterplot(Petal.Width ~ Sepal.Length|Species, data = df)
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-54-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-53-1.png)<!-- -->
 
 Gross- too busy, but handy to visualize quickly adding the below makes it look somewhat better
 
@@ -1772,7 +1774,7 @@ Gross- too busy, but handy to visualize quickly adding the below makes it look s
 scatterplot(Petal.Width ~ Sepal.Length|Species, data = df, smooth = FALSE, grid = FALSE, frame = FALSE)
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-55-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-54-1.png)<!-- -->
 
 OK but if we want different colors? For base plotting, I've just been using random colors, but let's say I really like those three colors that were my favorite in 2nd grade.
 
@@ -1789,7 +1791,7 @@ mycolors <- c("steelblue1", "deeppink4", "turquoise3")
 scatterplot(Petal.Width ~ Sepal.Length|Species, data = df, smooth = FALSE, grid = FALSE, frame = FALSE, col =mycolors)
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-56-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-55-1.png)<!-- -->
 
 
 ## GGPlot2 
@@ -1813,7 +1815,7 @@ plot <- ggplot(df, aes(x = Petal.Length, y= Petal.Width, color = Species)) +  ge
 plot
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-57-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-56-1.png)<!-- -->
 
 ```r
 plot <- plot + ggtitle("Petal Length and Width Plot") + labs(x = "Petal.Length", y = "Petal.Width") + theme_classic()  # Add Titles and Labels as well as Theme
@@ -1823,7 +1825,7 @@ plot <- plot + scale_color_manual(values = mycolors)  #Modify colors manually
 plot
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-57-2.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-56-2.png)<!-- -->
 
 Check out R Color Brewer for palettes and Color-Blind friendly color schemes:
 
@@ -1843,7 +1845,7 @@ ggplot(df, aes(x = Species, y = Petal.Width, fill = Species)) +
    scale_fill_manual(values = mycolors)
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-58-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-57-1.png)<!-- -->
 
 You may also overlap geoms on top of other geoms. If they are similar objects (i.e., are both filler objects), then an aesthetic command does not need to be redefined, and just inherits the global grouping definition
 
@@ -1855,7 +1857,7 @@ ggplot(df, aes(x = Species, y = Petal.Width, fill = Species)) +
  geom_boxplot(width =.1) 
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-59-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-58-1.png)<!-- -->
 
 And keep adding!
 
@@ -1873,7 +1875,7 @@ ggplot(df, aes(x=Species, y= Petal.Width, fill = Species)) +
    theme_classic()
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-60-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-59-1.png)<!-- -->
 
 
 
@@ -1889,7 +1891,7 @@ ggplot(df, aes(x=Species, y= Petal.Width, group = Species)) +
   theme(plot.title = element_text(hjust = 0.5)) 
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-61-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-60-1.png)<!-- -->
 
 # Slightly Fancier Plots
 
@@ -1917,7 +1919,7 @@ corrplot(Wetcorrplot, type = "upper", order = "hclust",
          tl.col = "black", tl.srt = 45)
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-62-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-61-1.png)<!-- -->
 
 ```r
 #Make similar one with Dry data
@@ -1931,7 +1933,7 @@ corrplot(Drycorrplot, type = "lower", order = "hclust",
          tl.col = "black", tl.srt = 45)
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-62-2.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-61-2.png)<!-- -->
 
 It would be great if we could compare, yes? Thinking about these matrices, we could just replace the values of the lower Wet matrix with the values from the Dry matrix, creating a merged matrix-- then plot that, noting which upper or lower parts denote which group
 
@@ -1952,10 +1954,10 @@ mergedcorrplot
 
 ```
 ##              Sepal.Length Sepal.Width Petal.Length Petal.Width
-## Sepal.Length   1.00000000  -0.1614535    0.8871100   0.8294234
-## Sepal.Width   -0.07503292   1.0000000   -0.4384983  -0.3776050
-## Petal.Length   0.85581502  -0.4173408    1.0000000   0.9652494
-## Petal.Width    0.81110270  -0.3551248    0.9646296   1.0000000
+## Sepal.Length   1.00000000  -0.1304682    0.8766159   0.8207243
+## Sepal.Width   -0.09619451   1.0000000   -0.4342095  -0.3700282
+## Petal.Length   0.86557224  -0.4213063    1.0000000   0.9590999
+## Petal.Width    0.81510950  -0.3635056    0.9677655   1.0000000
 ```
 
 
@@ -1966,7 +1968,7 @@ Then you can graph this, using the full matrix display option
 corrplot(mergedcorrplot, type = "full")  #Wet on top and Dry on bottom
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-64-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-63-1.png)<!-- -->
 
 ```r
 #Add additional tweaks for easier readability, depending on what you want-- many options!
@@ -1974,7 +1976,7 @@ corrplot(mergedcorrplot, type = "full")  #Wet on top and Dry on bottom
 corrplot(mergedcorrplot, type = "full", method = 'number', title = "Wet (top) and Dry (bottom)", tl.col = 'black', tl.srt = 45, col = c("blue", "black", "red"))
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-64-2.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-63-2.png)<!-- -->
 
 Let's say we only want to display correlations that are significant at the p <.05 level. 
 
@@ -1997,84 +1999,75 @@ drymat1
 ```
 ##    Sepal.Length Sepal.Width Petal.Length Petal.Width
 ## 1           4.9         3.0          1.4         0.2
-## 2           5.0         3.6          1.4         0.2
+## 2           4.7         3.2          1.3         0.2
 ## 3           5.4         3.9          1.7         0.4
-## 4           4.6         3.4          1.4         0.3
+## 4           5.0         3.4          1.5         0.2
 ## 5           4.4         2.9          1.4         0.2
 ## 6           4.9         3.1          1.5         0.1
-## 7           4.8         3.4          1.6         0.2
-## 8           5.8         4.0          1.2         0.2
-## 9           5.7         4.4          1.5         0.4
-## 10          5.7         3.8          1.7         0.3
-## 11          5.1         3.3          1.7         0.5
-## 12          5.0         3.0          1.6         0.2
-## 13          5.0         3.4          1.6         0.4
-## 14          5.2         3.4          1.4         0.2
-## 15          4.7         3.2          1.6         0.2
-## 16          4.8         3.1          1.6         0.2
-## 17          5.4         3.4          1.5         0.4
-## 18          5.2         4.1          1.5         0.1
-## 19          4.9         3.1          1.5         0.2
-## 20          5.5         3.5          1.3         0.2
-## 21          4.9         3.6          1.4         0.1
-## 22          4.4         3.0          1.3         0.2
-## 23          5.1         3.4          1.5         0.2
-## 24          5.0         3.5          1.3         0.3
-## 25          4.5         2.3          1.3         0.3
-## 26          5.0         3.5          1.6         0.6
-## 27          5.1         3.8          1.9         0.4
-## 28          5.1         3.8          1.6         0.2
-## 29          4.6         3.2          1.4         0.2
-## 30          5.3         3.7          1.5         0.2
-## 31          6.9         3.1          4.9         1.5
-## 32          5.5         2.3          4.0         1.3
-## 33          6.3         3.3          4.7         1.6
-## 34          4.9         2.4          3.3         1.0
-## 35          6.6         2.9          4.6         1.3
-## 36          5.2         2.7          3.9         1.4
-## 37          5.0         2.0          3.5         1.0
-## 38          5.9         3.0          4.2         1.5
-## 39          5.6         3.0          4.5         1.5
-## 40          5.8         2.7          4.1         1.0
-## 41          6.2         2.2          4.5         1.5
-## 42          5.9         3.2          4.8         1.8
-## 43          6.1         2.8          4.0         1.3
-## 44          6.4         2.9          4.3         1.3
-## 45          6.8         2.8          4.8         1.4
-## 46          6.7         3.0          5.0         1.7
-## 47          5.5         2.4          3.7         1.0
-## 48          5.8         2.7          3.9         1.2
-## 49          6.3         2.3          4.4         1.3
-## 50          5.6         3.0          4.1         1.3
-## 51          5.0         2.3          3.3         1.0
-## 52          6.2         2.9          4.3         1.3
-## 53          5.8         2.7          5.1         1.9
-## 54          7.1         3.0          5.9         2.1
-## 55          6.3         2.9          5.6         1.8
-## 56          6.5         3.0          5.8         2.2
-## 57          4.9         2.5          4.5         1.7
-## 58          6.7         2.5          5.8         1.8
-## 59          6.5         3.2          5.1         2.0
-## 60          6.8         3.0          5.5         2.1
-## 61          5.8         2.8          5.1         2.4
-## 62          6.4         3.2          5.3         2.3
-## 63          6.9         3.2          5.7         2.3
-## 64          6.3         2.7          4.9         1.8
-## 65          7.2         3.2          6.0         1.8
-## 66          6.1         3.0          4.9         1.8
-## 67          7.9         3.8          6.4         2.0
-## 68          6.4         2.8          5.6         2.2
-## 69          6.3         2.8          5.1         1.5
-## 70          6.1         2.6          5.6         1.4
-## 71          7.7         3.0          6.1         2.3
-## 72          6.3         3.4          5.6         2.4
-## 73          6.0         3.0          4.8         1.8
-## 74          6.7         3.1          5.6         2.4
-## 75          6.9         3.1          5.1         2.3
-## 76          6.7         3.3          5.7         2.5
-## 77          6.3         2.5          5.0         1.9
-## 78          6.5         3.0          5.2         2.0
-## 79          6.2         3.4          5.4         2.3
+## 7           5.4         3.7          1.5         0.2
+## 8           4.8         3.0          1.4         0.1
+## 9           4.3         3.0          1.1         0.1
+## 10          5.8         4.0          1.2         0.2
+## 11          5.4         3.9          1.3         0.4
+## 12          5.1         3.8          1.5         0.3
+## 13          5.4         3.4          1.7         0.2
+## 14          5.1         3.7          1.5         0.4
+## 15          5.1         3.3          1.7         0.5
+## 16          5.0         3.4          1.6         0.4
+## 17          5.2         3.4          1.4         0.2
+## 18          4.8         3.1          1.6         0.2
+## 19          5.4         3.4          1.5         0.4
+## 20          4.9         3.1          1.5         0.2
+## 21          5.1         3.4          1.5         0.2
+## 22          4.4         3.2          1.3         0.2
+## 23          5.1         3.8          1.9         0.4
+## 24          4.8         3.0          1.4         0.3
+## 25          4.6         3.2          1.4         0.2
+## 26          5.3         3.7          1.5         0.2
+## 27          7.0         3.2          4.7         1.4
+## 28          6.4         3.2          4.5         1.5
+## 29          4.9         2.4          3.3         1.0
+## 30          5.9         3.0          4.2         1.5
+## 31          5.6         2.9          3.6         1.3
+## 32          6.7         3.1          4.4         1.4
+## 33          5.8         2.7          4.1         1.0
+## 34          6.2         2.2          4.5         1.5
+## 35          5.9         3.2          4.8         1.8
+## 36          6.6         3.0          4.4         1.4
+## 37          5.7         2.6          3.5         1.0
+## 38          5.5         2.4          3.8         1.1
+## 39          5.5         2.4          3.7         1.0
+## 40          5.4         3.0          4.5         1.5
+## 41          6.7         3.1          4.7         1.5
+## 42          5.6         3.0          4.1         1.3
+## 43          6.1         3.0          4.6         1.4
+## 44          5.7         2.9          4.2         1.3
+## 45          5.1         2.5          3.0         1.1
+## 46          5.8         2.7          5.1         1.9
+## 47          7.1         3.0          5.9         2.1
+## 48          6.3         2.9          5.6         1.8
+## 49          4.9         2.5          4.5         1.7
+## 50          7.3         2.9          6.3         1.8
+## 51          6.7         2.5          5.8         1.8
+## 52          6.5         3.2          5.1         2.0
+## 53          6.4         2.7          5.3         1.9
+## 54          6.8         3.0          5.5         2.1
+## 55          5.8         2.8          5.1         2.4
+## 56          6.5         3.0          5.5         1.8
+## 57          7.7         3.8          6.7         2.2
+## 58          6.0         2.2          5.0         1.5
+## 59          5.6         2.8          4.9         2.0
+## 60          6.7         3.3          5.7         2.1
+## 61          6.2         2.8          4.8         1.8
+## 62          7.4         2.8          6.1         1.9
+## 63          6.3         2.8          5.1         1.5
+## 64          7.7         3.0          6.1         2.3
+## 65          6.3         3.4          5.6         2.4
+## 66          6.7         3.1          5.6         2.4
+## 67          6.8         3.2          5.9         2.3
+## 68          6.7         3.3          5.7         2.5
+## 69          6.7         3.0          5.2         2.3
+## 70          5.9         3.0          5.1         1.8
 ```
 
 ```r
@@ -2092,11 +2085,11 @@ raincors
 ```
 
 ```
-##              Sepal.Length  Sepal.Width Petal.Length Petal.Width
-## Sepal.Length           NA 0.1785839567 0.0000000000  0.00000000
-## Sepal.Width      0.178584           NA 0.0001308275  0.00116889
-## Petal.Length     0.000000 0.0001308275           NA  0.00000000
-## Petal.Width      0.000000 0.0011688900 0.0000000000          NA
+##              Sepal.Length  Sepal.Width Petal.Length  Petal.Width
+## Sepal.Length           NA 2.486989e-01 0.000000e+00 0.0000000000
+## Sepal.Width     0.2486989           NA 5.719701e-05 0.0007293467
+## Petal.Length    0.0000000 5.719701e-05           NA 0.0000000000
+## Petal.Width     0.0000000 7.293467e-04 0.000000e+00           NA
 ```
 
 ```r
@@ -2104,8 +2097,8 @@ raincors[lower.tri(raincors)]
 ```
 
 ```
-## [1] 0.1785839567 0.0000000000 0.0000000000 0.0001308275 0.0011688900
-## [6] 0.0000000000
+## [1] 2.486989e-01 0.000000e+00 0.000000e+00 5.719701e-05 7.293467e-04
+## [6] 0.000000e+00
 ```
 
 ```r
@@ -2115,11 +2108,11 @@ drycors1
 ```
 
 ```
-##              Sepal.Length Sepal.Width Petal.Length Petal.Width
-## Sepal.Length           NA 0.511049409  0.000000000 0.000000000
-## Sepal.Width     0.5110494          NA  0.000130008 0.001320569
-## Petal.Length    0.0000000 0.000130008           NA 0.000000000
-## Petal.Width     0.0000000 0.001320569  0.000000000          NA
+##              Sepal.Length  Sepal.Width Petal.Length Petal.Width
+## Sepal.Length           NA 0.4282620533 0.0000000000 0.000000000
+## Sepal.Width     0.4282621           NA 0.0002811727 0.001980804
+## Petal.Length    0.0000000 0.0002811727           NA 0.000000000
+## Petal.Width     0.0000000 0.0019808045 0.0000000000          NA
 ```
 
 ```r
@@ -2130,11 +2123,11 @@ raincors #merged p-values matrix
 ```
 
 ```
-##              Sepal.Length Sepal.Width Petal.Length Petal.Width
-## Sepal.Length           NA 0.178583957 0.0000000000  0.00000000
-## Sepal.Width     0.5110494          NA 0.0001308275  0.00116889
-## Petal.Length    0.0000000 0.000130008           NA  0.00000000
-## Petal.Width     0.0000000 0.001320569 0.0000000000          NA
+##              Sepal.Length  Sepal.Width Petal.Length  Petal.Width
+## Sepal.Length           NA 0.2486989132 0.000000e+00 0.0000000000
+## Sepal.Width     0.4282621           NA 5.719701e-05 0.0007293467
+## Petal.Length    0.0000000 0.0002811727           NA 0.0000000000
+## Petal.Width     0.0000000 0.0019808045 0.000000e+00           NA
 ```
 
 So the drycors p-values were first turned into a matrix, before selecting out the lower triangle from it, and re-writing over the lower triangle of the merged p-value matrix.
@@ -2150,7 +2143,7 @@ Now the p-values along the top triangle belong to the Wet group and the ones alo
 corrplot(mergedcorrplot, type = "full", title = "Wet (top) and Dry (bottom)", tl.col = 'black', tl.srt = 45, p.mat = raincors, sig.level = 0.05, insig = "blank")
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-66-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-65-1.png)<!-- -->
 
 
 Alternatively we can examine all of df by treating it all as a matrix
@@ -2167,8 +2160,8 @@ str(dfnum[5:7]) #Now they are numbers
 ```
 ## 'data.frame':	150 obs. of  3 variables:
 ##  $ Species : int  1 1 1 1 1 1 1 1 1 1 ...
-##  $ rainfall: int  2 1 2 2 1 1 1 2 1 1 ...
-##  $ fert    : int  2 1 2 2 1 2 2 2 1 2 ...
+##  $ rainfall: int  2 1 1 2 2 1 2 1 1 1 ...
+##  $ fert    : int  1 2 2 2 2 1 2 1 1 2 ...
 ```
 
 ```r
@@ -2177,7 +2170,7 @@ Binarycor <- cor(as.matrix(dfnum))
 corrplot(Binarycor)
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-67-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-66-1.png)<!-- -->
 
 ```r
 Binarycorpval <-  rcorr(as.matrix(dfnum))
@@ -2192,16 +2185,16 @@ Binarycorpval$P
 ## Petal.Length    0.0000000 4.513314e-08           NA 0.000000e+00
 ## Petal.Width     0.0000000 4.073229e-06 0.000000e+00           NA
 ## Species         0.0000000 5.201563e-08 0.000000e+00 0.000000e+00
-## rainfall        0.3132510 4.846198e-01 2.376415e-01 5.573458e-01
-## fert            0.1318625 5.506513e-01 2.111416e-01 1.959229e-01
+## rainfall        0.4745414 5.784133e-01 4.079734e-01 6.608065e-01
+## fert            0.1370276 3.906543e-01 2.077738e-01 2.356857e-01
 ##                   Species  rainfall      fert
-## Sepal.Length 0.000000e+00 0.3132510 0.1318625
-## Sepal.Width  5.201563e-08 0.4846198 0.5506513
-## Petal.Length 0.000000e+00 0.2376415 0.2111416
-## Petal.Width  0.000000e+00 0.5573458 0.1959229
-## Species                NA 0.5510497 0.3205666
-## rainfall     5.510497e-01        NA 0.4169487
-## fert         3.205666e-01 0.4169487        NA
+## Sepal.Length 0.000000e+00 0.4745414 0.1370276
+## Sepal.Width  5.201563e-08 0.5784133 0.3906543
+## Petal.Length 0.000000e+00 0.4079734 0.2077738
+## Petal.Width  0.000000e+00 0.6608065 0.2356857
+## Species                NA 0.8424329 0.5516173
+## rainfall     8.424329e-01        NA 1.0000000
+## fert         5.516173e-01 1.0000000        NA
 ```
 It isn't really accurate to run a correlation analysis on the dichotomous variables, but you can quickly visualize things to spot large issues
 
@@ -2245,4 +2238,4 @@ gg <-   gg + theme_classic() + theme(legend.position = "bottom", legend.title = 
 gg
 ```
 
-![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-68-1.png)<!-- -->
+![](C:\Users\Jonni\Desktop\RCLASS~1\INTRO-~1\docs\INDEX_~1/figure-html/unnamed-chunk-67-1.png)<!-- -->
