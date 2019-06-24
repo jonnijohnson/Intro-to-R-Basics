@@ -243,10 +243,10 @@ x1
 ```
 
 ```
-##   [1] 5 1 5 5 1 1 5 3 3 1 3 5 3 5 3 5 1 1 5 1 3 5 3 1 5 5 5 5 3 1 3 3 3 5 5
-##  [36] 5 3 5 3 5 3 5 1 1 3 1 5 5 1 5 3 3 1 3 5 1 5 3 1 5 5 1 1 1 3 3 3 5 1 3
-##  [71] 3 1 3 1 5 1 1 3 5 1 3 3 5 5 5 1 3 3 3 1 3 5 3 3 1 1 5 5 1 5 5 5 1 1 1
-## [106] 1 5 5 1 1 3 3 3 1 3 5 1 1 5 5 5 3 1 5 1 1 3 5 5 1 5 5 1 1 3 3 5 1 5 3
+##   [1] 1 1 5 1 5 3 3 3 3 3 1 5 5 3 1 3 3 5 1 1 3 5 3 5 1 1 5 3 5 1 1 5 1 5 1
+##  [36] 5 3 5 1 5 1 3 5 1 5 5 3 5 5 5 3 1 1 1 3 1 1 1 1 5 1 5 3 3 1 3 5 1 5 5
+##  [71] 3 3 1 1 5 1 3 1 5 3 1 3 1 1 5 3 5 5 1 3 3 5 5 1 5 3 1 5 5 5 3 1 5 3 3
+## [106] 1 1 1 3 1 3 5 1 5 3 5 5 1 5 1 1 5 3 5 1 5 5 5 3 1 1 5 3 1 1 3 5 3 5 1
 ```
 
 ```r
@@ -258,10 +258,10 @@ x2
 ```
 
 ```
-##   [1] 5 3 1 5 5 1 3 5 5 1 3 3 3 1 3 1 1 5 3 1 3 3 5 3 1 1 1 1 5 5 1 1 5 5 3
-##  [36] 1 3 5 1 3 3 5 1 5 3 5 5 3 3 5 1 1 3 5 3 1 1 1 5 1 5 3 3 1 3 3 3 3 1 5
-##  [71] 5 3 3 1 3 5 3 1 5 3 1 3 5 3 1 1 3 5 3 3 3 3 3 5 5 1 5 5 5 5 1 5 5 3 1
-## [106] 1 3 1 1 5 5 3 1 1 3 1 1 1 5 5 3 5 5 5 5 3 5 3 5 1 1 5 1 3 3 5 3 1 1 3
+##   [1] 5 3 5 1 5 5 1 3 5 3 3 5 5 5 5 3 1 3 1 3 3 3 3 1 3 5 1 1 1 5 3 1 5 5 5
+##  [36] 5 3 1 5 5 5 5 5 3 1 5 5 5 5 3 3 1 3 5 5 3 5 1 3 3 5 1 1 5 1 5 3 3 5 1
+##  [71] 3 3 3 5 1 5 1 5 1 3 3 1 3 5 3 3 1 1 1 1 5 1 5 5 1 5 1 1 1 3 3 1 5 3 5
+## [106] 5 5 3 5 3 5 1 5 1 3 1 1 3 1 3 1 3 1 3 1 1 1 3 5 3 1 3 3 3 5 1 1 5 1 3
 ```
 
 Let's add these variables x1 and x2 to our df using a base R command, _cbind()_. Thinking of this as "binding" information together the 'c' indicates these are columns that will be bound, but we can also bind rows together with _rbind()_
@@ -286,8 +286,8 @@ str(df)
 ##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
 ##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
 ##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ x1          : num  5 1 5 5 1 1 5 3 3 1 ...
-##  $ x2          : num  5 3 1 5 5 1 3 5 5 1 ...
+##  $ x1          : num  1 1 5 1 5 3 3 3 3 3 ...
+##  $ x2          : num  5 3 5 1 5 5 1 3 5 3 ...
 ```
 
 Let's act like columns x1 and x2 are behavioral codes from two coders who specified the number of bees on each flower species. Ideally, the coders would make the same observations, but we all know that isn't always the case, especially in behavioral data coding, which can be quite subjective at times.
@@ -302,19 +302,19 @@ df$x1 == df$x2
 ```
 
 ```
-##   [1]  TRUE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE  TRUE
-##  [12] FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE FALSE  TRUE  TRUE FALSE
-##  [23] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-##  [34]  TRUE FALSE FALSE  TRUE  TRUE FALSE FALSE  TRUE  TRUE  TRUE FALSE
-##  [45]  TRUE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
-##  [56]  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE  TRUE  TRUE
-##  [67]  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE
-##  [78] FALSE  TRUE FALSE FALSE  TRUE  TRUE FALSE FALSE  TRUE  TRUE FALSE
-##  [89]  TRUE FALSE  TRUE FALSE  TRUE FALSE FALSE  TRUE  TRUE  TRUE FALSE
-## [100]  TRUE FALSE  TRUE FALSE FALSE  TRUE  TRUE FALSE FALSE  TRUE FALSE
-## [111] FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE FALSE
-## [122] FALSE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE  TRUE
-## [133]  TRUE FALSE  TRUE FALSE FALSE  TRUE FALSE  TRUE
+##   [1] FALSE FALSE  TRUE  TRUE  TRUE FALSE FALSE  TRUE FALSE  TRUE FALSE
+##  [12]  TRUE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE  TRUE FALSE
+##  [23]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [34]  TRUE FALSE  TRUE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE
+##  [45] FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE  TRUE FALSE FALSE FALSE
+##  [56] FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE
+##  [67] FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE
+##  [78] FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
+##  [89]  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE
+## [100] FALSE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
+## [111] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE
+## [122] FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE
+## [133]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ```
 
 Could also say this by index the number of each column. Examining the structure we see that x1 is column 6 and x2 is column 7:
@@ -331,8 +331,8 @@ str(df)
 ##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
 ##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
 ##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ x1          : num  5 1 5 5 1 1 5 3 3 1 ...
-##  $ x2          : num  5 3 1 5 5 1 3 5 5 1 ...
+##  $ x1          : num  1 1 5 1 5 3 3 3 3 3 ...
+##  $ x2          : num  5 3 5 1 5 5 1 3 5 3 ...
 ```
 
 ```r
@@ -342,7 +342,7 @@ table(df[6] == df[7]) # There's many falses, indicating many discrepancies
 ```
 ## 
 ## FALSE  TRUE 
-##    81    59
+##   100    40
 ```
 
 If there were a larger dataset, you likely wouldn't want to eyeball. To find the row entry that doesn't match, we can use _which()_ and to print the contents of what's there we just index it using brackets. Since we know we want columns 6 and 7, we can concatenate them together and select out the entry. 
@@ -355,11 +355,12 @@ which(df$x1 != df$x2)
 ```
 
 ```
-##  [1]   2   3   5   7   8   9  12  14  16  18  19  22  23  24  25  26  27
-## [18]  28  29  30  31  32  33  35  36  39  40  44  46  48  49  51  52  53
-## [35]  54  55  57  58  59  60  62  63  68  70  71  72  75  76  77  78  80
-## [52]  81  84  85  88  90  92  94  95  99 101 103 104 107 108 110 111 113
-## [69] 116 121 122 123 125 126 127 128 131 134 136 137 139
+##   [1]   1   2   6   7   9  11  14  15  17  18  20  22  24  25  26  27  28
+##  [18]  29  30  31  32  33  35  38  39  41  42  44  45  47  50  53  54  55
+##  [35]  56  57  59  60  61  62  63  64  66  67  68  70  73  74  75  76  77
+##  [52]  78  79  81  82  83  84  85  87  88  90  91  92  94  95  96  98  99
+##  [69] 100 105 106 107 108 109 110 111 112 113 114 116 117 118 119 120 122
+##  [86] 123 124 126 127 128 129 130 132 134 135 136 137 138 139 140
 ```
 
 ```r
@@ -374,14 +375,14 @@ str(dferrors) #Yikes a lot discrepencies!
 ```
 
 ```
-## 'data.frame':	81 obs. of  7 variables:
-##  $ Sepal.Length: num  4.9 4.7 5 4.6 5 4.4 4.8 4.3 5.7 5.1 ...
-##  $ Sepal.Width : num  3 3.2 3.6 3.4 3.4 2.9 3.4 3 4.4 3.5 ...
-##  $ Petal.Length: num  1.4 1.3 1.4 1.4 1.5 1.4 1.6 1.1 1.5 1.4 ...
-##  $ Petal.Width : num  0.2 0.2 0.2 0.3 0.2 0.2 0.2 0.1 0.4 0.3 ...
+## 'data.frame':	100 obs. of  7 variables:
+##  $ Sepal.Length: num  5.1 4.9 5.4 4.6 4.4 5.4 4.3 5.8 5.4 5.1 ...
+##  $ Sepal.Width : num  3.5 3 3.9 3.4 2.9 3.7 3 4 3.9 3.5 ...
+##  $ Petal.Length: num  1.4 1.4 1.7 1.4 1.4 1.5 1.1 1.2 1.3 1.4 ...
+##  $ Petal.Width : num  0.2 0.2 0.4 0.3 0.2 0.2 0.1 0.2 0.4 0.3 ...
 ##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ x1          : num  1 5 1 5 3 3 5 5 5 1 ...
-##  $ x2          : num  3 1 5 3 5 5 3 1 1 5 ...
+##  $ x1          : num  1 1 3 3 3 1 3 1 3 5 ...
+##  $ x2          : num  5 3 5 1 5 3 5 5 1 3 ...
 ```
 
 Let's say we speak to our coders about their discrepencies and coder 1 states that her 5's should actually be 3's. Let's see how this would change the results
@@ -412,8 +413,8 @@ str(dferrors2) #Now only 6 variables
 ##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
 ##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
 ##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
-##  $ x1          : num  5 1 5 5 1 1 5 3 3 1 ...
-##  $ x2          : num  5 3 1 5 5 1 3 5 5 1 ...
+##  $ x1          : num  1 1 5 1 5 3 3 3 3 3 ...
+##  $ x2          : num  5 3 5 1 5 5 1 3 5 3 ...
 ```
 
 ```r
@@ -428,18 +429,18 @@ dferrors2$Sepal.Length == df$Sepal.Length
 ```
 
 ```
-##   [1] FALSE  TRUE FALSE FALSE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE
-##  [12] FALSE  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE  TRUE FALSE
-##  [23]  TRUE  TRUE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE
-##  [34] FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE  TRUE
-##  [45]  TRUE  TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE FALSE
-##  [56]  TRUE FALSE  TRUE  TRUE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE
-##  [67]  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE
-##  [78]  TRUE FALSE  TRUE  TRUE  TRUE FALSE FALSE FALSE  TRUE  TRUE  TRUE
-##  [89]  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE FALSE FALSE  TRUE
-## [100] FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE FALSE FALSE  TRUE  TRUE
-## [111]  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE FALSE FALSE FALSE
-## [122]  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE FALSE  TRUE FALSE FALSE
+##   [1]  TRUE  TRUE FALSE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [12] FALSE FALSE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE
+##  [23]  TRUE FALSE  TRUE  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE
+##  [34] FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE
+##  [45] FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [56]  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE
+##  [67] FALSE  TRUE FALSE FALSE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE
+##  [78]  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE FALSE
+##  [89]  TRUE  TRUE  TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE FALSE
+## [100] FALSE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+## [111]  TRUE FALSE  TRUE FALSE  TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE
+## [122] FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE  TRUE  TRUE FALSE
 ## [133]  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE  TRUE
 ```
 Let's recreate dferrors2. This time, I'm leaving all columns. Remember below, dferrors2 is initially a clone of df. We then re-write over the x1 variable because our coder says that her 5's were supposed to be 3. We specify this time that we only want to rewrite over column 6 (i.e., x1), and then ask which enteries of the coders do not match. This is what ultimately defines the dferrors2 dataframe. 
@@ -459,8 +460,8 @@ str(dferrors2) #Now has 7 variables
 ##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
 ##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
 ##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ x1          : num  5 1 5 5 1 1 5 3 3 1 ...
-##  $ x2          : num  5 3 1 5 5 1 3 5 5 1 ...
+##  $ x1          : num  1 1 5 1 5 3 3 3 3 3 ...
+##  $ x2          : num  5 3 5 1 5 5 1 3 5 3 ...
 ```
 
 ```r
@@ -470,11 +471,13 @@ which(dferrors2$x1 != dferrors2$x2)
 ```
 
 ```
-##  [1]   1   2   3   4   5   8   9  14  16  18  23  24  25  26  27  28  29
-## [18]  30  31  32  33  34  36  38  39  42  44  46  47  49  50  51  52  53
-## [35]  54  57  58  59  60  61  62  63  70  71  72  76  77  78  79  80  81
-## [52]  83  85  88  90  94  95  97  98  99 100 101 102 103 104 108 110 111
-## [69] 113 116 119 120 122 123 124 125 126 127 129 131 132 134 136 139
+##   [1]   1   2   3   5   6   7   9  11  12  13  14  15  17  20  24  25  26
+##  [18]  27  28  29  30  31  32  33  34  35  36  38  39  40  41  42  43  44
+##  [35]  45  46  47  48  49  53  54  55  56  57  59  61  62  63  64  66  68
+##  [52]  69  70  73  74  75  76  77  78  79  81  82  83  84  87  88  90  91
+##  [69]  92  93  94  95  96  98  99 103 105 106 107 108 109 110 111 112 113
+##  [86] 114 116 117 118 119 120 123 126 127 129 130 134 135 136 137 138 139
+## [103] 140
 ```
 
 ```r
@@ -485,14 +488,14 @@ str(dferrors2) #Not much of an improvement
 ```
 
 ```
-## 'data.frame':	84 obs. of  7 variables:
-##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5 4.4 4.3 5.7 5.1 ...
-##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.4 2.9 3 4.4 3.5 ...
-##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.5 1.4 1.1 1.5 1.4 ...
-##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.1 0.4 0.3 ...
+## 'data.frame':	103 obs. of  7 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 5 5.4 4.6 4.4 5.4 4.8 4.8 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.6 3.9 3.4 2.9 3.7 3.4 3 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.4 1.7 1.4 1.4 1.5 1.6 1.4 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.2 0.1 ...
 ##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ x1          : num  3 1 3 3 1 3 3 3 3 1 ...
-##  $ x2          : num  5 3 1 5 5 5 5 1 1 5 ...
+##  $ x1          : num  1 1 3 3 3 3 3 1 3 3 ...
+##  $ x2          : num  5 3 5 5 5 1 5 3 5 5 ...
 ```
 
 Above I dropped a column when defining the dferrors2 dataframe initially using the minus sign  _-_ . This can also be used in conjunction with _c()_ if I wanted to remove multiple columns. 
@@ -575,7 +578,7 @@ table(rainfall) #Note uneven number, perhaps expected since we can't control the
 ```
 ## rainfall
 ##  1  2 
-## 73 77
+## 71 79
 ```
 
 ```r
@@ -599,11 +602,11 @@ fert
 ```
 
 ```
-##   [1] 2 2 2 1 2 2 2 2 2 2 1 1 2 1 2 2 1 2 1 2 1 1 2 2 1 1 2 2 1 2 1 2 1 1 2
-##  [36] 1 1 1 1 1 2 2 1 1 2 1 1 1 2 2 1 1 1 2 1 1 2 2 2 1 2 2 1 1 1 1 1 2 2 2
-##  [71] 1 1 1 2 1 2 1 1 2 1 2 2 1 1 2 1 2 2 2 1 1 2 1 1 2 2 2 2 2 2 1 2 2 2 1
-## [106] 1 1 2 2 1 2 1 2 2 1 1 2 1 1 1 2 1 1 2 2 1 2 2 1 1 1 2 2 2 2 1 2 2 1 1
-## [141] 1 2 2 1 1 2 2 1 1 1
+##   [1] 1 2 1 1 1 2 1 1 1 2 2 1 1 1 2 2 2 2 2 2 1 2 1 1 1 2 1 2 2 1 1 1 2 1 1
+##  [36] 2 2 2 2 1 1 2 2 2 2 1 1 2 1 1 2 2 2 2 2 1 2 2 2 1 1 1 2 1 2 1 1 1 2 1
+##  [71] 2 1 1 2 2 2 1 2 1 1 2 2 1 1 2 1 2 1 2 2 1 1 2 1 1 2 1 1 2 1 1 2 1 2 2
+## [106] 1 1 2 2 2 1 2 2 1 2 1 1 2 2 2 1 1 2 2 1 1 1 1 2 1 1 1 2 1 2 2 2 2 1 2
+## [141] 1 2 1 1 2 2 1 2 1 2
 ```
 
 ```r
@@ -619,8 +622,8 @@ str(df)
 ##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
 ##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
 ##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ rainfall    : num  1 1 2 2 1 1 1 1 1 2 ...
-##  $ fert        : num  2 2 2 1 2 2 2 2 2 2 ...
+##  $ rainfall    : num  2 1 1 1 1 2 2 2 2 2 ...
+##  $ fert        : num  1 2 1 1 1 2 1 1 1 2 ...
 ```
 
 rainfall and fert were originally coded as 1's and 2's, where let's say 1 meant dry and 2 meant wet.  Similarly for fert, 1 = no and 2 = yes. The _Species_ variable is a categorical variable of the type of iris being observed.
@@ -646,11 +649,11 @@ df$rainfall # 1 = Dry and 2 = Wet
 ```
 
 ```
-##   [1] 1 1 2 2 1 1 1 1 1 2 2 1 2 2 2 2 1 2 2 2 1 1 2 1 2 1 1 1 2 1 2 2 2 2 1
-##  [36] 1 2 2 2 2 2 1 2 1 1 2 2 2 2 2 2 1 1 2 2 2 2 2 2 2 1 1 1 1 1 2 1 2 1 1
-##  [71] 1 2 2 1 2 1 1 1 2 1 2 1 2 1 1 1 1 1 2 1 2 1 1 1 1 2 1 2 1 1 2 1 1 1 2
-## [106] 2 1 2 1 1 2 2 1 2 1 2 2 1 1 1 1 1 2 2 1 1 2 1 2 2 2 1 2 2 1 2 1 1 2 1
-## [141] 2 2 2 2 2 2 2 1 2 2
+##   [1] 2 1 1 1 1 2 2 2 2 2 1 2 2 1 2 1 1 2 2 1 2 2 2 2 1 2 2 1 1 1 2 2 2 1 1
+##  [36] 2 1 2 1 2 1 2 2 1 2 1 1 2 1 2 1 1 2 1 1 1 2 2 2 2 2 1 2 2 2 1 2 2 2 2
+##  [71] 1 2 2 2 2 2 1 2 2 1 1 2 2 2 1 1 1 1 1 1 1 1 2 2 1 2 1 2 2 1 2 2 2 2 2
+## [106] 1 2 1 2 2 1 1 1 1 1 2 1 1 1 1 2 2 1 2 1 1 2 1 2 1 1 1 1 1 2 2 2 2 2 1
+## [141] 1 2 1 2 1 1 1 2 2 1
 ```
 
 ```r
@@ -658,11 +661,11 @@ df$fert # 1 = No and 2 = Yes
 ```
 
 ```
-##   [1] 2 2 2 1 2 2 2 2 2 2 1 1 2 1 2 2 1 2 1 2 1 1 2 2 1 1 2 2 1 2 1 2 1 1 2
-##  [36] 1 1 1 1 1 2 2 1 1 2 1 1 1 2 2 1 1 1 2 1 1 2 2 2 1 2 2 1 1 1 1 1 2 2 2
-##  [71] 1 1 1 2 1 2 1 1 2 1 2 2 1 1 2 1 2 2 2 1 1 2 1 1 2 2 2 2 2 2 1 2 2 2 1
-## [106] 1 1 2 2 1 2 1 2 2 1 1 2 1 1 1 2 1 1 2 2 1 2 2 1 1 1 2 2 2 2 1 2 2 1 1
-## [141] 1 2 2 1 1 2 2 1 1 1
+##   [1] 1 2 1 1 1 2 1 1 1 2 2 1 1 1 2 2 2 2 2 2 1 2 1 1 1 2 1 2 2 1 1 1 2 1 1
+##  [36] 2 2 2 2 1 1 2 2 2 2 1 1 2 1 1 2 2 2 2 2 1 2 2 2 1 1 1 2 1 2 1 1 1 2 1
+##  [71] 2 1 1 2 2 2 1 2 1 1 2 2 1 1 2 1 2 1 2 2 1 1 2 1 1 2 1 1 2 1 1 2 1 2 2
+## [106] 1 1 2 2 2 1 2 2 1 2 1 1 2 2 2 1 1 2 2 1 1 1 1 2 1 1 1 2 1 2 2 2 2 1 2
+## [141] 1 2 1 1 2 2 1 2 1 2
 ```
 
 ```r
@@ -676,8 +679,8 @@ str(df)
 ##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
 ##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
 ##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ rainfall    : num  1 1 2 2 1 1 1 1 1 2 ...
-##  $ fert        : num  2 2 2 1 2 2 2 2 2 2 ...
+##  $ rainfall    : num  2 1 1 1 1 2 2 2 2 2 ...
+##  $ fert        : num  1 2 1 1 1 2 1 1 1 2 ...
 ```
 
 ```r
@@ -688,8 +691,8 @@ str(df[c(6,7)])
 
 ```
 ## 'data.frame':	150 obs. of  2 variables:
-##  $ rainfall: Factor w/ 2 levels "1","2": 1 1 2 2 1 1 1 1 1 2 ...
-##  $ fert    : Factor w/ 2 levels "1","2": 2 2 2 1 2 2 2 2 2 2 ...
+##  $ rainfall: Factor w/ 2 levels "1","2": 2 1 1 1 1 2 2 2 2 2 ...
+##  $ fert    : Factor w/ 2 levels "1","2": 1 2 1 1 1 2 1 1 1 2 ...
 ```
 
 You'll notice that although rainfall and fert are now factors like our Species variable, they are still listed as 1's and 2's.
@@ -739,8 +742,8 @@ str(df)
 ##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
 ##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
 ##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ rainfall    : Factor w/ 2 levels "Dry","Wet": 1 1 2 2 1 1 1 1 1 2 ...
-##  $ fert        : Factor w/ 2 levels "No","Yes": 2 2 2 1 2 2 2 2 2 2 ...
+##  $ rainfall    : Factor w/ 2 levels "Dry","Wet": 2 1 1 1 1 2 2 2 2 2 ...
+##  $ fert        : Factor w/ 2 levels "No","Yes": 1 2 1 1 1 2 1 1 1 2 ...
 ```
 
 ```r
@@ -749,12 +752,12 @@ head(df)
 
 ```
 ##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species rainfall fert
-## 1          5.1         3.5          1.4         0.2  setosa      Dry  Yes
+## 1          5.1         3.5          1.4         0.2  setosa      Wet   No
 ## 2          4.9         3.0          1.4         0.2  setosa      Dry  Yes
-## 3          4.7         3.2          1.3         0.2  setosa      Wet  Yes
-## 4          4.6         3.1          1.5         0.2  setosa      Wet   No
-## 5          5.0         3.6          1.4         0.2  setosa      Dry  Yes
-## 6          5.4         3.9          1.7         0.4  setosa      Dry  Yes
+## 3          4.7         3.2          1.3         0.2  setosa      Dry   No
+## 4          4.6         3.1          1.5         0.2  setosa      Dry   No
+## 5          5.0         3.6          1.4         0.2  setosa      Dry   No
+## 6          5.4         3.9          1.7         0.4  setosa      Wet  Yes
 ```
 
 ```r
@@ -763,19 +766,19 @@ tail(df) # Everything looks good!
 
 ```
 ##     Sepal.Length Sepal.Width Petal.Length Petal.Width   Species rainfall
-## 145          6.7         3.3          5.7         2.5 virginica      Wet
-## 146          6.7         3.0          5.2         2.3 virginica      Wet
-## 147          6.3         2.5          5.0         1.9 virginica      Wet
-## 148          6.5         3.0          5.2         2.0 virginica      Dry
+## 145          6.7         3.3          5.7         2.5 virginica      Dry
+## 146          6.7         3.0          5.2         2.3 virginica      Dry
+## 147          6.3         2.5          5.0         1.9 virginica      Dry
+## 148          6.5         3.0          5.2         2.0 virginica      Wet
 ## 149          6.2         3.4          5.4         2.3 virginica      Wet
-## 150          5.9         3.0          5.1         1.8 virginica      Wet
+## 150          5.9         3.0          5.1         1.8 virginica      Dry
 ##     fert
-## 145   No
+## 145  Yes
 ## 146  Yes
-## 147  Yes
-## 148   No
+## 147   No
+## 148  Yes
 ## 149   No
-## 150   No
+## 150  Yes
 ```
 
 Last few modifications we could consider are the variable names. Sometimes, variables have verbose names, and sometimes they are more ambiguous. Using _colnames()_  or simply _names()_ with the dataframe of interest inside will print. 
@@ -898,8 +901,8 @@ summary(df)
 ##  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
 ##  Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
 ##        Species   rainfall  fert   
-##  setosa    :50   Dry:73   No :75  
-##  versicolor:50   Wet:77   Yes:75  
+##  setosa    :50   Dry:71   No :75  
+##  versicolor:50   Wet:79   Yes:75  
 ##  virginica :50                    
 ##                                   
 ##                                   
@@ -942,12 +945,12 @@ aggregate(Sepal.Length ~ Species + rainfall, df, mean) # Additional categories c
 
 ```
 ##      Species rainfall Sepal.Length
-## 1     setosa      Dry     4.980952
-## 2 versicolor      Dry     5.916667
-## 3  virginica      Dry     6.572727
-## 4     setosa      Wet     5.024138
-## 5 versicolor      Wet     5.965000
-## 6  virginica      Wet     6.600000
+## 1     setosa      Dry     5.022727
+## 2 versicolor      Dry     5.986364
+## 3  virginica      Dry     6.737037
+## 4     setosa      Wet     4.992857
+## 5 versicolor      Wet     5.896429
+## 6  virginica      Wet     6.413043
 ```
 
 Or we could use _tapply_ 
@@ -993,12 +996,12 @@ with(df, aggregate(Sepal.Length ~ Species + rainfall, FUN = function(x) c(MN = m
 
 ```
 ##      Species rainfall Sepal.Length.MN Sepal.Length.SD
-## 1     setosa      Dry       4.9809524       0.2713283
-## 2 versicolor      Dry       5.9166667       0.5099583
-## 3  virginica      Dry       6.5727273       0.7420575
-## 4     setosa      Wet       5.0241379       0.4050178
-## 5 versicolor      Wet       5.9650000       0.5373179
-## 6  virginica      Wet       6.6000000       0.5524357
+## 1     setosa      Dry       5.0227273       0.3637527
+## 2 versicolor      Dry       5.9863636       0.4969387
+## 3  virginica      Dry       6.7370370       0.6593401
+## 4     setosa      Wet       4.9928571       0.3495273
+## 5 versicolor      Wet       5.8964286       0.5364369
+## 6  virginica      Wet       6.4130435       0.5723193
 ```
 
 
@@ -1080,7 +1083,7 @@ chisq.test(df$Species, df$rainfall)
 ## 	Pearson's Chi-squared test
 ## 
 ## data:  df$Species and df$rainfall
-## X-squared = 3.8961, df = 2, p-value = 0.1426
+## X-squared = 1.3371, df = 2, p-value = 0.5124
 ```
 
 ```r
@@ -1104,7 +1107,7 @@ Table 1: **Pearson's Chi-squared test**
 
 | $\chi^2$ |  p   | df | Cramer\'s V |
 |:--------:|:----:|:--:|:-----------:|
-|   3.9    | .143 | 2  |    0.16     |
+|   1.34   | .512 | 2  |    0.09     |
 
 
 <br>
@@ -1161,7 +1164,7 @@ bartlett.test(Sepal.Length ~ rainfall, df)
 ## 	Bartlett test of homogeneity of variances
 ## 
 ## data:  Sepal.Length by rainfall
-## Bartlett's K-squared = 0.076167, df = 1, p-value = 0.7826
+## Bartlett's K-squared = 1.7316, df = 1, p-value = 0.1882
 ```
 
 ```r
@@ -1171,7 +1174,7 @@ leveneTest(df$Sepal.Length, df$fert)
 ```
 ## Levene's Test for Homogeneity of Variance (center = median)
 ##        Df F value Pr(>F)
-## group   1  2.1798  0.142
+## group   1  0.0532 0.8179
 ##       148
 ```
 
@@ -1326,8 +1329,8 @@ describe(df)
 ##      150        0        2 
 ##                       
 ## Value        Dry   Wet
-## Frequency     73    77
-## Proportion 0.487 0.513
+## Frequency     71    79
+## Proportion 0.473 0.527
 ## ---------------------------------------------------------------------------
 ## fert 
 ##        n  missing distinct 
@@ -1473,8 +1476,8 @@ df %>%
 ## # A tibble: 2 x 5
 ##   fert    cor  p.value LowerCInt UpperCInt
 ##   <fct> <dbl>    <dbl>     <dbl>     <dbl>
-## 1 No    0.872 2.61e-24     0.804     0.917
-## 2 Yes   0.873 1.69e-24     0.806     0.918
+## 1 No    0.883 1.03e-25     0.821     0.925
+## 2 Yes   0.865 1.56e-23     0.794     0.913
 ```
 
 ```r
@@ -1524,7 +1527,7 @@ str(nofertcors)
 
 ```
 ## List of 3
-##  $ r: num [1:4, 1:4] 1 -0.145 0.872 0.795 -0.145 ...
+##  $ r: num [1:4, 1:4] 1 -0.104 0.883 0.819 -0.104 ...
 ##   ..- attr(*, "dimnames")=List of 2
 ##   .. ..$ : chr [1:4] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width"
 ##   .. ..$ : chr [1:4] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width"
@@ -1532,7 +1535,7 @@ str(nofertcors)
 ##   ..- attr(*, "dimnames")=List of 2
 ##   .. ..$ : chr [1:4] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width"
 ##   .. ..$ : chr [1:4] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width"
-##  $ P: num [1:4, 1:4] NA 0.215 0 0 0.215 ...
+##  $ P: num [1:4, 1:4] NA 0.376 0 0 0.376 ...
 ##   ..- attr(*, "dimnames")=List of 2
 ##   .. ..$ : chr [1:4] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width"
 ##   .. ..$ : chr [1:4] "Sepal.Length" "Sepal.Width" "Petal.Length" "Petal.Width"
@@ -1553,25 +1556,25 @@ cbind(yesfertcors$r,yesfertcors$P,nofertcors$r, nofertcors$P)
 
 ```
 ##              Sepal.Length Sepal.Width Petal.Length Petal.Width
-## Sepal.Length    1.0000000  -0.1055542    0.8732943   0.8470552
-## Sepal.Width    -0.1055542   1.0000000   -0.4492369  -0.3924307
-## Petal.Length    0.8732943  -0.4492369    1.0000000   0.9633408
-## Petal.Width     0.8470552  -0.3924307    0.9633408   1.0000000
-##              Sepal.Length  Sepal.Width Petal.Length  Petal.Width
-## Sepal.Length           NA 3.674323e-01 0.000000e+00 0.0000000000
-## Sepal.Width     0.3674323           NA 5.279591e-05 0.0004971784
-## Petal.Length    0.0000000 5.279591e-05           NA 0.0000000000
-## Petal.Width     0.0000000 4.971784e-04 0.000000e+00           NA
-##              Sepal.Length Sepal.Width Petal.Length Petal.Width
-## Sepal.Length    1.0000000  -0.1448978    0.8716737   0.7945855
-## Sepal.Width    -0.1448978   1.0000000   -0.4232310  -0.3564956
-## Petal.Length    0.8716737  -0.4232310    1.0000000   0.9623901
-## Petal.Width     0.7945855  -0.3564956    0.9623901   1.0000000
+## Sepal.Length    1.0000000  -0.1394695    0.8647672   0.8181714
+## Sepal.Width    -0.1394695   1.0000000   -0.4582088  -0.3858666
+## Petal.Length    0.8647672  -0.4582088    1.0000000   0.9581489
+## Petal.Width     0.8181714  -0.3858666    0.9581489   1.0000000
 ##              Sepal.Length  Sepal.Width Petal.Length Petal.Width
-## Sepal.Length           NA 0.2148522154 0.0000000000 0.000000000
-## Sepal.Width     0.2148522           NA 0.0001548505 0.001693402
-## Petal.Length    0.0000000 0.0001548505           NA 0.000000000
-## Petal.Width     0.0000000 0.0016934021 0.0000000000          NA
+## Sepal.Length           NA 2.327139e-01 0.000000e+00 0.000000000
+## Sepal.Width     0.2327139           NA 3.567795e-05 0.000628496
+## Petal.Length    0.0000000 3.567795e-05           NA 0.000000000
+## Petal.Width     0.0000000 6.284960e-04 0.000000e+00          NA
+##              Sepal.Length Sepal.Width Petal.Length Petal.Width
+## Sepal.Length    1.0000000  -0.1036276    0.8832210   0.8190147
+## Sepal.Width    -0.1036276   1.0000000   -0.3996474  -0.3514938
+## Petal.Length    0.8832210  -0.3996474    1.0000000   0.9677810
+## Petal.Width     0.8190147  -0.3514938    0.9677810   1.0000000
+##              Sepal.Length  Sepal.Width Petal.Length Petal.Width
+## Sepal.Length           NA 0.3762897361 0.0000000000 0.000000000
+## Sepal.Width     0.3762897           NA 0.0003820806 0.001986724
+## Petal.Length    0.0000000 0.0003820806           NA 0.000000000
+## Petal.Width     0.0000000 0.0019867237 0.0000000000          NA
 ```
 
 Pretty messy, but there are other methods to that have more to do with visualization. _rcorr_ works well, when you are looking at full sample descriptives or not binding columns from different groups. 
@@ -1685,9 +1688,9 @@ barplottab # Which looks like this
 ```
 ##             
 ##              Dry Wet
-##   setosa      21  29
-##   versicolor  30  20
-##   virginica   22  28
+##   setosa      22  28
+##   versicolor  22  28
+##   virginica   27  23
 ```
 
 ```r
@@ -1952,10 +1955,10 @@ mergedcorrplot
 
 ```
 ##              Sepal.Length Sepal.Width Petal.Length Petal.Width
-## Sepal.Length    1.0000000  -0.2709545    0.8759417   0.8272456
-## Sepal.Width     0.0399498   1.0000000   -0.5758391  -0.5121451
-## Petal.Length    0.8713066  -0.2597840    1.0000000   0.9656358
-## Petal.Width     0.8115071  -0.1929800    0.9600224   1.0000000
+## Sepal.Length    1.0000000  -0.1120412    0.8601686   0.8310966
+## Sepal.Width    -0.1448975   1.0000000   -0.4153672  -0.3213322
+## Petal.Length    0.8825890  -0.4608007    1.0000000   0.9670184
+## Petal.Width     0.8110046  -0.4302607    0.9596802   1.0000000
 ```
 
 
@@ -1996,79 +1999,77 @@ drymat1
 
 ```
 ##    Sepal.Length Sepal.Width Petal.Length Petal.Width
-## 1           5.1         3.5          1.4         0.2
-## 2           4.9         3.0          1.4         0.2
-## 3           5.0         3.6          1.4         0.2
-## 4           5.4         3.9          1.7         0.4
-## 5           4.6         3.4          1.4         0.3
-## 6           5.0         3.4          1.5         0.2
-## 7           4.4         2.9          1.4         0.2
-## 8           4.8         3.4          1.6         0.2
-## 9           5.4         3.9          1.3         0.4
-## 10          5.4         3.4          1.7         0.2
-## 11          5.1         3.7          1.5         0.4
-## 12          5.1         3.3          1.7         0.5
-## 13          5.0         3.0          1.6         0.2
-## 14          5.0         3.4          1.6         0.4
-## 15          5.2         3.5          1.5         0.2
-## 16          4.7         3.2          1.6         0.2
-## 17          4.9         3.1          1.5         0.2
-## 18          5.0         3.2          1.2         0.2
-## 19          4.5         2.3          1.3         0.3
-## 20          5.0         3.5          1.6         0.6
-## 21          5.1         3.8          1.9         0.4
-## 22          6.4         3.2          4.5         1.5
-## 23          6.9         3.1          4.9         1.5
-## 24          5.0         2.0          3.5         1.0
-## 25          5.9         3.0          4.2         1.5
-## 26          6.0         2.2          4.0         1.0
-## 27          6.1         2.9          4.7         1.4
-## 28          5.6         2.9          3.6         1.3
-## 29          5.6         3.0          4.5         1.5
-## 30          6.2         2.2          4.5         1.5
-## 31          5.6         2.5          3.9         1.1
-## 32          5.9         3.2          4.8         1.8
-## 33          6.1         2.8          4.7         1.2
-## 34          6.6         3.0          4.4         1.4
-## 35          6.8         2.8          4.8         1.4
-## 36          6.7         3.0          5.0         1.7
-## 37          5.7         2.6          3.5         1.0
-## 38          5.5         2.4          3.7         1.0
-## 39          6.0         2.7          5.1         1.6
-## 40          5.4         3.0          4.5         1.5
-## 41          6.0         3.4          4.5         1.6
-## 42          6.7         3.1          4.7         1.5
-## 43          6.3         2.3          4.4         1.3
-## 44          5.5         2.5          4.0         1.3
-## 45          6.1         3.0          4.6         1.4
-## 46          5.8         2.6          4.0         1.2
-## 47          5.0         2.3          3.3         1.0
-## 48          5.6         2.7          4.2         1.3
-## 49          5.7         2.9          4.2         1.3
-## 50          5.1         2.5          3.0         1.1
-## 51          5.7         2.8          4.1         1.3
-## 52          5.8         2.7          5.1         1.9
-## 53          7.1         3.0          5.9         2.1
-## 54          6.3         2.9          5.6         1.8
-## 55          4.9         2.5          4.5         1.7
-## 56          6.7         2.5          5.8         1.8
-## 57          7.2         3.6          6.1         2.5
-## 58          6.8         3.0          5.5         2.1
-## 59          5.8         2.8          5.1         2.4
-## 60          7.7         3.8          6.7         2.2
-## 61          7.7         2.6          6.9         2.3
-## 62          6.0         2.2          5.0         1.5
-## 63          6.9         3.2          5.7         2.3
-## 64          5.6         2.8          4.9         2.0
-## 65          6.7         3.3          5.7         2.1
-## 66          7.2         3.2          6.0         1.8
-## 67          6.1         3.0          4.9         1.8
-## 68          7.9         3.8          6.4         2.0
-## 69          6.1         2.6          5.6         1.4
-## 70          6.3         3.4          5.6         2.4
-## 71          6.4         3.1          5.5         1.8
-## 72          6.9         3.1          5.4         2.1
-## 73          6.5         3.0          5.2         2.0
+## 1           4.9         3.0          1.4         0.2
+## 2           4.7         3.2          1.3         0.2
+## 3           4.6         3.1          1.5         0.2
+## 4           5.0         3.6          1.4         0.2
+## 5           5.4         3.7          1.5         0.2
+## 6           4.3         3.0          1.1         0.1
+## 7           5.7         4.4          1.5         0.4
+## 8           5.4         3.9          1.3         0.4
+## 9           5.1         3.8          1.5         0.3
+## 10          4.8         3.4          1.9         0.2
+## 11          5.2         3.5          1.5         0.2
+## 12          5.2         3.4          1.4         0.2
+## 13          4.7         3.2          1.6         0.2
+## 14          5.5         4.2          1.4         0.2
+## 15          4.9         3.1          1.5         0.2
+## 16          5.5         3.5          1.3         0.2
+## 17          4.4         3.0          1.3         0.2
+## 18          5.0         3.5          1.3         0.3
+## 19          5.0         3.5          1.6         0.6
+## 20          4.8         3.0          1.4         0.3
+## 21          5.1         3.8          1.6         0.2
+## 22          5.3         3.7          1.5         0.2
+## 23          7.0         3.2          4.7         1.4
+## 24          6.4         3.2          4.5         1.5
+## 25          5.5         2.3          4.0         1.3
+## 26          6.5         2.8          4.6         1.5
+## 27          5.7         2.8          4.5         1.3
+## 28          5.9         3.0          4.2         1.5
+## 29          6.7         3.1          4.4         1.4
+## 30          5.9         3.2          4.8         1.8
+## 31          6.8         2.8          4.8         1.4
+## 32          5.7         2.6          3.5         1.0
+## 33          5.5         2.4          3.8         1.1
+## 34          5.4         3.0          4.5         1.5
+## 35          6.0         3.4          4.5         1.6
+## 36          6.7         3.1          4.7         1.5
+## 37          6.3         2.3          4.4         1.3
+## 38          5.6         3.0          4.1         1.3
+## 39          5.5         2.5          4.0         1.3
+## 40          5.5         2.6          4.4         1.2
+## 41          6.1         3.0          4.6         1.4
+## 42          5.6         2.7          4.2         1.3
+## 43          5.7         2.9          4.2         1.3
+## 44          5.7         2.8          4.1         1.3
+## 45          7.6         3.0          6.6         2.1
+## 46          7.3         2.9          6.3         1.8
+## 47          6.5         3.2          5.1         2.0
+## 48          6.4         2.7          5.3         1.9
+## 49          6.8         3.0          5.5         2.1
+## 50          5.7         2.5          5.0         2.0
+## 51          5.8         2.8          5.1         2.4
+## 52          6.5         3.0          5.5         1.8
+## 53          7.7         3.8          6.7         2.2
+## 54          7.7         2.6          6.9         2.3
+## 55          6.0         2.2          5.0         1.5
+## 56          7.7         2.8          6.7         2.0
+## 57          6.7         3.3          5.7         2.1
+## 58          7.2         3.2          6.0         1.8
+## 59          6.1         3.0          4.9         1.8
+## 60          7.2         3.0          5.8         1.6
+## 61          7.4         2.8          6.1         1.9
+## 62          7.9         3.8          6.4         2.0
+## 63          6.4         2.8          5.6         2.2
+## 64          6.3         2.8          5.1         1.5
+## 65          6.9         3.1          5.4         2.1
+## 66          6.7         3.1          5.6         2.4
+## 67          5.8         2.7          5.1         1.9
+## 68          6.7         3.3          5.7         2.5
+## 69          6.7         3.0          5.2         2.3
+## 70          6.3         2.5          5.0         1.9
+## 71          5.9         3.0          5.1         1.8
 ```
 
 ```r
@@ -2086,11 +2087,11 @@ raincors
 ```
 
 ```
-##              Sepal.Length  Sepal.Width Petal.Length  Petal.Width
-## Sepal.Length           NA 1.714895e-02 0.000000e+00 0.000000e+00
-## Sepal.Width    0.01714895           NA 4.275939e-08 1.925617e-06
-## Petal.Length   0.00000000 4.275939e-08           NA 0.000000e+00
-## Petal.Width    0.00000000 1.925617e-06 0.000000e+00           NA
+##              Sepal.Length  Sepal.Width Petal.Length Petal.Width
+## Sepal.Length           NA 0.3255727401 0.0000000000 0.000000000
+## Sepal.Width     0.3255727           NA 0.0001409393 0.003882693
+## Petal.Length    0.0000000 0.0001409393           NA 0.000000000
+## Petal.Width     0.0000000 0.0038826925 0.0000000000          NA
 ```
 
 ```r
@@ -2098,8 +2099,8 @@ raincors[lower.tri(raincors)]
 ```
 
 ```
-## [1] 1.714895e-02 0.000000e+00 0.000000e+00 4.275939e-08 1.925617e-06
-## [6] 0.000000e+00
+## [1] 0.3255727401 0.0000000000 0.0000000000 0.0001409393 0.0038826925
+## [6] 0.0000000000
 ```
 
 ```r
@@ -2109,11 +2110,11 @@ drycors1
 ```
 
 ```
-##              Sepal.Length Sepal.Width Petal.Length Petal.Width
-## Sepal.Length           NA   0.7371922    0.0000000   0.0000000
-## Sepal.Width     0.7371922          NA    0.0264498   0.1018858
-## Petal.Length    0.0000000   0.0264498           NA   0.0000000
-## Petal.Width     0.0000000   0.1018858    0.0000000          NA
+##              Sepal.Length  Sepal.Width Petal.Length  Petal.Width
+## Sepal.Length           NA 0.2279596077  0.00000e+00 0.0000000000
+## Sepal.Width     0.2279596           NA  5.25797e-05 0.0001803561
+## Petal.Length    0.0000000 0.0000525797           NA 0.0000000000
+## Petal.Width     0.0000000 0.0001803561  0.00000e+00           NA
 ```
 
 ```r
@@ -2124,11 +2125,11 @@ raincors #merged p-values matrix
 ```
 
 ```
-##              Sepal.Length Sepal.Width Petal.Length  Petal.Width
-## Sepal.Length           NA  0.01714895 0.000000e+00 0.000000e+00
-## Sepal.Width     0.7371922          NA 4.275939e-08 1.925617e-06
-## Petal.Length    0.0000000  0.02644980           NA 0.000000e+00
-## Petal.Width     0.0000000  0.10188577 0.000000e+00           NA
+##              Sepal.Length  Sepal.Width Petal.Length Petal.Width
+## Sepal.Length           NA 0.3255727401 0.0000000000 0.000000000
+## Sepal.Width     0.2279596           NA 0.0001409393 0.003882693
+## Petal.Length    0.0000000 0.0000525797           NA 0.000000000
+## Petal.Width     0.0000000 0.0001803561 0.0000000000          NA
 ```
 
 So the drycors p-values were first turned into a matrix, before selecting out the lower triangle from it, and re-writing over the lower triangle of the merged p-value matrix.
@@ -2161,8 +2162,8 @@ str(dfnum[5:7]) #Now they are numbers
 ```
 ## 'data.frame':	150 obs. of  3 variables:
 ##  $ Species : int  1 1 1 1 1 1 1 1 1 1 ...
-##  $ rainfall: int  1 1 2 2 1 1 1 1 1 2 ...
-##  $ fert    : int  2 2 2 1 2 2 2 2 2 2 ...
+##  $ rainfall: int  2 1 1 1 1 2 2 2 2 2 ...
+##  $ fert    : int  1 2 1 1 1 2 1 1 1 2 ...
 ```
 
 ```r
@@ -2182,20 +2183,20 @@ Binarycorpval$P
 ```
 ##              Sepal.Length  Sepal.Width Petal.Length  Petal.Width
 ## Sepal.Length           NA 1.518983e-01 0.000000e+00 0.000000e+00
-## Sepal.Width     0.1518983           NA 4.513314e-08 4.073229e-06
-## Petal.Length    0.0000000 4.513314e-08           NA 0.000000e+00
-## Petal.Width     0.0000000 4.073229e-06 0.000000e+00           NA
-## Species         0.0000000 5.201563e-08 0.000000e+00 0.000000e+00
-## rainfall        0.9785992 1.261508e-01 4.406795e-01 5.575760e-01
-## fert            0.2115776 4.555259e-01 3.639583e-01 3.531037e-01
-##                   Species  rainfall      fert
-## Sepal.Length 0.000000e+00 0.9785992 0.2115776
-## Sepal.Width  5.201563e-08 0.1261508 0.4555259
-## Petal.Length 0.000000e+00 0.4406795 0.3639583
-## Petal.Width  0.000000e+00 0.5575760 0.3531037
-## Species                NA 0.8427237 0.6915447
-## rainfall     8.427237e-01        NA 0.1434088
-## fert         6.915447e-01 0.1434088        NA
+## Sepal.Width    0.15189826           NA 4.513314e-08 4.073229e-06
+## Petal.Length   0.00000000 4.513314e-08           NA 0.000000e+00
+## Petal.Width    0.00000000 4.073229e-06 0.000000e+00           NA
+## Species        0.00000000 5.201563e-08 0.000000e+00 0.000000e+00
+## rainfall       0.06837653 4.482824e-01 2.339735e-01 3.527121e-01
+## fert           0.12684810 6.816896e-01 5.711587e-01 4.881071e-01
+##                   Species   rainfall      fert
+## Sepal.Length 0.000000e+00 0.06837653 0.1268481
+## Sepal.Width  5.201563e-08 0.44828245 0.6816896
+## Petal.Length 0.000000e+00 0.23397345 0.5711587
+## Petal.Width  0.000000e+00 0.35271211 0.4881071
+## Species                NA 0.31987508 0.6915447
+## rainfall     3.198751e-01         NA 0.4169487
+## fert         6.915447e-01 0.41694867        NA
 ```
 It isn't really accurate to run a correlation analysis on the dichotomous variables, but you can quickly visualize things to spot large issues
 
