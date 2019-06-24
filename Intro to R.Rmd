@@ -21,13 +21,13 @@ output:
 
 **Note this top is for beginners, those familiar with R may skip down using the TOC on the side**
 
-Many of my colleagues resist using R because, well, it is like learning another languPetal.Length. But R is so spectacular and is a great introduction to using other--and some might say more complex, programming languPetal.Lengths too (e.g., python, SQL, C++, perl). </br> 
+Many of my colleagues resist using R because, well, it is like learning another language. But R is so spectacular and is a great introduction to using other--and some might say more complex, programming language too (e.g., python, SQL, C++, perl). </br> 
 
 What I like most about R is that working with data at any stage can happen under one program's roof (i.e., data entry, cleaning, analyses, graphing). 
 
 I had a steep learning curve and often hear that time to learn R is often what stops them. I created the following tutorial that covers some introductory data exploration, analysis, and graphing-- to hopefully show others that R is not that intimidating. For the below I assume R studio is installed and you're familiar with terms such as script, console, environment, and library.
 
-One difficulty I had was grappling with the language syntax of R-- not just the literal coding-- but the way I should _say_ things to R to get it to perform certain functions. In the tutorial below I sometimes go into explanations about how this syntax of writing in R makes sense to me. In addition to learning commands, learning the R languPetal.Length (or any computer language) requires understanding of the language's syntax and semantic structures. 
+One difficulty I had was grappling with the language syntax of R-- not just the literal coding-- but the way I should _say_ things to R to get it to perform certain functions. In the tutorial below I sometimes go into explanations about how this syntax of writing in R makes sense to me. In addition to learning commands, learning the R language (or any computer language) requires understanding of the language's syntax and semantic structures. 
 
 In this tutorial I use the **iris data set** as well as add some additional variables for graphing purposes and data analyses.
 
@@ -62,7 +62,15 @@ If I wanted to use the commands in the tidyverse package I would write:
 install.packages("tidyverse")
 library(tidyverse)
 
-Repeat for each of the packages above.
+Repeat for each of the packages above. or include all packages' names in a single vector. Paste this code to install all packages presently discussed in this markdown:
+
+
+
+pckgs <- c('tidyverse', 'psych', 'tableone', 'tadaatoolbox', 'ggplot2', 'corrplot', 'reshape2', 'magrittr', 'Hmisc', 'epiDisplay', 'GGally')
+
+install.packages(pckgs)
+library(pckgs)
+
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 
@@ -138,7 +146,7 @@ This file is loaded from my local C: drive just as an example of loading in a cs
 
 The rest of this markdown I will just be working with the iris data set. For a complete list of available data sets in R, good for data reproducibility questions and learning R, type data() into the console/script.
 
-Leaving data() with nothing in parantheses will ask for a complete list of sets R has. Naming one data set within the parantheses is the equivalent of loading it into the environment and begin working with it.
+Leaving data() with nothing in parentheses will ask for a complete list of sets R has. Naming one data set within the parentheses is the equivalent of loading it into the environment and begin working with it.
 
 
 
@@ -842,7 +850,7 @@ cbind(yesfertcors$r,yesfertcors$P,nofertcors$r, nofertcors$P)
 Pretty messy, but there are other methods to that have more to do with visualization. _rcorr_ works well, when you are looking at full sample descriptives or not binding columns from different groups. 
 
 
-One package, Performance Analytics, quickly gives visualizations and r/p values; however, specification is limited as of now in separting groups on the same graph. * I currently don't have a more recent version of R to run this package-- I'm updating, don't judge. As such, I'm skipping this part for now.
+One package, Performance Analytics, quickly gives visualizations and r/p values; however, specification is limited as of now in separting groups on the same graph. * I currently don't have a more recent version of R to run this package.
 
 
 ```{r eval=FALSE, include=FALSE}
@@ -853,13 +861,6 @@ One package, Performance Analytics, quickly gives visualizations and r/p values;
 
 ```
 
-#### Point Biserial Correlations
-
-```{r}
-
-#I haven't read about this yet!
-
-```
 
 
 # Plots {.tabset .tabset-fade .tabset-pill}
